@@ -1,0 +1,43 @@
+== Monitoring
+
+=== Vorstellung
+Dieses Plugin ermöglicht es, Systemdaten abgerufen und auf dem Armaturenbrett anzuzeigen. 
+
+Ursprünglich wurde dieses Plugin nur entwickelt, um Jeedom-Mini und Jeedom-Center zu überwachen. Aber als Reaktion auf die starke Nachfrage, wurde es, mit installiertem Jeedom auf einer VM (Virtual Machine) oder einem Synology NAS, kompatibel gemacht
+
+==== Kompatibilität :
+
+Nach meiner Kenntnis, ist hier eine umfassende Liste der kompatiblen Hardware/Distributionen:
+
+- Jeedom Mini, Mini+ (sicher das Center)
+- Raspberry Pi
+- Cubieboard
+- Banana Pi
+- Virtuelle Machine (VM)
+- Synology NAS
+-Linux (sollte mit vielen Linux-Distributionen kompatibel sein)
+- spezifische Distributionen : OpenELEC, RasPlex und OSMC
+
+==== Sichtbare Daten auf dem Armaturenbrett
+[horizontal]
+- *Distribution* : Name und Version des Linux-Betriebssystems, Architektur 32 oder 64 Bit und der Mikroprozessor-Typ
+- *Gestartet seit* : informiert, wie lange Jeedom gestartete ist
+-*Systembelastung* : durchschnittliche Auslastung (Weitere Informationen siehe auch FAQ)  
+- *Speicher* : Speicher  gesamt und benutzt
+- *Netzwerk* : MiB Rate der übertragenen und empfangenen Daten
+- *Insgesamt verwendete Speicherplatz* : Speicherplatz auf der SD-Karte oder Festplatte auf der VM und Synology NAS
+- *CPU* : Anzahl der Kerne, die dazugehörige Frequenz und Temperatur (Temperatur nur von Jeedom Mini)
+- *Benutzerdefinierte Befehle* : Sie können benutzerdefinierte Befehle eingeben, das Ergbniss ist auf Ansicht/Chronik
+
+image::../images/Monitoring.png[align="center"]
+
+'''
+=== Installation/Konfiguration
+include::configuration.asciidoc[]
+
+'''
+=== FAQ
+include::faq.asciidoc[]
+'''
+=== Changelog
+include::changelog.asciidoc[]

@@ -1,0 +1,193 @@
+<div class="eqLogic eqLogic-widget col2" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="" data-eqLogic_id="#id#" data-version="mobile" >
+   <center  style="#hideEqLogicName#"><strong>#name_display#</strong>
+   	<span style="font-size: 0.85em;position: relative;top:-2px;">#object_name#</span>
+		<span id="iconSSH#id#" style="float: right;width:25px"></span>
+		<script>
+			if ('#cnx_ssh#' == 'OK') {
+				$('#iconSSH#id#').append('<i title="Connexion SSH OK" class="fa fa-check tooltips" style="font-size : 1.1em;color: #00FF00;" ></i>');
+			}
+			if ('#cnx_ssh#' == 'KO') {
+				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
+			}
+		</script>        
+</center>
+	<div class="cmd tooltips" style="margin-left:5px;display: #namedistri_display#;">
+			<span title="Distribution Linux" class="fa fa-linux" style="min-width:15px"></span>
+			<span>#namedistri#</span>
+	</div>
+	<div class="cmd tooltips" style="margin-left:5px;display: #uptime_display#;">
+			<span title="Temps d'activité (uptime)" class="fa fa-tachometer" style="min-width:15px"></span>
+			<span id="uptime#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			$('#uptime#id#').append('<span>#uptime#</span>');
+		}
+    </script>
+	<div class="cmd tooltips" style="margin-left:5px;display: #loadavg_display#;">
+			<span title="Charge système (load average)" class="fa techno-courbes3" style="width:15px"></span>
+			<span id="loadavg1mn#id#"></span><span id="loadavg5mn#id#"></span><span id="loadavg15mn#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			if ('#loadavg1mn#' == '') {
+				$('#loadavg1mn#id#').append('<span></span>');
+			}else if ('#loadavg1mn#' < '#loadavg1mnvertinfa#') {
+				$('#loadavg1mn#id#').append('1min : <span style="color: #00FF00;" >#loadavg1mn#</span>');
+			}else if ('#loadavg1mn#' >= '#loadavg1mnorangede#' && '#loadavg1mn#' <= '#loadavg1mnorangea#') {
+				$('#loadavg1mn#id#').append('1min : <span style="color: #FF8000;" >#loadavg1mn#</span>');
+			}else if ('#loadavg1mn#' > '#loadavg1mnrougesupa#' && '#loadavg1mnrougesupa#' !== '') {
+				$('#loadavg1mn#id#').append('1min : <span style="color: #FF0000;" >#loadavg1mn#</span>');
+			}else {
+				$('#loadavg1mn#id#').append('1min : <span>#loadavg1mn#</span>');
+			}
+			
+			if ('#loadavg5mn#' == '#loadavg5mnvertinfa#') {
+				$('#loadavg5mn#id#').append('<span></span>');
+			}else if ('#loadavg5mn#' < '#loadavg5mnvertinfa#') {
+				$('#loadavg5mn#id#').append(' - 5min : <span style="color: #00FF00;" >#loadavg5mn#</span>');
+			}else if ('#loadavg5mn#' >= '#loadavg5mnorangede#' && '#loadavg5mn#' <= '#loadavg5mnorangea#') {
+				$('#loadavg5mn#id#').append(' - 5min : <span style="color: #FF8000;" >#loadavg5mn#</span>');
+			}else if ('#loadavg5mn#' > '#loadavg5mnrougesupa#' && '#loadavg5mnrougesupa#' !== '') {
+				$('#loadavg5mn#id#').append(' - 5min : <span style="color: #FF0000;" >#loadavg5mn#</span>');
+			}else {
+				$('#loadavg5mn#id#').append(' - 5min : <span>#loadavg5mn#</span>');
+			}
+			if ('#loadavg15mn#' == '') {
+				$('#loadavg15mn#id#').append('<span></span>');
+			}else if ('#loadavg15mn#' < '#loadavg15mnvertinfa#') {
+				$('#loadavg15mn#id#').append(' - 15min : <span style="color: #00FF00;" >#loadavg15mn#</span>');
+			}else if ('#loadavg15mn#' >= '#loadavg15mnorangede#' && '#loadavg15mn#' <= '#loadavg15mnorangea#') {
+				$('#loadavg15mn#id#').append(' - 15min : <span style="color: #FF8000;" >#loadavg15mn#</span>');
+			}else if ('#loadavg15mn#' > '#loadavg15mnrougesupa#' && '#loadavg15mnrougesupa#' !== '') {
+				$('#loadavg15mn#id#').append(' - 15min : <span style="color: #FF0000;" >#loadavg15mn#</span>');
+			}else {
+				$('#loadavg15mn#id#').append(' - 15min : <span>#loadavg15mn#</span>');
+			}
+		}
+    </script>
+	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_display#;">
+			<span title="Mémoire vive" class="fa techno-memory" style="width:15px"></span>
+			<span id="Mempourcent#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			if ('#Mempourc#' == '') {
+				$('#Mempourcent#id#').append('<span>#Mem#</span>');
+			}else if ('#Mempourc#' > '#Mempourcvertsupa#' && '#Mempourcvertsupa#' != '') {
+				$('#Mempourcent#id#').append('#Mem# (<span style="color: #00FF00;" >#Mempourc#%</span>)');
+			}else if ('#Mempourc#' >= '#Mempourcorangede#' && '#Mempourc#' <= '#Mempourcorangea#') {
+				$('#Mempourcent#id#').append('#Mem# (<span style="color: #FF8000;" >#Mempourc#%</span>)');
+			}else if ('#Mempourc#' < '#Mempourcrougeinfa#') {
+				$('#Mempourcent#id#').append('#Mem# (<span style="color: #FF0000;" >#Mempourc#%</span>)');
+			}else {
+				$('#Mempourcent#id#').append('#Mem# (<span>#Mempourc#%</span>)');
+			}
+		}
+    </script>
+
+	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_swap_display#;">
+			<span title="Mémoire Swap" class="fa fa-list-alt" style="width:15px"></span>
+			<span id="Mem_swap#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			$('#Mem_swap#id#').append('<span>#Mem_swap#</span>');
+		}
+    </script>
+
+	<div class="cmd tooltips" style="margin-left:5px;display: #ethernet0_display#;">
+			<span title="Trafic réseau" class="fa techno-fleches" style="width:15px"></span>
+			<span id="ethernet0#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			$('#ethernet0#id#').append('<span>#ethernet0#</span>');
+		}
+    </script>
+
+	<div class="cmd tooltips" style="margin-left:5px;display: #hddused_display#;">
+			<span title="Espace disque" class="fa fa-hdd-o" style="width:15px"></span>
+			<span id="hddpourcused#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			if ('#hddpourcused#' == '') {
+				$('#hddpourcused#id#').append('<span></span>');
+			}else if ('#hddpourcused#' < '#hddpourcusedvertinfa#') {
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: #00FF00;">#hddpourcused#%</span>)');
+			}else if ('#hddpourcused#' >= '#hddpourcusedorangede#' && '#hddpourcused#' <= '#hddpourcusedorangea#') {
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: #FF8000;">#hddpourcused#%</span>)');
+			}else if ('#hddpourcused#' > '#hddpourcusedrougesupa#' && '#hddpourcusedrougesupa#' != '') {
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: #FF0000;">#hddpourcused#%</span>)');
+			}else {
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span>#hddpourcused#%</span>)');
+			}
+		}
+    </script>
+	<div id="synovol2#id#"></div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			if ('#synovolume2_display#' == 'OK'){
+				$('#synovol2#id#').append('<div id="synovol2#id#" class="cmd tooltips" style="margin-left:5px;display: #hddusedv2_display#;"><span title="Espace disque Volume 2 (Synology)" class="fa fa-hdd-o" style="width:15px"></span> <span id="hddpourcusedv2#id#"></span></div>');
+			}
+			if ('#hddpourcusedv2#' == '') {
+				$('#hddpourcusedv2#id#').append('<span></span>');
+			}else if ('#hddpourcusedv2#' < '#hddpourcusedv2vertinfa#') {
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: #00FF00;">#hddpourcusedv2#%</span>)');
+			}else if ('#hddpourcusedv2#' >= '#hddpourcusedv2orangede#' && '#hddpourcusedv2#' <= '#hddpourcusedv2orangea#') {
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: #FF8000;">#hddpourcusedv2#%</span>)');
+			}else if ('#hddpourcusedv2#' > '#hddpourcusedv2rougesupa#' && '#hddpourcusedv2rougesupa#' != '') {
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: #FF0000;">#hddpourcusedv2#%</span>)');
+			}else {
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span>#hddpourcusedv2#%</span>)');
+			}
+		}
+	</script>
+	<div class="cmd tooltips" style="margin-left:5px;display: #cpu_display#;">
+			<span title="Nombre CPU, fréquence et température" class="fa techno-pc" style="width:15px"></span>
+			<span id="cpu#id#"></span><span id="cpu_temp#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			if ('#cpu_temp#' != '') { 
+				if ('#cpu_temp#' < '#cpu_tempvertinfa#') {
+					$('#cpu#id#').append('<span>#cpu# </span>');
+					$('#cpu_temp#id#').append('(<span style="color: #00FF00;" >#cpu_temp#°C</span>)');
+				}else if ('#cpu_temp#' >= '#cpu_temporangede#' && '#cpu_temp#' <= '#cpu_temporangea#') {
+					$('#cpu#id#').append('<span>#cpu# </span>');
+					$('#cpu_temp#id#').append('(<span style="color: #FF8000;" >#cpu_temp#°C</span>)');
+				}else if ('#cpu_temp#' > '#cpu_temprougesupa#' && '#cpu_temprougesupa#' != '') {
+					$('#cpu#id#').append('<span>#cpu# </span>');
+					$('#cpu_temp#id#').append('(<span style="color: #FF0000;" >#cpu_temp#°C</span>)');
+				}else {
+					$('#cpu#id#').append('<span>#cpu# </span>');
+					$('#cpu_temp#id#').append('(<span>#cpu_temp#°C</span>)');
+				}
+			}else {
+			$('#cpu#id#').append('<span>#cpu#</span>');
+			}
+		}
+	
+    </script>
+	<div class="cmd tooltips" style="margin-left:5px;display: #perso1_display#;">
+			<span title="#nameperso1#" style="width:15px">#iconeperso1#</span>
+			<span id="uniteperso1#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			$('#uniteperso1#id#').append('<span>#perso1##uniteperso1#</span>');
+		}
+    </script>
+
+	<div class="cmd tooltips" style="margin-left:5px;display: #perso2_display#;">
+			<span title="#nameperso2#" style="width:15px">#iconeperso2#</span>
+			<span id="uniteperso2#id#"></span>
+	</div>
+	<script>
+		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
+			$('#uniteperso2#id#').append('<span>#perso2##uniteperso2#</span>');
+		}
+    </script>
+
+</div>
