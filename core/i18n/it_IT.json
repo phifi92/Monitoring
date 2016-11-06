@@ -1,46 +1,46 @@
 {
-    "plugins/Monitoring/desktop/php/Monitoring.php": {
-        "Ajouter un équipement": "Aggiungi dispositivo",
-        "Rechercher": "Cerca",
-        "Général": "Generale",
+    "plugins\/Monitoring\/desktop\/php\/Monitoring.php": {
+        "Ajouter un équipement": "Ajouter un équipement",
+        "Rechercher": "Rechercher",
+        "Général": "Général",
         "Nom de l'équipement Monitoring": "Nom de l'équipement Monitoring",
-        "Objet parent": "Oggetto padre",
-        "Aucun": "Nessuno",
-        "Catégorie": "Categoria",
-        "Activer": "Attiva",
-        "Visible": "Visibile",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Activer": "Activer",
+        "Visible": "Visible",
         "Carte Réseau": "Carte Réseau",
         "1er port Ethernet (par défaut)": "1er port Ethernet (par défaut)",
         "1er port Wi-Fi": "1er port Wi-Fi",
-        "Autre": "Altro",
+        "Autre": "Autre",
         "Nom de la carte réseau": "Nom de la carte réseau",
         "saisir le nom de la carte": "saisir le nom de la carte",
         "Equipement local ou déporté ?": "Equipement local ou déporté ?",
-        "Local": "Locale",
+        "Local": "Local",
         "Déporté": "Déporté",
-        "Adresse IP": "Indirizzo IP",
+        "Adresse IP": "Adresse IP",
         "saisir l'adresse IP": "saisir l'adresse IP",
-        "Port SSH": "Porto SSH",
+        "Port SSH": "Port SSH",
         "saisir le port SSH": "saisir le port SSH",
-        "Identifiant": "Identificazione",
+        "Identifiant": "Identifiant",
         "saisir le login": "saisir le login",
-        "Mot de passe": "Password",
+        "Mot de passe": "Mot de passe",
         "saisir le password": "saisir le password",
         "NAS Synology": "NAS Synology",
-        "Informations": "Informazioni",
+        "Informations": "Informations",
         "Id": "Id",
-        "Nom": "Nome",
+        "Nom": "Nom",
         "Colorisation des valeurs": "Colorisation des valeurs",
-        "Afficher/Historiser": "Mostra/Storicizza",
-        "Action": "Azione",
-        "Supprimer": "Elimina",
-        "Sauvegarder": "Salva",
+        "Afficher\/Historiser": "Afficher\/Historiser",
+        "Action": "Action",
+        "Supprimer": "Supprimer",
+        "Sauvegarder": "Sauvegarder",
         "Ajouter un Monitoring": "Ajouter un Monitoring",
         "Mes Monitorings": "Mes Monitorings",
         "Local ou déporté ?": "Local ou déporté ?",
         "Volume 2": "Volume 2"
     },
-    "plugins/Monitoring/core/class/Monitoring.class.php": {
+    "plugins\/Monitoring\/core\/class\/Monitoring.class.php": {
         "Distribution": "Distribution",
         "Démarré depuis": "Démarré depuis",
         "Charge système 1min": "Charge système 1min",
@@ -64,13 +64,13 @@
         "reboot": "reboot",
         "poweroff": "poweroff"
     },
-    "plugins/Monitoring/desktop/js/Monitoring.js": {
-        "Afficher": "Mostra",
-        "Historiser": "Storicizza",
-        "Tester": "Prova"
+    "plugins\/Monitoring\/desktop\/js\/Monitoring.js": {
+        "Afficher": "Afficher",
+        "Historiser": "Historiser",
+        "Tester": "Tester"
     },
-    "plugins/Monitoring/plugin_info/info.xml": {
+    "plugins\/Monitoring\/plugin_info\/info.xml": {
         "Plugin de Monitoring": "Plugin de Monitoring",
-        "Aucune": "Nessuno"
+        "Aucune": "Aucune"
     }
 }

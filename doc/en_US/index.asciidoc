@@ -1,22 +1,22 @@
 == Monitoring
 
-Presentation
+=== Présentation
 Ce plugin permet de récupérer des données système et de les afficher sur le Dashboard.
 
-Initialement, ce plugin a été créé pour monitorer seulement Jeedom Mini et Jeedom Center. Mais pour répondre à une forte demande, il a été rendu compatible avec un Jeedom installé sur une VM (Machine Virtuelle) ou un NAS Synology
+Initialement, ce plugin a été créé pour monitorer seulement Jeedom Mini et Jeedom Mini+. Mais pour répondre à une forte demande, il a été rendu compatible avec un Jeedom installé sur une VM (Machine Virtuelle) ou un NAS Synology ou etc...
 
 ==== Compatibilité :
 
 A ma connaissance, voici une liste non exhautive des hardware/distribution compatible:
 
-- Jeedom Mini, Mini+ (surement la Center)
+- Jeedom Mini, Mini+ (surement la Center/Pro)
 - Raspberry Pi
 - Cubieboard
 - Banana Pi
 - Machine Virtuelle (VM)
 - NAS Synology
 - Linux (devrait être compatible avec beaucoup de distribution Linux)
-- Distributions spécifiques : OpenELEC, RasPlex et OSMC
+- Distributions spécifiques : OpenELEC, LibreElec, RasPlex et OSMC
 
 ==== Données visibles sur le Dashboard :
 [horizontal]
@@ -26,7 +26,7 @@ A ma connaissance, voici une liste non exhautive des hardware/distribution compa
 - *Mémoire* : mémoire vive total et utilisée
 - *Réseau* : taux en MiB des données transmises et reçues
 - *Espace disque total et utilisé* : l'espace disque de la carte SD ou du disque dur pour les VM et NAS Synology
-- *CPU* : nombre de cœur, la fréquence associée et la température (température seulement avec Jeedom Mini)
+- *CPU* : nombre de cœur, la fréquence associée et la température (température seulement si compatible)
 - *Commandes personnalisées* : permet de saisir des commandes personnalisées est d'afficher/historiser les résultats
 
 image::../images/Monitoring.png[align="center"]
@@ -38,6 +38,8 @@ include::configuration.asciidoc[]
 '''
 === FAQ
 include::faq.asciidoc[]
+
 '''
 === Changelog
 include::changelog.asciidoc[]
+'''

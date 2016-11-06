@@ -1,25 +1,25 @@
 [panel,primary]
-.Wie häufig werden Informationen aktualisiert ?
+.Quelle est la fréquence de rafraichissement des informations ?
 --
-Das Plugin aktualisiert die Informationen alle 15 min (00, 15, 30 und 45).
---
-
-[panel,primary]
-.Was ist die Bedeutung der Systemauslastung (Durchschnittsbelastung)?
---
-Weitere Informationen : https://de.wikipedia.org/wiki/Load[Wikipédia]
+Le plugin actualise les informations toutes les 15min (00, 15, 30 et 45).
 --
 
 [panel,primary]
-.Ist es möglich, VMware ESXi zu überwachen ?
+.Quelle est la signification de Charge système (Load average) ?
 --
-Bislang nein, ESXi verwendet keine herkömmlichen Linux-Befehle. Wenn eine starke Nachfrage besteht, warum nicht ...
+Pour plus d'information : http://fr.wikipedia.org/wiki/Load_average[Wikipédia]
 --
 
 [panel,primary]
-.Während der Aktualisierung des Plugin bekomme ich einen Fehler :
+.Est-il possible de Monitorer VMware ESXi ?
+--
+A ce jour non, ESXi n'utilise pas les commandes linux classiques. Si une forte demande se fait ressentir, pourquoi pas...
+--
+
+[panel,primary]
+.Pendant la mise à jour du plugin, j'obtiens une erreur :
 --
 cat: /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input: No such file or directory
-Haben Sie Jeedom Center/Cubieboard. Ignorieren Sie diesen Fehler, es erlaubt die Temperatur des Banana Pi zu erfassen (es wird als ein Cubieboard erkannt).
-Das Plugin funktioniert ohne Probleme
+Si vous avez Jeedom Cubieboard. Ne pas tenir compte de cette erreur, elle permet de capter la température du Banana Pi (qui est reconnu comme un Cubieboard).
+Aucun problème sur le fonctionnement du plugin
 --

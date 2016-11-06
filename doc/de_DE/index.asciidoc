@@ -1,43 +1,45 @@
 == Monitoring
 
-=== Vorstellung
-Dieses Plugin ermöglicht es, Systemdaten abgerufen und auf dem Armaturenbrett anzuzeigen. 
+=== Présentation
+Ce plugin permet de récupérer des données système et de les afficher sur le Dashboard.
 
-Ursprünglich wurde dieses Plugin nur entwickelt, um Jeedom-Mini und Jeedom-Center zu überwachen. Aber als Reaktion auf die starke Nachfrage, wurde es, mit installiertem Jeedom auf einer VM (Virtual Machine) oder einem Synology NAS, kompatibel gemacht
+Initialement, ce plugin a été créé pour monitorer seulement Jeedom Mini et Jeedom Mini+. Mais pour répondre à une forte demande, il a été rendu compatible avec un Jeedom installé sur une VM (Machine Virtuelle) ou un NAS Synology ou etc...
 
-==== Kompatibilität :
+==== Compatibilité :
 
-Nach meiner Kenntnis, ist hier eine umfassende Liste der kompatiblen Hardware/Distributionen:
+A ma connaissance, voici une liste non exhautive des hardware/distribution compatible:
 
-- Jeedom Mini, Mini+ (sicher das Center)
+- Jeedom Mini, Mini+ (surement la Center/Pro)
 - Raspberry Pi
 - Cubieboard
 - Banana Pi
-- Virtuelle Machine (VM)
-- Synology NAS
--Linux (sollte mit vielen Linux-Distributionen kompatibel sein)
-- spezifische Distributionen : OpenELEC, RasPlex und OSMC
+- Machine Virtuelle (VM)
+- NAS Synology
+- Linux (devrait être compatible avec beaucoup de distribution Linux)
+- Distributions spécifiques : OpenELEC, LibreElec, RasPlex et OSMC
 
-==== Sichtbare Daten auf dem Armaturenbrett
+==== Données visibles sur le Dashboard :
 [horizontal]
-- *Distribution* : Name und Version des Linux-Betriebssystems, Architektur 32 oder 64 Bit und der Mikroprozessor-Typ
-- *Gestartet seit* : informiert, wie lange Jeedom gestartete ist
--*Systembelastung* : durchschnittliche Auslastung (Weitere Informationen siehe auch FAQ)  
-- *Speicher* : Speicher  gesamt und benutzt
-- *Netzwerk* : MiB Rate der übertragenen und empfangenen Daten
-- *Insgesamt verwendete Speicherplatz* : Speicherplatz auf der SD-Karte oder Festplatte auf der VM und Synology NAS
-- *CPU* : Anzahl der Kerne, die dazugehörige Frequenz und Temperatur (Temperatur nur von Jeedom Mini)
-- *Benutzerdefinierte Befehle* : Sie können benutzerdefinierte Befehle eingeben, das Ergbniss ist auf Ansicht/Chronik
+- *Distribution* : Nom et version du système d'exploitation Linux, architecture 32 ou 64 bits, et le type microprocesseur
+- *Démarré depuis uptime* : informe depuis combien de temps Jeedom est démarré
+- *Charge système* : Load average (plus d'information voir FAQ)
+- *Mémoire* : mémoire vive total et utilisée
+- *Réseau* : taux en MiB des données transmises et reçues
+- *Espace disque total et utilisé* : l'espace disque de la carte SD ou du disque dur pour les VM et NAS Synology
+- *CPU* : nombre de cœur, la fréquence associée et la température (température seulement si compatible)
+- *Commandes personnalisées* : permet de saisir des commandes personnalisées est d'afficher/historiser les résultats
 
 image::../images/Monitoring.png[align="center"]
 
 '''
-=== Installation/Konfiguration
+=== Installation/Configuration
 include::configuration.asciidoc[]
 
 '''
 === FAQ
 include::faq.asciidoc[]
+
 '''
 === Changelog
 include::changelog.asciidoc[]
+'''
