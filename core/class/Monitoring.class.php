@@ -1210,7 +1210,11 @@ class Monitoring extends eqLogic {
 				if (empty($perso_2)) {$perso_2 = '';}
 				if (empty($Memswap)) {$Memswap = '';}
 				if (empty($cnx_ssh)) {$cnx_ssh = '';}
-				if (empty($Swappourcusage)) {$Swappourcusage = '';}				
+				if (empty($Swappourccmd)) {$Swappourccmd = '';}
+				if (empty($uname)) {$uname = 'Inconnu';}
+				if (empty($Swappourcusage)) {$Swappourcusage = '';}
+				if (empty($Mem)) {$Mem = '';}
+				if (empty($mempourcusage)) {$mempourcusage = '';}
 
 				$dataresult = array(
 					'namedistri' => $namedistri,
