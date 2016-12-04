@@ -520,6 +520,11 @@ class Monitoring extends eqLogic {
 
     public function getInformations() {
 
+		$Swappourccmd = '';
+		$uname = "Inconnu";
+		$Mem = '';
+		$mempourcusage = '';
+				
 		if ($this->getConfiguration('cartereseau') == 'netautre'){
 			$cartereseau = $this->getConfiguration('cartereseauautre');
 		}else{
