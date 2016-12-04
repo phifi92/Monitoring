@@ -41,7 +41,7 @@ image::../images/Monitoring4.png[align="center"]
 
 [IMPORTANT]
 Vous devez choisir un identifiant avec les droits nécessaires pour lancer les commandes (en général le login "root").
-Pour un NAS Synology, il faut utiliser le login "root" et le mot de passe de votre compte "admin"
+Pour un NAS Synology, il faut utiliser le login disposant des droits administrateur.
 
 === Coloration des valeurs
 Pour mettre en avant des valeurs, il est possible de coloriser certaines valeurs.
