@@ -1169,7 +1169,7 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq = $cpufreq . " MHz";
 							}
-							if ($cputemp0 != '0' & $cputemp0 > '200'){
+							if ($cputemp0 != 0 & $cputemp0 > 200){
 								$cputemp0 = $cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}							
@@ -1180,7 +1180,7 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
-							if ($cputemp0 != '0' & $cputemp0 > '200'){
+							if ($cputemp0 != 0 & $cputemp0 > 200){
 								$cputemp0 = $cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
@@ -1193,7 +1193,7 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
-							if ($cputemp0 != '0' & $cputemp0 > '200'){
+							if ($cputemp0 != 0 & $cputemp0 > 200){
 								$cputemp0 = $cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
