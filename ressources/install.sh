@@ -28,7 +28,7 @@ if [ $versionPHP = "7" ]
 		sudo apt-get update
 		echo 80 > /tmp/dependancy_monitoring_in_progress
 		sudo apt-get install -y php-ssh2
-		echo 80 > /tmp/dependancy_monitoring_in_progress
+		echo 90 > /tmp/dependancy_monitoring_in_progress
 		echo 100 > /tmp/dependancy_monitoring_in_progress
 		echo "*****************************************************************************************************"
 		echo "*  Pour finaliser l'installation, redémarrer Jeedom / To complete the installation, restart Jeedom  *"
