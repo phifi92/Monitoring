@@ -5,7 +5,7 @@ Puis cliquer sur le bouton en haut à gauche *Ajouter un équipement*
 image::../images/Monitoring1.png[align="center"]
 
 
-Puis saisir le nom de l'équipement (ex. Jeedom Mini) 
+Then enter the equipment name (eg Jeedom Mini). 
 
 image::../images/Monitoring2.png[align="center"]
 

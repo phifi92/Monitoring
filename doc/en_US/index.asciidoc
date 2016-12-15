@@ -1,6 +1,6 @@
 == Monitoring
 
-=== Présentation
+=== Introduction
 Ce plugin permet de récupérer des données système et de les afficher sur le Dashboard.
 
 Initialement, ce plugin a été créé pour monitorer seulement Jeedom Mini et Jeedom Mini+. Mais pour répondre à une forte demande, il a été rendu compatible avec un Jeedom installé sur une VM (Machine Virtuelle) ou un NAS Synology ou etc...
