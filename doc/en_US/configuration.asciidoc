@@ -1,6 +1,6 @@
 Nous allons maintenant paramétrer un équipement. Pour se faire, cliquer sur *Plugins / Jeedom Box / Monitoring*
 
-Puis cliquer sur le bouton en haut à gauche *Ajouter un équipement*
+Then click on the button at the top left "Add Equipment".
 
 image::../images/Monitoring1.png[align="center"]
 
@@ -50,7 +50,7 @@ Les valeurs doivent correspondre à une valeur visible sur le Dashboard. Exemple
 
 image::../images/Monitoring5.png[align="center"]
 
-=== Historiser
+=== Logging
 Pour certaines valeurs, il est possible d'activer "historiser" pour représenter, par une courbe, les variations de différentes valeurs.
 
 Historiser est possible pour : 
@@ -62,7 +62,7 @@ Historiser est possible pour :
 
 image::../images/Monitoring6.png[align="center"]
 
-=== Exemples de scénario
+=== Scenarii samples
 ==== Scénario pour recevoir un mail en cas de dépassement de température
 image::../images/Monitoring7.png[align="center"]
 ----
@@ -71,33 +71,33 @@ image::../images/Monitoring7.png[align="center"]
     - Evènement : #[Bureau][Raspberry Pi][Température CPU]#
     
     SI #[Bureau][Raspberry Pi][Température CPU]#>55
-    ALORS
+    THEN
      #[Appart][TestMail][Jeedom]# - Options : Array
     (
         [title] => Test - Jeedom
         [message] => Température dépassé : #[Bureau][Raspberry Pi][Température CPU]#
     )
     
-    SINON
+    ELSE
 ----
 ==== Scénario pour recevoir un mail en cas de connexion SSH KO en mode déporté
 ----
 - Nom du scénario : 333
 - Mode du scénario : provoke
-    - Evènement : #1198#
-    SI #[Bureau][LVM][Statut cnx SSH]#="KO"
-    ALORS
+    - Event : #1198#
+    IF #[Bureau][LVM][Statut cnx SSH]#="KO"
+    THEN
      #[Appart][TestMail][Jeedom]# - Options : Array
     (
         [title] => Test - Jeedom
         [message] => Connexion SSH KO de LVM 
     )
-    SINON
+    ELSE
 ----
 
 === Action redémarrage et extinction de l'équipemnt
 
-==== Mode local
+==== Local mode
 
 Il est nécessaire de donner les droits à l'utilisateur "www-data" de lancer les commandes "reboot" et "poweroff". Pour ce faire, deux méthodes :
 
@@ -115,7 +115,7 @@ sudo su -
 echo "www-data ALL=NOPASSWD:/sbin/reboot" | (EDITOR="tee -a" visudo) && echo "www-data ALL=NOPASSWD:/sbin/poweroff" | (EDITOR="tee -a" visudo)
 ----
 
-==== Mode déporté
+==== Remote mode
 
 Il suffit, lors de la configuration de l'équipement, de choisir un identifiant et mot de passe SSH avec suffisamment de droit pour lancer les deux commandes "reboot" et "poweroff"
 
