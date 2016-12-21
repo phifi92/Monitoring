@@ -1,4 +1,4 @@
-Nous allons maintenant paramétrer un équipement. Pour se faire, cliquer sur *Plugins / Jeedom Box / Monitoring*
+We now set up an equipment. To do this, click on *Plugins/Jeedom Box/Monitoring*
 
 Then click on the button at the top left "Add Equipment".
 
