@@ -1,5 +1,5 @@
 [panel,primary]
-.Quelle est la fréquence de rafraichissement des informations ?
+. What is the refresh rate of the information?
 --
 Le plugin actualise les informations toutes les 15min (00, 15, 30 et 45).
 --
