@@ -7,7 +7,7 @@ Le plugin actualise les informations toutes les 15min (00, 15, 30 et 45).
 [panel,primary]
 .Quelle est la signification de Charge système (Load average) ?
 --
-Pour plus d'information : http://fr.wikipedia.org/wiki/Load_average[Wikipédia]
+Weitere Informationen : http://fr.wikipedia.org/wiki/Load_average[Wikipédia]
 --
 
 [panel,primary]

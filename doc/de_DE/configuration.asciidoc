@@ -11,7 +11,7 @@ image::../images/Monitoring2.png[align="center"]
 
 Puis définir :
 
-- Objet parent
+- Eltern Objekt
 - Catégorie (optionnelle)
 - Activer (à cocher, sinon l’équipement ne sera pas utilisable)
 - Visible (optionel si vous ne désirez pas le rendre visible sur le Dashboard)
@@ -62,7 +62,7 @@ Historiser est possible pour :
 
 image::../images/Monitoring6.png[align="center"]
 
-=== Exemples de scénario
+=== Beispielszenario
 ==== Scénario pour recevoir un mail en cas de dépassement de température
 image::../images/Monitoring7.png[align="center"]
 ----
