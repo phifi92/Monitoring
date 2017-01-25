@@ -9,7 +9,7 @@ Initialement, ce plugin a été créé pour monitorer seulement Jeedom Mini et J
 
 A ma connaissance, voici une liste non exhautive des hardware/distribution compatible:
 
-- Jeedom Mini, Mini+ (surement la Center/Pro)
+- Jeedom Mini, Mini+ (selbstverständlich die Center/Pro)
 - Raspberry Pi
 - Cubieboard
 - Banana Pi

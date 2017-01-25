@@ -9,12 +9,12 @@ Puis saisir le nom de l'équipement (ex. Jeedom Mini)
 
 image::../images/Monitoring2.png[align="center"]
 
-Puis définir :
+Dann definieren Sie :
 
 - Eltern Objekt
-- Catégorie (optionnelle)
+- Kategorie (optional)
 - Activer (à cocher, sinon l’équipement ne sera pas utilisable)
-- Visible (optionel si vous ne désirez pas le rendre visible sur le Dashboard)
+- Sichtbar (optional, wenn Sie nicht wünschen, dass es auf dem Armaturenbrett sichtbar ist)
 
 image::../images/Monitoring3.png[align="center"]
 
@@ -43,14 +43,14 @@ image::../images/Monitoring4.png[align="center"]
 Vous devez choisir un identifiant avec les droits nécessaires pour lancer les commandes (en général le login "root").
 Pour un NAS Synology, il faut utiliser le login disposant des droits administrateur.
 
-=== Coloration des valeurs
+=== Farbwerte
 Pour mettre en avant des valeurs, il est possible de coloriser certaines valeurs.
 
 Les valeurs doivent correspondre à une valeur visible sur le Dashboard. Exemple : 55°C, 12% etc... Il faudra saisir seulement la valeur chiffré, sans le signe %, °C etc... 
 
 image::../images/Monitoring5.png[align="center"]
 
-=== Historiser
+=== Archivieren
 Pour certaines valeurs, il est possible d'activer "historiser" pour représenter, par une courbe, les variations de différentes valeurs.
 
 Historiser est possible pour : 
