@@ -670,10 +670,7 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($cpufreq0output, true);
 						$cpufreq0 = stream_get_contents($cpufreq0output);
 
-#						$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-            if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-        			$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-        		}
+						$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 						$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
@@ -697,22 +694,16 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
-#						$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
-            if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-        			$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
-        		}
+						$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
 						$cputemp0output = ssh2_exec($connection, $cputemp0RPi2cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
 
 						if ($cputemp0 == ''){
-              if (file_exists('/sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input')) {
               $cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
-//						$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
 							$cputemp0output = ssh2_exec($connection, $cputemp0armv7lcmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
-              }
             }
 
 					}elseif ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
@@ -783,10 +774,7 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-              if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-          			$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-          		}
-//							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
+							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 							$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
@@ -810,10 +798,7 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-              if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-          			$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-          		}
-//							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
+							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 							$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
@@ -841,10 +826,7 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-              if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-          			$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-          		}
-//							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
+							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 							$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
@@ -967,10 +949,7 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuARMcmd);
 				$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 				$cpufreq0 = exec($cpufreq0ARMcmd);
-        if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-          $cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-        }
-//				$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
+				$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 				$cputemp0 = exec($cputemp0armv6lcmd);
 			}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64'){
 				$uname = '.';
@@ -978,17 +957,11 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuARMcmd);
 				$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 				$cpufreq0 = exec($cpufreq0ARMcmd);
-        if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-          $cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";	// OK RPi2/3, Odroid
-        }
-//				$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";	// OK RPi2/3, Odroid
+				$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";	// OK RPi2/3, Odroid
 				$cputemp0 = exec($cputemp0RPi2cmd);
 				if ($cputemp0 == ''){
-        if (file_exists('/sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1')) {
-          $cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
-//					$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
+					$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
 					$cputemp0 = exec($cputemp0armv7lcmd);
-          }
         }
 			}elseif ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
 				$NF = '';
