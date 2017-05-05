@@ -24,3 +24,10 @@ Si vous avez Jeedom Cubieboard. Ne pas tenir compte de cette erreur, elle permet
 Aucun problème sur le fonctionnement du plugin
 --
 
+[panel,primary]
+.J'obtiens des erreurs dans cron_execution lors de la récupération de la température CPU
+--
+Comme par exemple  : cat: /sys/devices/virtual/thermal/thermal_zone0/temp: Aucun fichier ou dossier de ce type
+Votre équipement est certainement incompatible pour récupérer cette donnée. Pour éviter les logs d'erreurs, il suffit de décocher : "afficher" sur la commande "Température CPU" de votre équipement.
+Et pour prise en compte immédiate, il faut effectuer 2 sauvegardes de la configuration.
+--
