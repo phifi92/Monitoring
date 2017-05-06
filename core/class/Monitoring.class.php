@@ -1191,10 +1191,12 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq = $cpufreq . " MHz";
 							}
-							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
-								$cputemp0 = round($cputemp0, 1);
-							}
+              if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+                if ($cputemp0 != 0 & $cputemp0 > 200){
+                  $cputemp0 = $cputemp0 / 1000;
+                  $cputemp0 = round($cputemp0, 1);
+                }
+              }
 							$cpu = $nbcpu.' - '.$cpufreq;
 					}elseif ($ARMv == 'armv6l' || $ARMv == 'armv7l' || $ARMv == 'aarch64'){
 							if (($cpufreq0 / 1000) > 1000) {
@@ -1202,10 +1204,12 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
-							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
-								$cputemp0 = round($cputemp0, 1);
-							}
+              if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+                if ($cputemp0 != 0 & $cputemp0 > 200){
+                  $cputemp0 = $cputemp0 / 1000;
+                  $cputemp0 = round($cputemp0, 1);
+                }
+              }
 							$cpu = $nbcpu.' - '.$cpufreq0;
 
 					}elseif ($ARMv == 'arm'){
@@ -1215,10 +1219,12 @@ class Monitoring extends eqLogic {
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
-							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
-								$cputemp0 = round($cputemp0, 1);
-							}
+              if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+                if ($cputemp0 != 0 & $cputemp0 > 200){
+                  $cputemp0 = $cputemp0 / 1000;
+                  $cputemp0 = round($cputemp0, 1);
+                }
+              }
 							$cpu = $nbcpu.' - '.$cpufreq0;
 						}
 					}
