@@ -1,3 +1,4 @@
+- 2017-05-06 : ajout de la possibilité de cocher (ou pas) "Afficher" sur la ligne "Température CPU" 
 - 2017-04-24 : fixe erreur dans les logs pour la température CPU
 - 2016-12-11 : fixe Chrome version 55
 - correction bug avec l'affichage avancé
