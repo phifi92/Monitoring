@@ -1,0 +1,10 @@
+{
+	"id" : "Monitoring",
+	"name" : "Monitoring",
+	"description" : "Plugin permettant le monitoring des équipements",
+	"licence" : "AGPL",
+	"author" : "Phifi",
+	"require" : "1.10",
+	"hasDependency" : true,
+	"category" : "monitoring"
+}
