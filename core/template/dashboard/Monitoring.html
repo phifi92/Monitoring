@@ -3,7 +3,7 @@
    	<span style="font-size: 0.85em;position: relative;top:-2px;">#object_name#</span>
 		<span title="Eteindre l'équipement" class="poweroff tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_poweroff_id#" style="float: right">
 			<a class="action" style="cursor: pointer;"><i class="fa fa-power-off" style="font-size : 1.0em;padding-right:10px"></i></a>
-		
+
 		<script>
 		$('.poweroff[data-cmd_id=#cmd_poweroff_id#] .action').on('click', function() {
 			bootbox.confirm('Etes-vous sûr de vouloir éteindre l\'équipement #name# ?', function (result) {
@@ -11,7 +11,7 @@
 					jeedom.cmd.execute({id: '#cmd_poweroff_id#'});
 				}
 			});
-		});			
+		});
 		</script>
 		</span>
 		<span title="Redémarrer l'équipement" class="reboot tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_reboot_id#" style="float: right">
@@ -34,10 +34,10 @@
 			if ('#cnx_ssh#' == 'KO') {
 				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
 			}
-		</script>        
+		</script>
 </center>
 
-	
+
 
 	<div class="tooltips" data-cmd_id="#namedistriid#" style="margin-left:5px;display: #namedistri_display#;">
 			<span title="Distribution Linux" class="fa fa-linux" style="min-width:15px"></span>
@@ -69,7 +69,7 @@
 			}else {
 				$('#loadavg1mn#id#').append('1min : <span data-cmd_id="#loadavg1mnid#" class="history cursor">#loadavg1mn#</span>');
 			}
-			
+
 			if ('#loadavg5mn#' == '#loadavg5mnvertinfa#') {
 				$('#loadavg5mn#id#').append('<span></span>');
 			}else if ('#loadavg5mn#' < '#loadavg5mnvertinfa#') {
@@ -178,7 +178,7 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			if ('#cpu_temp#' != '') { 
+			if ('#cpu_temp#' != '') {
 				if ('#cpu_temp#' < '#cpu_tempvertinfa#') {
 					$('#cpu#id#').append('<span>#cpu# </span>');
 					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: #00FF00;" >#cpu_temp#°C</span>)');
@@ -196,10 +196,10 @@
 			$('#cpu#id#').append('<span>#cpu#</span>');
 			}
 		}
-	
+
     </script>
 	<div class="tooltips" data-cmd_id="#perso1id#" style="margin-left:5px;display: #perso1_display#;">
-			<span title="#nameperso1#" style="width:15px;">#iconeperso1#</span>
+			<span class="fa" title="#nameperso1#" style="width: 15px;max-width: 15px;max-height: 15px;">#iconeperso1#</span>
 			<span id="uniteperso1#id#"></span>
 	</div>
 	<script>
@@ -209,7 +209,7 @@
     </script>
 
 	<div class="tooltips" data-cmd_id="#perso2id#" style="margin-left:5px;display: #perso2_display#;">
-			<span title="#nameperso2#" style="width:15px;">#iconeperso2#</span>
+			<span class="fa" title="#nameperso2#" style="width: 15px;max-width: 15px;max-height: 15px;">#iconeperso2#</span>
 			<span id="uniteperso2#id#"></span>
 	</div>
 	<script>
@@ -219,5 +219,3 @@
     </script>
 
 </div>
-
-

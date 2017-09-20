@@ -677,7 +677,7 @@ class Monitoring extends eqLogic {
               $cputemp0 = stream_get_contents($cputemp0output);
             }
 
-					}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64'){
+					}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
 						$nbcpuARMcmd = "lscpu | grep 'CPU(s):' | awk '{ print $2 }'";
 						$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
 						stream_set_blocking($nbcpuoutput, true);
@@ -1198,7 +1198,7 @@ class Monitoring extends eqLogic {
                 }
               }
 							$cpu = $nbcpu.' - '.$cpufreq;
-					}elseif ($ARMv == 'armv6l' || $ARMv == 'armv7l' || $ARMv == 'aarch64'){
+					}elseif ($ARMv == 'armv6l' || $ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
 							if (($cpufreq0 / 1000) > 1000) {
 							$cpufreq0 = round($cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 							}else{
@@ -1210,7 +1210,13 @@ class Monitoring extends eqLogic {
                   $cputemp0 = round($cputemp0, 1);
                 }
               }
-							$cpu = $nbcpu.' - '.$cpufreq0;
+              if ($cpufreq0 == 0){
+                $cpu = $nbcpu.' Socket(s) ';
+                $cpufreq0 = '';
+              }else{
+                $cpu = $nbcpu.' - '.$cpufreq0;
+              }
+
 
 					}elseif ($ARMv == 'arm'){
 						if (preg_match("#RasPlex|OpenELEC|osmc|LibreELEC#", $namedistri) || preg_match("#piCorePlayer#", $uname)) {
