@@ -6,7 +6,5 @@
 	"author" : "Phifi",
 	"require" : "1.10",
 	"hasDependency" : true,
-	"category" : "monitoring",
-	"changelog" : "https://jeedom.github.io/documentation/third_plugin/Monitoring/#language#/index.html#_changelog",
-	"documentation" : "https://jeedom.github.io/documentation/third_plugin/Monitoring/#language#/index.html"
+	"category" : "monitoring"
 }
