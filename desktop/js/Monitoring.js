@@ -39,8 +39,8 @@ function addCmdToTable(_cmd) {
 		tr += '<span style="color: red" >rouge inférieur à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'rougeinfa" style="width: 60px;display: inherit" > - <span style="color: orange" >Orange entre <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangede" style="width: 60px;display: inherit" > et <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangea" style="width: 60px;display: inherit"></span> - <span style="color: green" >Vert sup à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'vertsupa" style="width: 60px;display: inherit" ></span>';
 	}
 	if (_cmd.logicalId == 'perso1' || _cmd.logicalId == 'perso2') {
-		tr += '<span class="expertModeVisible"><input class="cmdAttr eqLogicAttr form-control expertModeVisible" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '" style="width: 70%;display: inherit" ></input></span>';
-		tr += '<span class="expertModeVisible"> Unité : <input class="cmdAttr eqLogicAttr form-control expertModeVisible" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '_unite" style="width: 10%;display: inherit" ></input></span>';
+		tr += '<span><input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '" style="width: 70%;display: inherit" ></input></span>';
+		tr += '<span> Unité : <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '_unite" style="width: 10%;display: inherit" ></input></span>';
 	}
 	tr += '</td>';
 	tr += '<td style="width: 150px;">';
@@ -54,7 +54,7 @@ function addCmdToTable(_cmd) {
 	tr += '</td>';
 	tr += '<td>';
 	if (is_numeric(_cmd.id)) {
-		tr += '<a class="btn btn-default btn-xs cmdAction expertModeVisible" data-action="configure"><i class="fa fa-cogs"></i></a> ';
+		tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fa fa-cogs"></i></a> ';
 		tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
 	}
 	tr += '<td><i class="fa fa-minus-circle pull-right cmdAction cursor" data-action="remove"></i></td>';

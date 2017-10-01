@@ -69,7 +69,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					<div class="col-xs-6">
 						<form class="form-horizontal">
 						<fieldset>
-							<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}<i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
+							<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}<i class='fa fa-cogs eqLogicAction pull-right cursor' data-action='configure'></i></legend>
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{Nom de l'équipement Monitoring}}</label>
 							<div class="col-md-8">
@@ -123,7 +123,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						</div>
 						<div id="netautre">
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{Nom de la carte réseau}}</label>   
+								<label class="col-md-4 control-label">{{Nom de la carte réseau}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="cartereseauautre" type="text" placeholder="{{saisir le nom de la carte}}">
 									<span style="font-size: 75%;">(eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...)</span>
@@ -143,29 +143,29 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						</div>
 						<div id="deporte">
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{Adresse IP}}</label>   
+								<label class="col-md-4 control-label">{{Adresse IP}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="addressip" type="text" placeholder="{{saisir l'adresse IP}}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{Port SSH}}</label>   
+								<label class="col-md-4 control-label">{{Port SSH}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="portssh" type="text" placeholder="{{saisir le port SSH}}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{Identifiant}}</label>   
+								<label class="col-md-4 control-label">{{Identifiant}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="user" type="text" placeholder="{{saisir le login}}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{Mot de passe}}</label>   
+								<label class="col-md-4 control-label">{{Mot de passe}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="password" type="password" placeholder="{{saisir le password}}">
 								</div>
-							</div>         
+							</div>
 						</div>
 					</fieldset>
 					</form>
@@ -193,10 +193,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				</div>
 			</div>
 			</div>
-			<div role="tabpanel" class="tab-pane" id="commandtab">		
+			<div role="tabpanel" class="tab-pane" id="commandtab">
 				<br/>
 				<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Commandes}}</legend>
-				
+
 				<table id="table_cmd" class="table table-bordered table-condensed">
 					<thead>
 						<tr>
