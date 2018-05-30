@@ -549,7 +549,8 @@ class Monitoring extends eqLogic {
 					$cnx_ssh = 'OK';
 					$ARMvcmd = "lscpu | grep Architecture | awk '{ print $2 }'";
 					$uptimecmd = "uptime";
-					if($this->getConfiguration('synology') == '1'){
+          $VersionIDcmd = "awk -F'=' '/VERSION_ID/ {print $2}' /etc/os-release | awk -F'\"' '{print $2}'";
+          if($this->getConfiguration('synology') == '1'){
 						$namedistricmd = "get_key_value /etc/synoinfo.conf upnpmodelname";
 						$freecmd = "cat /proc/meminfo | cut -d':' -f2 | awk '{ print $1}' | tr '\n' ' ' | awk '{ print $1,$2,$3,$4}'";
 						$swapcmd = "free | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
@@ -574,7 +575,11 @@ class Monitoring extends eqLogic {
 					stream_set_blocking($uptimeoutput, true);
 					$uptime = stream_get_contents($uptimeoutput);
 
-					$namedistrioutput = ssh2_exec($connection, $namedistricmd);
+					$VersionIDoutput = ssh2_exec($connection, $VersionIDcmd);
+					stream_set_blocking($VersionIDoutput, true);
+					$VersionID = stream_get_contents($VersionIDoutput);
+
+          $namedistrioutput = ssh2_exec($connection, $namedistricmd);
 					stream_set_blocking($namedistrioutput, true);
 					$namedistri = stream_get_contents($namedistrioutput);
 
@@ -914,6 +919,7 @@ class Monitoring extends eqLogic {
 			}else{
 				$ARMvcmd = "lscpu | grep Architecture | awk '{ print $2 }'";
 				$namedistricmd = "cat /etc/*-release | grep PRETTY_NAME=";
+        $VersionIDcmd = "awk -F'=' '/VERSION_ID/ {print $2}' /etc/os-release | awk -F'\"' '{print $2}'";
 				$freecmd = "free | grep 'Mem' | head -1 | awk '{ print $2,$3,$4,$7 }'";
 				$swapcmd = "free -h | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
 				$Swappourccmd = "free | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
@@ -921,15 +927,14 @@ class Monitoring extends eqLogic {
 				$bitdistricmd = "getconf LONG_BIT";
 				$ARMv = exec($ARMvcmd);
 				$bitdistri = exec($bitdistricmd);
-
 			}
-
-			$loadavgcmd = "cat /proc/loadavg";
+      $loadavgcmd = "cat /proc/loadavg";
 			$ReseauRXTXcmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $2,$10}'";
 			$perso_1cmd = $this->getConfiguration('perso1');
 			$perso_2cmd = $this->getConfiguration('perso2');
 			$uptime = exec($uptimecmd);
 			$namedistri = exec($namedistricmd);
+      $VersionID = exec($VersionIDcmd);
 			$loadav = exec($loadavgcmd);
 			$ReseauRXTX = exec($ReseauRXTXcmd);
 			$hdd = exec($hddcmd);
@@ -1071,11 +1076,13 @@ class Monitoring extends eqLogic {
 								if (isset($free[1]) && isset($free[3])) {
 									$freelibre = $free[1] + $free[3];
 								}
-						}else{
-							if (isset($free[2]) && isset($free[3])) {
+						  }
+            if($VersionID >= '9' && isset($free[3])){
+								$freelibre = $free[3];
+            }
+            elseif($VersionID < '9' && isset($free[2]) && isset($free[3])){
 								$freelibre = $free[2] + $free[3];
-							}
-						}
+            }
 						if (isset($free[0]) && isset($freelibre)) {
 							$mempourcusage = round($freelibre / $free[0] * 100);
 						}
