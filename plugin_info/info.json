@@ -6,5 +6,7 @@
 	"author" : "Phifi",
 	"require" : "1.10",
 	"hasDependency" : true,
-	"category" : "monitoring"
+	"category" : "monitoring",
+	"changelog" : "https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/index#tocAnchor-1-10",
+	"documentation" : "https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/"
 }
