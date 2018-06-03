@@ -1,7 +1,0 @@
-- 01-10-2017 : suppression du mode expert
-- 20-09-2017 : ajout compatibilité Edgerouter et suppression info.xml
-- 06-05-2017 : ajout de la possibilité de cocher (ou pas) "Afficher" sur la ligne "Température CPU"
-- 24-04-2017 : fixe erreur dans les logs pour la température CPU
-- 11-12-2016 : fixe Chrome version 55
-- correction bug avec l'affichage avancé
-- suppression bootstrapdwitch

@@ -53,6 +53,12 @@ function addCmdToTable(_cmd) {
 
 	tr += '</td>';
 	tr += '<td>';
+	if (_cmd.logicalId == 'perso1' || _cmd.logicalId == 'perso2') {
+		tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>';
+		tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
+	}
+	tr += '</td>';
+	tr += '<td>';
 	if (is_numeric(_cmd.id)) {
 		tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fa fa-cogs"></i></a> ';
 		tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
@@ -62,11 +68,8 @@ function addCmdToTable(_cmd) {
 	tr += '</tr>';
 	$('#table_cmd tbody').append(tr);
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
+	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
 
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=sendMode]').on('change', function () {
-    $('.sendMode').hide();
-    $('.sendMode.' + $(this).value()).show();
-});
 
 //$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});

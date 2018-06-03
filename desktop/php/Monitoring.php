@@ -126,7 +126,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 								<label class="col-md-4 control-label">{{Nom de la carte réseau}}</label>
 								<div class="col-md-8">
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="cartereseauautre" type="text" placeholder="{{saisir le nom de la carte}}">
-									<span style="font-size: 75%;">(eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...)</span>
+									<span style="font-size: 75%;">({{eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...}})</span>
 								</div>
 							</div>
 						</div>
@@ -178,14 +178,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							<label class="col-md-2 control-label" >{{Activer}}</label>
 							<div class="col-md-8">
 								<input type="checkbox" class="eqLogicAttr" data-l1key="configuration"  data-l2key="synology">
-								<span style="font-size: 75%;">(à cocher seulement si vous désirez Monitorer un NAS Synology)</span>
+								<span style="font-size: 75%;">({{à cocher seulement si vous désirez Monitorer un NAS Synology}})</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-2 control-label" >{{Volume 2}}</label>
 							<div class="col-md-8">
 								<input type="checkbox" class="eqLogicAttr" data-l1key="configuration"  data-l2key="synologyv2" >
-								<span style="font-size: 75%;">(à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut)</span>
+								<span style="font-size: 75%;">({{à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut}})</span>
 							</div>
 						</div>
 					</fieldset>
@@ -204,6 +204,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 							<th>{{Nom}}</th>
 							<th>{{Colorisation des valeurs}}</th>
 							<th>{{Afficher/Historiser}}</th>
+							<th>{{Type}}</th>
 							<th>{{Action}}</th>
 						</tr>
 					</thead>
