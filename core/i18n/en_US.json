@@ -38,7 +38,18 @@
         "Ajouter un Monitoring": "Add a Monitoring",
         "Mes Monitorings": "My Monitorings",
         "Local ou déporté ?": "Local or remote ?",
-        "Volume 2": "Volume 2"
+        "Volume 2": "Volume 2",
+        "Ajouter Monitoring": "Ajouter Monitoring",
+        "Gestion": "Gestion",
+        "Ajouter": "Ajouter",
+        "Configuration": "Configuration",
+        "Configuration avancée": "Configuration avancée",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
+        "Type": "Type",
+        "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...": "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...",
+        "à cocher seulement si vous désirez Monitorer un NAS Synology": "à cocher seulement si vous désirez Monitorer un NAS Synology",
+        "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut": "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut"
     },
     "plugins\/Monitoring\/core\/class\/Monitoring.class.php": {
         "Distribution": "Distribution",
@@ -62,7 +73,8 @@
         "Syno Volume 2 Espace disque Utilisé": "Syno Volume 2 total space used",
         "Syno Volume 2 Espace disque Utilisé (pourcentage)": "Syno Volume 2 total space used (percentage)",
         "reboot": "reboot",
-        "poweroff": "poweroff"
+        "poweroff": "poweroff",
+        "Swap libre (pourcentage)": "Swap libre (pourcentage)"
     },
     "plugins\/Monitoring\/desktop\/js\/Monitoring.js": {
         "Afficher": "Show",
