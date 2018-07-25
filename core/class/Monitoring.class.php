@@ -21,7 +21,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Monitoring extends eqLogic {
 
-    public static function cron15() {
+    public static function pull() {
 		foreach (eqLogic::byType('Monitoring') as $Monitoring) {
 			$Monitoring->getInformations();
 			$mc = cache::byKey('MonitoringWidgetmobile' . $Monitoring->getId());
