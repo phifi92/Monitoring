@@ -1,9 +1,9 @@
 {
     "plugins\/Monitoring\/desktop\/php\/Monitoring.php": {
-        "Ajouter un équipement": "Add equipment",
+        "Ajouter un équipement": "Add device",
         "Rechercher": "Search",
         "Général": "General",
-        "Nom de l'équipement Monitoring": "Name of the Monitoring equipment",
+        "Nom de l'équipement Monitoring": "Monitoring device name",
         "Objet parent": "Parent object",
         "Aucun": "None",
         "Catégorie": "Category",
