@@ -78,7 +78,7 @@
     },
     "plugins\/Monitoring\/desktop\/js\/Monitoring.js": {
         "Afficher": "Show",
-        "Historiser": "Logging",
+        "Historiser": "Historize",
         "Tester": "Test"
     },
     "plugins\/Monitoring\/plugin_info\/info.xml": {
