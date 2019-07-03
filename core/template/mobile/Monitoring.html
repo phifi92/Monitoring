@@ -9,14 +9,14 @@
 			if ('#cnx_ssh#' == 'KO') {
 				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
 			}
-		</script>        
+		</script>
 </center>
 	<div class="cmd tooltips" style="margin-left:5px;display: #namedistri_display#;">
-			<span title="Distribution Linux" class="fa fa-linux" style="min-width:15px"></span>
+			<span title="Distribution Linux" class="fab fa-linux" style="min-width:15px"></span>
 			<span>#namedistri#</span>
 	</div>
 	<div class="cmd tooltips" style="margin-left:5px;display: #uptime_display#;">
-			<span title="Temps d'activité (uptime)" class="fa fa-tachometer" style="min-width:15px"></span>
+			<span title="Temps d'activité (uptime)" class="fas fa-tachometer-alt" style="min-width:15px"></span>
 			<span id="uptime#id#"></span>
 	</div>
 	<script>
@@ -41,7 +41,7 @@
 			}else {
 				$('#loadavg1mn#id#').append('1min : <span>#loadavg1mn#</span>');
 			}
-			
+
 			if ('#loadavg5mn#' == '#loadavg5mnvertinfa#') {
 				$('#loadavg5mn#id#').append('<span></span>');
 			}else if ('#loadavg5mn#' < '#loadavg5mnvertinfa#') {
@@ -107,7 +107,7 @@
     </script>
 
 	<div class="cmd tooltips" style="margin-left:5px;display: #hddused_display#;">
-			<span title="Espace disque" class="fa fa-hdd-o" style="width:15px"></span>
+			<span title="Espace disque" class="fas fa-hdd" style="width:15px"></span>
 			<span id="hddpourcused#id#"></span>
 	</div>
 	<script>
@@ -150,7 +150,7 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			if ('#cpu_temp#' != '') { 
+			if ('#cpu_temp#' != '') {
 				if ('#cpu_temp#' < '#cpu_tempvertinfa#') {
 					$('#cpu#id#').append('<span>#cpu# </span>');
 					$('#cpu_temp#id#').append('(<span style="color: #00FF00;" >#cpu_temp#°C</span>)');
@@ -168,7 +168,7 @@
 			$('#cpu#id#').append('<span>#cpu#</span>');
 			}
 		}
-	
+
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #perso1_display#;">
 			<span title="#nameperso1#" style="width:15px">#iconeperso1#</span>
