@@ -4,7 +4,7 @@
 	"description" : "Plugin permettant le monitoring des équipements",
 	"licence" : "AGPL",
 	"author" : "Phifi",
-	"require" : "4.0",
+	"require" : "3.0",
 	"hasDependency" : true,
 	"category" : "monitoring",
 	"language" : ["fr_FR","en_US","de_DE","es_ES"],
