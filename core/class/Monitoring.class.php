@@ -343,17 +343,7 @@ class Monitoring extends eqLogic {
 	}
 
 
-	public static $_widgetPossibility = array('custom' => array(
-		'visibility' => true,
-		'displayName' => true,
-		'displayObjectName' => true,
-		'optionalParameters' => false,
-		'background-color' => true,
-		'text-color' => true,
-		'border' => true,
-		'border-radius' => true,
-		'background-opacity' => true,
-	));
+public static $_widgetPossibility = array('custom' => true, 'custom::layout' => false);
 
 	public function toHtml($_version = 'dashboard')	{
 		$replace = $this->preToHtml($_version);

@@ -1,6 +1,6 @@
 <div id="plugin_container" class="eqLogic-widget eqLogic allowResize" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="" data-eqLogic_id="#id#" data-version="#version#" >
-   <center class="widget-name"><strong><a href="#eqLink#" style="font-size : 1.1em;#hideEqLogicName#">#name_display#</strong></a>
-   	<span style="font-size: 0.85em;position: relative;top:-2px;">#object_name#</span>
+    <center class="widget-name"><a href="#eqLink#" style="font-size : 1.1em;#hideEqLogicName#">#name_display#<span style="font-size: 0.85em;position: relative;top:-2px;display:none;" class="object_name">#object_name#</span></a></center>
+
 		<span title="Eteindre l'équipement" class="poweroff tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_poweroff_id#" style="float: right">
 			<a class="action" style="cursor: pointer;"><i class="fa fa-power-off" style="font-size : 1.0em;padding-right:10px"></i></a>
 
@@ -40,11 +40,11 @@
 
 
 	<div class="tooltips" data-cmd_id="#namedistriid#" style="margin-left:5px;display: #namedistri_display#;">
-			<span title="Distribution Linux" class="fa fa-linux" style="min-width:15px"></span>
+			<span title="Distribution Linux" class="fab fa-linux" style="min-width:15px"></span>
 			<span>#namedistri#</span>
 	</div>
 	<div class="tooltips" data-cmd_id="#uptimeid#" style="margin-left:5px;display: #uptime_display#;">
-			<span title="Temps d'activité (uptime)" class="fa fa-tachometer" style="min-width:15px;"></span>
+			<span title="Temps d'activité (uptime)" class="fas fa-tachometer-alt" style="min-width:15px;"></span>
 			<span id="uptime#id#"></span>
 	</div>
 	<script>
@@ -135,7 +135,7 @@
     </script>
 
 	<div class="tooltips" data-cmd_id="#hddpourcusedid#" style="margin-left:5px;display: #hddused_display#;">
-			<span title="Espace disque" class="fa fa-hdd-o" style="width:15px;"></span>
+			<span title="Espace disque" class="fas fa-hdd" style="width:15px;"></span>
 			<span id="hddpourcused#id#"></span>
 	</div>
 	<script>
