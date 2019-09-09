@@ -38,7 +38,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			?>
 		</div>
 	</div>
-	<div class="col-lg-12 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+	<div class="col-lg-12 col-md-9 col-sm-8 eqLogic">
 		<a class="btn btn-success eqLogicAction pull-right" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
 		<a class="btn btn-danger eqLogicAction pull-right" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
 		<a class="btn btn-default eqLogicAction pull-right" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}</a>
@@ -54,7 +54,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 					<div class="col-xs-6">
 						<form class="form-horizontal">
 						<fieldset>
-							<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}<i class='fa fa-cogs eqLogicAction pull-right cursor' data-action='configure'></i></legend>
+							<legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}</legend>
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{Nom de l'équipement Monitoring}}</label>
 							<div class="col-md-8">
@@ -199,6 +199,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			</div>
 		</div>
 	</div>
+</div>
 
 <?php include_file('desktop', 'Monitoring', 'js', 'Monitoring'); ?>
 <?php include_file('core', 'plugin.template', 'js'); ?>
