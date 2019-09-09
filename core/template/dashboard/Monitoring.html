@@ -1,6 +1,7 @@
 <div id="plugin_container" class="eqLogic-widget eqLogic allowResize" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="" data-eqLogic_id="#id#" data-version="#version#" >
-    <center class="widget-name"><a href="#eqLink#" style="font-size : 1.1em;#hideEqLogicName#">#name_display#<span style="font-size: 0.85em;position: relative;top:-2px;display:none;" class="object_name">#object_name#</span></a></center>
+    <center class="widget-name" style="padding-right: 0px;"><a href="#eqLink#" style="font-size : 1.1em;#hideEqLogicName#">#name_display#<span style="font-size: 0.85em;position: relative;top:-2px;display:none;" class="object_name">#object_name#</span></a>
 
+    <span style="float: right;display: #statuts_display#;">
 		<span title="Eteindre l'équipement" class="poweroff tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_poweroff_id#" style="float: right">
 			<a class="action" style="cursor: pointer;"><i class="fa fa-power-off" style="font-size : 1.0em;padding-right:10px"></i></a>
 
@@ -15,7 +16,7 @@
 		</script>
 		</span>
 		<span title="Redémarrer l'équipement" class="reboot tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_reboot_id#" style="float: right">
-			<a class="action" style="cursor: pointer;"><i class="fa fa-repeat" style="font-size : 1.0em;padding-right:10px"></i></a>
+			<a class="action" style="cursor: pointer;"><i class="fas fa-sync" style="font-size : 1.0em;padding-right:10px"></i></a>
 		<script>
 		$('.reboot[data-cmd_id=#cmd_reboot_id#] .action').on('click', function() {
 			bootbox.confirm('Etes-vous sûr de vouloir redémarrer l\'équipement #name# ?', function (result) {
@@ -35,6 +36,7 @@
 				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
 			}
 		</script>
+    </span>
 </center>
 
 
