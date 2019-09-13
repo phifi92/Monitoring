@@ -91,7 +91,7 @@ class Monitoring extends eqLogic {
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 		}
-		$MonitoringCmd->setName(__('Charge système 1min', __FILE__));
+		$MonitoringCmd->setName(__('Charge système 1 min', __FILE__));
 		$MonitoringCmd->setEqLogic_id($this->getId());
 		$MonitoringCmd->setLogicalId('loadavg1mn');
 		$MonitoringCmd->setType('info');
@@ -102,7 +102,7 @@ class Monitoring extends eqLogic {
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 		}
-		$MonitoringCmd->setName(__('Charge système 5min', __FILE__));
+		$MonitoringCmd->setName(__('Charge système 5 min', __FILE__));
 		$MonitoringCmd->setEqLogic_id($this->getId());
 		$MonitoringCmd->setLogicalId('loadavg5mn');
 		$MonitoringCmd->setType('info');
@@ -113,7 +113,7 @@ class Monitoring extends eqLogic {
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 		}
-		$MonitoringCmd->setName(__('Charge système 15min', __FILE__));
+		$MonitoringCmd->setName(__('Charge système 15 min', __FILE__));
 		$MonitoringCmd->setEqLogic_id($this->getId());
 		$MonitoringCmd->setLogicalId('loadavg15mn');
 		$MonitoringCmd->setType('info');
@@ -168,7 +168,7 @@ class Monitoring extends eqLogic {
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 		}
-		$MonitoringCmd->setName(__('Réseau (MiB)', __FILE__));
+		$MonitoringCmd->setName(__('Réseau (M)', __FILE__));
 		$MonitoringCmd->setEqLogic_id($this->getId());
 		$MonitoringCmd->setLogicalId('ethernet0');
 		$MonitoringCmd->setType('info');
@@ -392,16 +392,16 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
 
 		$loadavg1mn = $this->getCmd(null,'loadavg1mn');
-		$replace['#loadavg1mn#'] = (is_object($loadavg1mn)) ? $loadavg1mn->execCmd() : '';
+		$replace['#loadavg1mn#'] = (is_object($loadavg1mn)) ? $loadavg1mn->execCmd()."%" : '';
 		$replace['#loadavg1mnid#'] = is_object($loadavg1mn) ? $loadavg1mn->getId() : '';
 		$replace['#loadavg_display#'] = (is_object($loadavg1mn) && $loadavg1mn->getIsVisible()) ? "#loadavg_display#" : "none";
 
 		$loadavg5mn = $this->getCmd(null,'loadavg5mn');
-		$replace['#loadavg5mn#'] = (is_object($loadavg5mn)) ? $loadavg5mn->execCmd() : '';
+		$replace['#loadavg5mn#'] = (is_object($loadavg5mn)) ? $loadavg5mn->execCmd()."%" : '';
 		$replace['#loadavg5mnid#'] = is_object($loadavg5mn) ? $loadavg5mn->getId() : '';
 
 		$loadavg15mn = $this->getCmd(null,'loadavg15mn');
-		$replace['#loadavg15mn#'] = (is_object($loadavg15mn)) ? $loadavg15mn->execCmd() : '';
+		$replace['#loadavg15mn#'] = (is_object($loadavg15mn)) ? $loadavg15mn->execCmd()."%" : '';
 		$replace['#loadavg15mnid#'] = is_object($loadavg15mn) ? $loadavg15mn->getId() : '';
 
 		$uptime = $this->getCmd(null,'uptime');
@@ -632,6 +632,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 						$cpufreq0 = trim($cpufreq0);
 
 						$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
+						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
 						$hdddata = ssh2_exec($connection, $hddcmd);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
@@ -657,6 +658,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdddata = ssh2_exec($connection, $hddcmd);
+						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
@@ -1090,16 +1092,16 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           				}
           				if (isset($freelibre)) {
           					if (($freelibre / 1000) > 1000) {
-          						$freelibre = round($freelibre / 1000000, 2) . "G";
+          						$freelibre = round($freelibre / 1000000, 2) . " Go";
           					}else{
-          						$freelibre = round($freelibre / 1000) . "M";
+          						$freelibre = round($freelibre / 1000) . " Mo";
           					}
           				}
           				if (isset($free[0])) {
           					if (($free[0] / 1000) > 1000) {
-          						$memtotal = round($free[0] / 1000000, 2) . "G";
+          						$memtotal = round($free[0] / 1000000, 2) . " Go";
           					}else{
-          						$memtotal = round($free[0] / 1000) . "M";
+          						$memtotal = round($free[0] / 1000) . " Mo";
           					}
           				}
           				if (isset($memtotal) && isset($freelibre)) {
@@ -1109,14 +1111,14 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           				$free = explode(' ', $free);
           				$mempourcusage = round($free[1] / $free[0] * 100);
           				if (($free[1] / 1000) > 1000) {
-          					$freelibre = round($free[1] / 1000000, 2) . "G";
+          					$freelibre = round($free[1] / 1000000, 2) . " Go";
           				}else{
-          					$freelibre = round($free[1] / 1000) . "M";
+          					$freelibre = round($free[1] / 1000) . " Mo";
           				}
           				if (($free[0] / 1000) > 1000) {
-          					$memtotal = round($free[0] / 1000000, 2) . "G";
+          					$memtotal = round($free[0] / 1000000, 2) . " Go";
           				}else{
-          					$memtotal = round($free[0] / 1000) . "M";
+          					$memtotal = round($free[0] / 1000) . " Mo";
           				}
           				$Mem = 'Total : '.$memtotal.' - Libre : '.$freelibre;
           			}
@@ -1128,27 +1130,30 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           			if($this->getConfiguration('synology') == '1'){
           				if(isset($swap[0])){
           					if (($swap[0] / 1000) > 1000) {
-          						$swap[0] = round($swap[0] / 1000000, 2) . "G";
+          						$swap[0] = round($swap[0] / 1000000, 2) . " Go";
           					}else{
-          						$swap[0] = round($swap[0] / 1000) . "M";
+          						$swap[0] = round($swap[0] / 1000) . " Mo";
           					}
           				}
           				if(isset($swap[1])){
           					if (($swap[1] / 1000) > 1000) {
-          						$swap[1] = round($swap[1] / 1000000, 2) . "G";
+          						$swap[1] = round($swap[1] / 1000000, 2) . " Go";
           					}else{
-          						$swap[1] = round($swap[1] / 1000) . "M";
+          						$swap[1] = round($swap[1] / 1000) . " Mo";
           					}
           				}
           				if(isset($swap[2])){
           					if (($swap[2] / 1000) > 1000) {
-          						$swap[2] = round($swap[2] / 1000000, 2) . "G";
+          						$swap[2] = round($swap[2] / 1000000, 2) . " Go";
           					}else{
-          						$swap[2] = round($swap[2] / 1000) . "M";
+          						$swap[2] = round($swap[2] / 1000) . " Mo";
           					}
           				}
           			}
           			if(isset($swap[0]) && isset($swap[1]) && isset($swap[2])){
+						$swap[0] = str_replace("B"," o", $swap[0]);
+						$swap[1] = str_replace("B"," o", $swap[1]);
+						$swap[2] = str_replace("B"," o", $swap[2]);
           				$Memswap = 'Total : '.$swap[0].' - Utilisé : '.$swap[1].' - Libre : '.$swap[2];
           			}
           		}else {$swap = '';}
@@ -1156,29 +1161,29 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           		if (isset($ReseauRXTX)) {
           			$ReseauRXTX = explode(' ', $ReseauRXTX);
           			if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-          				if (($ReseauRXTX[1] / 1024) > 1048576) {
-          					$ReseauTX = round($ReseauRXTX[1] / 1073741824, 2) . " GiB";
-          				}elseif (($ReseauRXTX[1] / 1024) > 1024) {
-          					$ReseauTX = round($ReseauRXTX[1] / 1048576, 2) . " MiB";
+          				if (($ReseauRXTX[1] / 1000) > 1000000) {
+          					$ReseauTX = round($ReseauRXTX[1] / 1000000000, 2) . " Go";
+          				}elseif (($ReseauRXTX[1] / 1000) > 1000) {
+          					$ReseauTX = round($ReseauRXTX[1] / 1000000, 2) . " Mo";
           				}else{
-          					$ReseauTX = round($ReseauRXTX[1] / 1024) . " KiB";
+          					$ReseauTX = round($ReseauRXTX[1] / 1000) . " Ko";
           				}
-          				if (($ReseauRXTX[0] / 1024) > 1048576) {
-          					$ReseauRX = round($ReseauRXTX[0] / 1073741824, 2) . " GiB";
-          				}elseif (($ReseauRXTX[0] / 1024) > 1024) {
-          					$ReseauRX = round($ReseauRXTX[0] / 1048576, 2) . " MiB";
+          				if (($ReseauRXTX[0] / 1000) > 1000000) {
+          					$ReseauRX = round($ReseauRXTX[0] / 1000000000, 2) . " Go";
+          				}elseif (($ReseauRXTX[0] / 1000) > 1000) {
+          					$ReseauRX = round($ReseauRXTX[0] / 1000000, 2) . " Mo";
           				}else{
-          					$ReseauRX = round($ReseauRXTX[0] / 1024) . " KiB";
+          					$ReseauRX = round($ReseauRXTX[0] / 1000) . " Ko";
           				}
-          				$ethernet0 = 'TX: '.$ReseauTX.' - RX: '.$ReseauRX;
+          				$ethernet0 = 'TX : '.$ReseauTX.' - RX : '.$ReseauRX;
           			}
           		}
 
           		if (isset($hdd)) {
           			$hdddata = explode(' ', $hdd);
           			if(isset($hdddata[0]) && isset($hdddata[1]) && isset($hdddata[2])){
-          				$hddtotal = $hdddata[0];
-          				$hddused = $hdddata[1];
+          				$hddtotal = str_replace(array("K","M","G"),array(" Ko"," Mo"," Go"), $hdddata[0]);
+          				$hddused = str_replace(array("K","M","G"),array(" Ko"," Mo"," Go"), $hdddata[1]);
           				$hddpourcused = preg_replace("/[^0-9.]/","",$hdddata[2]);
           				$hddpourcused = trim($hddpourcused);
           				if ($hddpourcused < '10'){
