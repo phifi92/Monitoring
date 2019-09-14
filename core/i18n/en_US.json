@@ -60,7 +60,7 @@
         "Mémoire (Méga)": "Memory (Méga)",
         "Mémoire libre (pourcentage)": "Free memory (percentage)",
         "Swap": "Swap",
-        "Réseau (MiB)": "Network (MiB)",
+        "Réseau (M)": "Network (M)",
         "Espace disque Total": "Total disk space",
         "Espace disque Utilisé": "Disk space used",
         "Espace disque Utilisé (pourcentage)": "Disk space used (percentage)",
