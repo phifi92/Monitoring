@@ -45,14 +45,6 @@ try {
 			foreach ($object->getEqLogic(true, false, 'Monitoring') as $Monitoring) {
 				$return['eqLogics'][] = $Monitoring->toHtml(init('version'));
 			}
-			foreach (jeeObject::buildTree($object) as $child) {
-				$squeezeboxs = $child->getEqLogic(true, false, 'Monitoring');
-				if (count($squeezeboxs) > 0) {
-					foreach ($squeezeboxs as $squeezebox) {
-						$return['eqLogics'][] = $squeezebox->toHtml(init('version'));
-					}
-				}
-			}
 		}
 		ajax::success($return);
 	}
