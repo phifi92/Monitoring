@@ -35,17 +35,12 @@ try {
 		}
 		$return = array();
 		$return['eqLogics'] = array();
-		if (init('object_id') == '') {
 			foreach (jeeObject::all() as $object) {
 				foreach ($object->getEqLogic(true, false, 'Monitoring') as $Monitoring) {
 					$return['eqLogics'][] = $Monitoring->toHtml(init('version'));
 				}
 			}
-		} else {
-			foreach ($object->getEqLogic(true, false, 'Monitoring') as $Monitoring) {
-				$return['eqLogics'][] = $Monitoring->toHtml(init('version'));
-			}
-		}
+
 		ajax::success($return);
 	}
 
