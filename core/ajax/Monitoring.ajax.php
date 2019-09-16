@@ -25,24 +25,13 @@ try {
     }
 
     if (init('action') == 'getMonitoring') {
-		if (init('object_id') == '') {
-			$object = jeeObject::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
-		} else {
-			$object = jeeObject::byId(init('object_id'));
-		}
-		if (!is_object($object)) {
-			$object = jeeObject::rootObject();
-		}
-		$return = array();
-		$return['eqLogics'] = array();
 			foreach (jeeObject::all() as $object) {
 				foreach ($object->getEqLogic(true, false, 'Monitoring') as $Monitoring) {
 					$return['eqLogics'][] = $Monitoring->toHtml(init('version'));
 				}
 			}
-
 		ajax::success($return);
-	}
+    }
 
     throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
