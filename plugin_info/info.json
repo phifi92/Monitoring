@@ -8,7 +8,7 @@
 	"hasDependency" : true,
 	"category" : "monitoring",
 	"language" : ["fr_FR","en_US","de_DE","es_ES"],
-	"compatibility" : ["Jeedomboard","Smart","miniplus","rpi","docker","diy"],
+	"compatibility" : ["Jeedomboard","Smart","miniplus","rpi","docker","diy","v4"],
 	"display" : "panel",
 	"mobile" : "panel",
 	"changelog" : "https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/#tocAnchor-1-10",
