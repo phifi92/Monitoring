@@ -1075,10 +1075,10 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           						$freelibre = $free[1] + $free[3];
           					}
           				}
-          				if($VersionID >= '9' && isset($free[3])){
+          				if($VersionID >= 9 && isset($free[3])){
           					$freelibre = $free[3];
           				}
-          				elseif($VersionID < '9' && isset($free[2]) && isset($free[3])){
+          				elseif($VersionID < 9 && isset($free[2]) && isset($free[3])){
           					$freelibre = $free[2] + $free[3];
           				}
           				if (isset($free[0]) && isset($freelibre)) {
