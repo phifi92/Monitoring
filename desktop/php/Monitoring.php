@@ -154,6 +154,18 @@ $eqLogics = eqLogic::byType($plugin->getId());
 									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="password" type="password" placeholder="{{saisir le password}}">
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">{{Fichier clé publique}}</label>
+								<div class="col-md-8">
+									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="pubkey" type="text" placeholder="{{chemin complet vers le fichier contenant la clé publique}}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label">{{Fichier clé privée}}</label>
+								<div class="col-md-8">
+									<input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="privkey" type="text" placeholder="{{chemin complet vers le fichier contenant la clé privée}}">
+								</div>
+							</div>
 						</div>
 					</fieldset>
 					</form>

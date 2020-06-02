@@ -526,14 +526,16 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 			$user = $this->getConfiguration('user');
 			$pass = $this->getConfiguration('password');
 			$port = $this->getConfiguration('portssh');
+			$pubkeyfile = $this->getConfiguration('pubkey');
+			$privkeyfile = $this->getConfiguration('privkey');
 			$equipement = $this->getName();
 
-			if (!$connection = ssh2_connect($ip,$port)) {
+			if (!$connection = ssh2_connect($ip,$port, array('hostkey'=>'ssh-rsa'))) {
 				log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
 				$cnx_ssh = 'KO';
 			}else{
-				if (!ssh2_auth_password($connection,$user,$pass)){
-					log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
+				if(!ssh2_auth_password($connection,$user,$pass) && !ssh2_auth_pubkey_file($connection, $user, $pubkeyfile, $privkeyfile, $pass)){
+					log::add('Monitoring', 'error', 'Authentification SSH par clé privée ou mot de passe KO pour '.$equipement);
 					$cnx_ssh = 'KO';
 				}else{
 					$cnx_ssh = 'OK';
@@ -592,6 +594,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
 					$connection = ssh2_connect($ip,$port);
 					ssh2_auth_password($connection,$user,$pass);
+					ssh2_auth_pubkey_file($connection, $user, $pubkeyfile, $privkeyfile, $pass);
 
 					$freeoutput = ssh2_exec($connection, $freecmd);
 					stream_set_blocking($freeoutput, true);
@@ -868,6 +871,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
               				$connection = ssh2_connect($ip,$port);
               				ssh2_auth_password($connection,$user,$pass);
+							ssh2_auth_pubkey_file($connection, $user, $pubkeyfile, $privkeyfile, $pass);
 
               				$freecmd = "dmesg | grep memory | tr '\n' ' ' | awk '{print $4,$10}'";
               				$freeoutput = ssh2_exec($connection, $freecmd);
@@ -904,8 +908,9 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
               			}
               		}
               	}
-              }
-          }elseif($this->getConfiguration('maitreesclave') == 'local' && $this->getIsEnable()){
+              //}
+			}
+		  }elseif($this->getConfiguration('maitreesclave') == 'local' && $this->getIsEnable()){
           	$cnx_ssh = 'No';
           	$uptimecmd = "uptime";
           	if($this->getConfiguration('synology') == '1'){
@@ -1402,37 +1407,39 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
       		$user = $this->getConfiguration('user');
       		$pass = $this->getConfiguration('password');
       		$port = $this->getConfiguration('portssh');
+			$pubkeyfile = $this->getConfiguration('pubkey');
+			$privkeyfile = $this->getConfiguration('privkey');
       		$equipement = $this->getName();
 
       		if (!$connection = ssh2_connect($ip,$port)) {
       			log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
       			$cnx_ssh = 'KO';
       		}else{
-      			if (!ssh2_auth_password($connection,$user,$pass)){
-      				log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
-      				$cnx_ssh = 'KO';
-      			}else{
-      				switch ($paramaction) {
-      					case "reboot":
-      					$paramaction =
+      			if (!ssh2_auth_password($connection,$user,$pass) && !ssh2_auth_pubkey_file($connection, $user, $pubkeyfile, $privkeyfile, $pass)){
+					log::add('Monitoring', 'error', 'Authentification SSH par clé privée ou mot de passe a échoué pour '.$equipement);
+					$cnx_ssh = 'KO';
+				}else{
+					switch ($paramaction) {
+						case "reboot":
+						$paramaction =
 //								$Rebootcmd = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
-      					$Rebootcmd = "sudo reboot >/dev/null & reboot >/dev/null";
-      					$Rebootoutput = ssh2_exec($connection, $Rebootcmd);
-      					stream_set_blocking($Rebootoutput, false);
-      					$Reboot = stream_get_contents($Rebootoutput);
-      					log::add('Monitoring','debug','lancement commande deporte reboot ' . $this->getHumanName());
-      					break;
-      					case "poweroff":
-      					$paramaction =
+						$Rebootcmd = "sudo reboot >/dev/null & reboot >/dev/null";
+						$Rebootoutput = ssh2_exec($connection, $Rebootcmd);
+						stream_set_blocking($Rebootoutput, false);
+						$Reboot = stream_get_contents($Rebootoutput);
+						log::add('Monitoring','debug','lancement commande deporte reboot ' . $this->getHumanName());
+						break;
+						case "poweroff":
+						$paramaction =
 //								$poweroffcmd = "sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null";
-      					$poweroffcmd = "sudo poweroff >/dev/null & poweroff  >/dev/null";
-      					$poweroffoutput = ssh2_exec($connection, $poweroffcmd);
-      					stream_set_blocking($poweroffoutput, false);
-      					$poweroff = stream_get_contents($poweroffoutput);
-      					log::add('Monitoring','debug','lancement commande deporte poweroff' . $this->getHumanName());
-      					break;
-      				}
-      			}
+						$poweroffcmd = "sudo poweroff >/dev/null & poweroff  >/dev/null";
+						$poweroffoutput = ssh2_exec($connection, $poweroffcmd);
+						stream_set_blocking($poweroffoutput, false);
+						$poweroff = stream_get_contents($poweroffoutput);
+						log::add('Monitoring','debug','lancement commande deporte poweroff' . $this->getHumanName());
+						break;
+					}
+				}
       		}
       	}elseif($this->getConfiguration('maitreesclave') == 'local' && $this->getIsEnable()){
       		if($this->getConfiguration('synology') == '1'){
