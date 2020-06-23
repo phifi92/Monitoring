@@ -4,10 +4,10 @@
 		<span id="iconSSH#id#" style="float: right;width:25px"></span>
 		<script>
 			if ('#cnx_ssh#' == 'OK') {
-				$('#iconSSH#id#').append('<i title="Connexion SSH OK" class="fa fa-check tooltips" style="font-size : 1.1em;color: #00FF00;" ></i>');
+				$('#iconSSH#id#').append('<i title="Connexion SSH OK" class="fas fa-check tooltips" style="font-size : 1.1em;color: #00FF00;" ></i>');
 			}
 			if ('#cnx_ssh#' == 'KO') {
-				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fa fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
+				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fas fa-times tooltips" style="font-size : 1.1em;color: #FF0000;"></i>');
 			}
 		</script>
 </center>
@@ -87,7 +87,7 @@
     </script>
 
 	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_swap_display#;">
-			<span title="Mémoire Swap" class="fa fa-list-alt" style="width:15px"></span>
+			<span title="Mémoire Swap" class="fas fa-list" style="width:15px"></span>
 			<span id="Mem_swap#id#"></span>
 	</div>
 	<script>
@@ -129,7 +129,7 @@
 	<script>
     if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#synovolume2_display#' == 'OK'){
-				$('#synovol2#id#').append('<div id="synovol2#id#" class="tooltips" data-cmd_id="#hddpourcusedv2id#" style="margin-left:5px;display: #hddusedv2_display#;"><span title="Espace disque Volume 2 (Synology)" class="fa fa-hdd-o" style="width:15px"></span> <span id="hddpourcusedv2#id#"></span></div>');
+				$('#synovol2#id#').append('<div id="synovol2#id#" class="tooltips" data-cmd_id="#hddpourcusedv2id#" style="margin-left:5px;display: #hddusedv2_display#;"><span title="Espace disque Volume 2 (Synology)" class="fas fa-hdd" style="width:15px"></span> <span id="hddpourcusedv2#id#"></span></div>');
 			}
 			if ('#hddpourcusedv2#' == '') {
 				$('#hddpourcusedv2#id#').append('<span></span>');
