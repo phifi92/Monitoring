@@ -1004,6 +1004,10 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           			$cputemp0RPi2cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell Whyse
           			$cputemp0 = exec($cputemp0RPi2cmd);
           		}
+				if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+					$cputemp0AOpencmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+					$cputemp0 = exec($cputemp0AOpencmd);
+				}
           	}
 
           }
