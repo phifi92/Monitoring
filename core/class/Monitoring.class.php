@@ -658,7 +658,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdddata = ssh2_exec($connection, $hddcmd);
-						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
+						/* $hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata); */
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
