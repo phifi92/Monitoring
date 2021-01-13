@@ -760,6 +760,18 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
               				$cputemp0 = stream_get_contents($cputemp0output);
               			}
               			if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+              				$cputemp0cmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+              				$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
+              				stream_set_blocking($cputemp0output, true);
+              				$cputemp0 = stream_get_contents($cputemp0output);
+              			}
+              			if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+              				$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
+              				$cputemp0output = ssh2_exec($connection, $cputemp0AMDcmd);
+              				stream_set_blocking($cputemp0output, true);
+              				$cputemp0 = stream_get_contents($cputemp0output);
+              			}
+              			if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
               				$cputemp0sensorscmd = "sensors | awk '{if (match($0, \"MB Temperature\")){printf(\"%f\",$3);} }'"; // OK by sensors
               				$cputemp0output = ssh2_exec($connection, $cputemp0sensorscmd);
               				stream_set_blocking($cputemp0output, true);
@@ -1017,8 +1029,15 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           			$cputemp0RPi2cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell Whyse
           			$cputemp0 = exec($cputemp0RPi2cmd);
           		}
-          	}
-
+				if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+					$cputemp0AOpencmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+					$cputemp0 = exec($cputemp0AOpencmd);
+				}
+				if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+              			$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
+          			$cputemp0 = exec($cputemp0AMDcmd);
+				}
+			}
           }
           if (isset($cnx_ssh)) {
           	if($this->getConfiguration('maitreesclave') == 'local' || $cnx_ssh == 'OK'){
