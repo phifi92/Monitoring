@@ -6,17 +6,17 @@ if (!isConnect()) {
 sendVarToJs('jeedomBackgroundImg', 'plugins/Monitoring/core/img/panel.jpg');
 
 if (init('object_id') == '') {
-	$object = JeeObject::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
+	$object = jeeObject::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
 } else {
-	$object = JeeObject::byId(init('object_id'));
+	$object = jeeObject::byId(init('object_id'));
 }
 if (!is_object($object)) {
-	$object = JeeObject::rootObject();
+	$object = jeeObject::rootObject();
 }
 if (!is_object($object)) {
 	throw new Exception('{{Aucun objet racine trouvé. Pour en créer un, allez dans Générale -> Objet.<br/> Si vous ne savez pas quoi faire ou que c\'est la premiere fois que vous utilisez Jeedom n\'hésitez pas a consulter cette <a href="http://jeedom.fr/premier_pas.php" target="_blank">page</a>}}');
 }
-$child_object = JeeObject::buildTree($object);
+$child_object = jeeObject::buildTree($object);
 $parentNumber = array();
 ?>
 
@@ -32,7 +32,7 @@ if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report'
 		<ul id="ul_object" class="nav nav-list bs-sidenav">
 			<li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
 			<?php
-				$allObject = JeeObject::buildTree(null, true);
+				$allObject = jeeObject::buildTree(null, true);
 				foreach ($allObject as $object_li) {
 					$margin = 5 * $object_li->getConfiguration('parentNumber');
 					if ($object_li->getId() == $object->getId()) {
