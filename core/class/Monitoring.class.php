@@ -514,7 +514,6 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 		$uname = "Inconnu";
 		$Mem = '';
 		$mempourcusage = '';
-		$ethernet0 = '';
 
 		if ($this->getConfiguration('cartereseau') == 'netautre'){
 			$cartereseau = $this->getConfiguration('cartereseauautre');
@@ -633,27 +632,15 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 						$cpufreq0 = trim($cpufreq0);
 
 						$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
-						$hdddata = ssh2_exec($connection, $hddcmd);						
+						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
+						$hdddata = ssh2_exec($connection, $hddcmd);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
-
-						$closesession = ssh2_exec($connection, 'exit'); 
-						stream_set_blocking($closesession, true);
-						stream_get_contents($closesession);
-						//close ssh ($connection);
-						
-						$connection = ssh2_connect($ip,$port);
-						ssh2_auth_password($connection,$user,$pass);
 
 						$versionsynocmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $1,$2,$4,$5}'";
 						$versionsynooutput = ssh2_exec($connection, $versionsynocmd);
 						stream_set_blocking($versionsynooutput, true);
 						$versionsyno = stream_get_contents($versionsynooutput);
-					
-						$cputemp0cmd = "cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon0/device/temp2_input";
-						$cputemp0output = ssh2_exec($connection, $cputemp0cmd); 
-						stream_set_blocking($cputemp0output, true);
-						$cputemp0 = stream_get_contents($cputemp0output);
 					}
 					if($this->getConfiguration('synology') == '1' && $SynoV2Visible == 'OK' && $this->getConfiguration('synologyv2') == '1'){
 						$hddv2cmd = "df -h | grep 'vg1001\|volume2' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1"; // DSM 5.x & 6.x
@@ -671,6 +658,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdddata = ssh2_exec($connection, $hddcmd);
+						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
@@ -925,7 +913,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           		$freecmd = "cat /proc/meminfo | cut -d':' -f2 | awk '{ print $1}' | tr '\n' ' ' | awk '{ print $1,$2,$3,$4}'";
           		$swapcmd = "free | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
 //				$hddcmd = "df -h | grep 'volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d'%' -f1";
-          		$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
+          		$hddcmd = "df -h | grep 'vg1000' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
           	}else{
           		$ARMvcmd = "lscpu | grep Architecture | awk '{ print $2 }'";
           		$namedistricmd = "cat /etc/*-release | grep PRETTY_NAME=";
@@ -998,7 +986,6 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 			}elseif ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
 				$NF = '';
 				$uname = '.';
-				$cputemp0 = '';
 				$nbcpuVMcmd = "lscpu | grep 'Processeur(s)' | awk '{ print $NF }'"; // OK pour Debian
 				$cpufreqVMcmd = "lscpu | grep 'Vitesse du processeur en MHz' | awk '{print $NF}'"; // OK pour Debian/Ubuntu
 				$nbcpu = exec($nbcpuVMcmd);
@@ -1013,7 +1000,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 					$cpufreq = exec($cpufreqVMbiscmd);
 				}
 				$cpufreq = preg_replace("/[^0-9.]/","",$cpufreq);
-				if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1 and file_exists('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
+				if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
           			$cputemp0RPi2cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell Whyse
           			$cputemp0 = exec($cputemp0RPi2cmd);
           		}
@@ -1192,14 +1179,11 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           			}
           		}
 
-				$hddtotal = '';
-				$hddused = '';
-				$hddpourcused = '';
           		if (isset($hdd)) {
           			$hdddata = explode(' ', $hdd);
           			if(isset($hdddata[0]) && isset($hdddata[1]) && isset($hdddata[2])){
-          				$hddtotal = str_replace(array("K","M","G","T"),array(" Ko"," Mo"," Go"," To"), $hdddata[0]);
-          				$hddused = str_replace(array("K","M","G","T"),array(" Ko"," Mo"," Go"," To"), $hdddata[1]);
+          				$hddtotal = str_replace(array("K","M","G"),array(" Ko"," Mo"," Go"), $hdddata[0]);
+          				$hddused = str_replace(array("K","M","G"),array(" Ko"," Mo"," Go"), $hdddata[1]);
           				$hddpourcused = preg_replace("/[^0-9.]/","",$hdddata[2]);
           				$hddpourcused = trim($hddpourcused);
           				if ($hddpourcused < '10'){
@@ -1266,10 +1250,6 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
           			}else{
           				$cpufreq0 = $cpufreq0 . " MHz";
           			}
-					if ($cputemp0 != 0 & $cputemp0 > 200){
-						$cputemp0 = $cputemp0 / 1000;
-						$cputemp0 = round($cputemp0, 1);
-					}							
           			$cpu = $nbcpu.' - '.$cpufreq0;
           		}
           		if (empty($cputemp0)) {$cputemp0 = '';}
