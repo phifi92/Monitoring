@@ -39,17 +39,17 @@
         "Mes Monitorings": "Mis Monitoring",
         "Local ou déporté ?": "¿Local o remoto?",
         "Volume 2": "Volumen 2",
-        "Ajouter Monitoring": "Ajouter Monitoring",
-        "Gestion": "Gestion",
-        "Ajouter": "Ajouter",
-        "Configuration": "Configuration",
-        "Configuration avancée": "Configuration avancée",
-        "Equipement": "Equipement",
-        "Commandes": "Commandes",
-        "Type": "Type",
-        "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...": "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...",
-        "à cocher seulement si vous désirez Monitorer un NAS Synology": "à cocher seulement si vous désirez Monitorer un NAS Synology",
-        "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut": "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut"
+        "Ajouter Monitoring": "Añadir Monitorización",
+        "Gestion": "Gestión",
+        "Ajouter": "Añadir",
+        "Configuration": "Configuración",
+        "Configuration avancée": "Configuración avanzada",
+        "Equipement": "Dispositivo",
+        "Commandes": "Ordenes",
+        "Type": "Tipo",
+        "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...": "eth1 : 2º puerto Ethernet, wlan1 : 2º puerto Wi-Fi....",
+        "à cocher seulement si vous désirez Monitorer un NAS Synology": "marque sólo si desea monitorizar un dispositivo NAS de Synology",
+        "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut": "compruebe sólo si tiene un segundo volumen (Volumen 2) en Synology. El volumen 1 se tiene en cuenta por defecto"
     },
     "plugins\/Monitoring\/core\/class\/Monitoring.class.php": {
         "Distribution": "Distribución",
@@ -60,7 +60,7 @@
         "Mémoire (Méga)": "Memoria (Mb)",
         "Mémoire libre (pourcentage)": "Memoria libre (%)",
         "Swap": "Swap",
-        "Réseau (MiB)": "Red (MiB)",
+        "Réseau (M)": "Red (M)",
         "Espace disque Total": "Espacio total disco",
         "Espace disque Utilisé": "Espacio Utilizado disco",
         "Espace disque Utilisé (pourcentage)": "Espacio utilizado disco (%)",
@@ -74,7 +74,7 @@
         "Syno Volume 2 Espace disque Utilisé (pourcentage)": "Syno Volume 2 Espacio disco utilizado (%)",
         "reboot": "reiniciar",
         "poweroff": "apagar",
-        "Swap libre (pourcentage)": "Swap libre (pourcentage)"
+        "Swap libre (pourcentage)": "Swap libre (porcentaje)"
     },
     "plugins\/Monitoring\/desktop\/js\/Monitoring.js": {
         "Afficher": "Mostrar",

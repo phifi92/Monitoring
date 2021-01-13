@@ -1,9 +1,9 @@
 {
     "plugins\/Monitoring\/desktop\/php\/Monitoring.php": {
-        "Ajouter un équipement": "Add equipment",
+        "Ajouter un équipement": "Add device",
         "Rechercher": "Search",
         "Général": "General",
-        "Nom de l'équipement Monitoring": "Name of the Monitoring equipment",
+        "Nom de l'équipement Monitoring": "Monitoring device name",
         "Objet parent": "Parent object",
         "Aucun": "None",
         "Catégorie": "Category",
@@ -39,17 +39,17 @@
         "Mes Monitorings": "My Monitorings",
         "Local ou déporté ?": "Local or remote ?",
         "Volume 2": "Volume 2",
-        "Ajouter Monitoring": "Ajouter Monitoring",
-        "Gestion": "Gestion",
-        "Ajouter": "Ajouter",
-        "Configuration": "Configuration",
-        "Configuration avancée": "Configuration avancée",
-        "Equipement": "Equipement",
-        "Commandes": "Commandes",
+        "Ajouter Monitoring": "Add a Monitoring",
+        "Gestion": "Management",
+        "Ajouter": "Add",
+        "Configuration": "Setup",
+        "Configuration avancée": "Advanced configuration",
+        "Equipement": "Device",
+        "Commandes": "Commands",
         "Type": "Type",
-        "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...": "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...",
-        "à cocher seulement si vous désirez Monitorer un NAS Synology": "à cocher seulement si vous désirez Monitorer un NAS Synology",
-        "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut": "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut"
+        "eth1 : 2éme port Ethernet, wlan1 : 2éme port Wi-Fi...": "eth1: 2nd Ethernet port, wlan1: 2nd Wi-Fi port ...",
+        "à cocher seulement si vous désirez Monitorer un NAS Synology": "check only if you want to monitor a Synology NAS",
+        "à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut": "check only if you have a 2nd volume (Volume 2) in Synology. Volume 1 is taken into account by default"
     },
     "plugins\/Monitoring\/core\/class\/Monitoring.class.php": {
         "Distribution": "Distribution",
@@ -60,7 +60,7 @@
         "Mémoire (Méga)": "Memory (Méga)",
         "Mémoire libre (pourcentage)": "Free memory (percentage)",
         "Swap": "Swap",
-        "Réseau (MiB)": "Network (MiB)",
+        "Réseau (M)": "Network (M)",
         "Espace disque Total": "Total disk space",
         "Espace disque Utilisé": "Disk space used",
         "Espace disque Utilisé (pourcentage)": "Disk space used (percentage)",
@@ -74,11 +74,11 @@
         "Syno Volume 2 Espace disque Utilisé (pourcentage)": "Syno Volume 2 total space used (percentage)",
         "reboot": "reboot",
         "poweroff": "poweroff",
-        "Swap libre (pourcentage)": "Swap libre (pourcentage)"
+        "Swap libre (pourcentage)": "Free swap (percentage)"
     },
     "plugins\/Monitoring\/desktop\/js\/Monitoring.js": {
         "Afficher": "Show",
-        "Historiser": "Logging",
+        "Historiser": "Historize",
         "Tester": "Test"
     },
     "plugins\/Monitoring\/plugin_info\/info.xml": {
