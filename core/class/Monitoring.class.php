@@ -164,7 +164,7 @@ class Monitoring extends eqLogic {
 		$MonitoringCmd->setSubType('numeric');
 		$MonitoringCmd->save();
 
-		$MonitoringCmd = $this->getCmd(null, 'ethernet0'); 
+		$MonitoringCmd = $this->getCmd(null, 'ethernet0');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 		}
