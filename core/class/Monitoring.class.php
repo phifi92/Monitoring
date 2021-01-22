@@ -337,15 +337,13 @@ class Monitoring extends eqLogic {
 		$MonitoringCmd->setSubType('other');
 		$MonitoringCmd->save();
 
-		foreach (eqLogic::byType('Monitoring') as $Monitoring) {
-			$Monitoring->getInformations();
-		}
+		$this->getInformations();
 	}
 
 
-public static $_widgetPossibility = array('custom' => true, 'custom::layout' => false);
+	public static $_widgetPossibility = array('custom' => true, 'custom::layout' => false);
 
-	public function toHtml($_version = 'dashboard')	{
+	public function toHtml($_version = 'dashboard') {
 		$replace = $this->preToHtml($_version);
 		if (!is_array($replace)) {
 			return $replace;
