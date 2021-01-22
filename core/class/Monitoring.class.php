@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class Monitoring extends eqLogic {
 
 	public static function pull() {
-		foreach (eqLogic::byType('Monitoring') as $Monitoring) {
+		foreach (eqLogic::byType('Monitoring', true) as $Monitoring) {
 			$Monitoring->getInformations();
 			$mc = cache::byKey('MonitoringWidgetmobile' . $Monitoring->getId());
 			$mc->remove();
@@ -633,15 +633,15 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 						$cpufreq0 = trim($cpufreq0);
 
 						$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
-						$hdddata = ssh2_exec($connection, $hddcmd);						
+						$hdddata = ssh2_exec($connection, $hddcmd);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
-						$closesession = ssh2_exec($connection, 'exit'); 
+						$closesession = ssh2_exec($connection, 'exit');
 						stream_set_blocking($closesession, true);
 						stream_get_contents($closesession);
 						//close ssh ($connection);
-						
+
 						$connection = ssh2_connect($ip,$port);
 						ssh2_auth_password($connection,$user,$pass);
 
@@ -649,9 +649,9 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 						$versionsynooutput = ssh2_exec($connection, $versionsynocmd);
 						stream_set_blocking($versionsynooutput, true);
 						$versionsyno = stream_get_contents($versionsynooutput);
-					
+
 						$cputemp0cmd = "cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon0/device/temp2_input";
-						$cputemp0output = ssh2_exec($connection, $cputemp0cmd); 
+						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
 					}
@@ -1288,7 +1288,7 @@ public static $_widgetPossibility = array('custom' => true, 'custom::layout' => 
 					if ($cputemp0 != 0 & $cputemp0 > 200){
 						$cputemp0 = $cputemp0 / 1000;
 						$cputemp0 = round($cputemp0, 1);
-					}							
+					}
           			$cpu = $nbcpu.' - '.$cpufreq0;
           		}
           		if (empty($cputemp0)) {$cputemp0 = '';}
