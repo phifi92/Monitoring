@@ -23,9 +23,9 @@ $parentNumber = array();
 <div>
     <?php
 if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report') != 1) {
-	echo '<div id="div_displayObjectList">';
+	echo '<div class="col-lg-2 col-md-3 col-sm-4" id="div_displayObjectList">';
 } else {
-	echo '<div style="display:none;" id="div_displayObjectList">';
+	echo '<div class="col-lg-2 col-md-3 col-sm-4" style="display:none;" id="div_displayObjectList">';
 }
 ?>
 	<div class="bs-sidebar">
@@ -47,9 +47,9 @@ if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report'
 </div>
 <?php
 if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report') != 1) {
-	echo '<div id="div_displayObject">';
+	echo '<div class="col-lg-10 col-md-9 col-sm-8" id="div_displayObject">';
 } else {
-	echo '<div id="div_displayObject">';
+	echo '<div class="col-lg-12 col-md-12 col-sm-12" id="div_displayObject">';
 }
 ?>
 <i id='bt_displayObject' data-display='<?php echo $_SESSION['user']->getOptions('displayObjetByDefault') ?>' title="Afficher/Masquer les objets"></i>
