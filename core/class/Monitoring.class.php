@@ -645,7 +645,7 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($versionsynooutput, true);
 						$versionsyno = stream_get_contents($versionsynooutput);
 
-						$cputemp0cmd = "cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon0/device/temp2_input";
+						$cputemp0cmd = "cat $(find /sys/devices/platform/coretemp.0/* -name temp*_input | head -1)";
 						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
