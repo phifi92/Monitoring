@@ -383,6 +383,10 @@ class Monitoring extends eqLogic {
 		$replace ['#perso1orangede#'] = $this->getConfiguration('perso1orangede');
 		$replace ['#perso1orangea#'] = $this->getConfiguration('perso1orangea');
 		$replace ['#perso1rougesupa#'] = $this->getConfiguration('perso1rougesupa');
+		$replace ['#perso2vertinfa#'] = $this->getConfiguration('perso2vertinfa');
+		$replace ['#perso2orangede#'] = $this->getConfiguration('perso2orangede');
+		$replace ['#perso2orangea#'] = $this->getConfiguration('perso2orangea');
+		$replace ['#perso2rougesupa#'] = $this->getConfiguration('perso2rougesupa');
 
 		$namedistri = $this->getCmd(null,'namedistri');
 		$replace['#namedistri#'] = (is_object($namedistri)) ? $namedistri->execCmd() : '';
