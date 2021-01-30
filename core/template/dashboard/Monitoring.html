@@ -206,7 +206,19 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			$('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+            if ('#cpu_temp#' != '') {
+				if ('#perso1#' < '#perso1vertinfa#') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-success-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else if ('#perso1#' >= '#perso1orangede#' && '#perso1#' <= '#perso1orangea#') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-warning-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else if ('#perso1#' > '#perso1rougesupa#' && '#perso1rougesupa#' != '') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-danger-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else {
+                    $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+				}
+			}else {
+			    $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+			}		
 		}
     </script>
 
