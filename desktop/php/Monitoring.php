@@ -173,6 +173,22 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                         <span style="font-size: 75%;">({{à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut}})</span>
                                     </div>
                                 </div>
+                                <div class="syno_conf">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" >{{Chemin temp utilisateur}}</label>
+                                        <div class="col-md-8">
+                                            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration"  data-l2key="syno_use_temp_path" >
+                                            <span style="font-size: 75%;">({{si vous souhaitez spécifier directement le chemin pour récupérer la température}})</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group syno_conf_temppath">
+                                        <label class="col-md-2 control-label" >{{chemin temp}}</label>
+                                        <div class="col-md-8">
+                                            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="syno_temp_path" type="text" placeholder="{{/sys/devices/platform/coretemp.0/temp2_input}}">
+                                        </div>
+                                    </div>
+                                </div>
 					       </fieldset>
                         </form>
                     </div>
