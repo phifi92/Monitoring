@@ -166,6 +166,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                         <span style="font-size: 75%;">({{à cocher seulement si vous désirez Monitorer un NAS Synology}})</span>
                                     </div>
                                 </div>
+                                <div class="syno_conf">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >{{Volume 2}}</label>
                                     <div class="col-md-8">
@@ -173,7 +174,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                         <span style="font-size: 75%;">({{à cocher seulement si vous avez un 2ème volume (Volume 2) dans Synology. Le volume 1 est pris en compte par défaut}})</span>
                                     </div>
                                 </div>
-                                <div class="syno_conf">
+                                
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" >{{Chemin temp utilisateur}}</label>
                                         <div class="col-md-8">
