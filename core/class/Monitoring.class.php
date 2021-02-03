@@ -645,7 +645,13 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($versionsynooutput, true);
 						$versionsyno = stream_get_contents($versionsynooutput);
 
-						$cputemp0cmd = "cat $(find /sys/devices/platform/coretemp.0/* -name temp*_input | head -1)";
+						$synocmdTemp='$(find /sys/devices/* -name temp*_input | head -1)';
+						if($this->getconfiguration('syno_use_temp_path'))$synocmdTemp=$this->getconfiguration('syno_temp_path');
+						
+
+						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
+						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
+						
 						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
