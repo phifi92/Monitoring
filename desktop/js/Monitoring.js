@@ -41,6 +41,7 @@ function addCmdToTable(_cmd) {
 	if (_cmd.logicalId == 'perso1' || _cmd.logicalId == 'perso2') {
 		tr += '<span><input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '" style="width: 70%;display: inherit" ></input></span>';
 		tr += '<span> Unité : <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '_unite" style="width: 10%;display: inherit" ></input></span>';
+        tr += '<br/><span style="color: green" >vert inférieur à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'vertinfa" type="text" style="width: 60px;display: inherit" > - <span style="color: orange" >Orange entre <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangede" style="width: 60px;display: inherit" > et <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangea" style="width: 60px;display: inherit"></span> - <span style="color: red" >Rouge sup à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'rougesupa" style="width: 60px;display: inherit" ></span>';
 	}
 	tr += '</td>';
 	tr += '<td style="width: 150px;">';
