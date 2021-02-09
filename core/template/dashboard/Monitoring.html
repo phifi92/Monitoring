@@ -65,7 +65,7 @@
 			}else if ('#loadavg1mn#' < '#loadavg1mnvertinfa#') {
 				$('#loadavg1mn#id#').append('1 min : <span data-cmd_id="#loadavg1mnid#" class="history cursor" style="color: var(--al-success-color) !important;" >#loadavg1mn#</span>');
 			}else if ('#loadavg1mn#' >= '#loadavg1mnorangede#' && '#loadavg1mn#' <= '#loadavg1mnorangea#') {
-				$('#loadavg1mn#id#').append('1 min : <span data-cmd_id="#loadavg1mnid#" class="history cursor" style="color: #FF8000;" >#loadavg1mn#</span>');
+				$('#loadavg1mn#id#').append('1 min : <span data-cmd_id="#loadavg1mnid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#loadavg1mn#</span>');
 			}else if ('#loadavg1mn#' > '#loadavg1mnrougesupa#' && '#loadavg1mnrougesupa#' !== '') {
 				$('#loadavg1mn#id#').append('1 min : <span data-cmd_id="#loadavg1mnid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#loadavg1mn#</span>');
 			}else {
@@ -77,7 +77,7 @@
 			}else if ('#loadavg5mn#' < '#loadavg5mnvertinfa#') {
 				$('#loadavg5mn#id#').append(' - 5 min : <span data-cmd_id="#loadavg5mnid#" class="history cursor" style="color: var(--al-success-color) !important;" >#loadavg5mn#</span>');
 			}else if ('#loadavg5mn#' >= '#loadavg5mnorangede#' && '#loadavg5mn#' <= '#loadavg5mnorangea#') {
-				$('#loadavg5mn#id#').append(' - 5 min : <span data-cmd_id="#loadavg5mnid#" class="history cursor" style="color: #FF8000;" >#loadavg5mn#</span>');
+				$('#loadavg5mn#id#').append(' - 5 min : <span data-cmd_id="#loadavg5mnid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#loadavg5mn#</span>');
 			}else if ('#loadavg5mn#' > '#loadavg5mnrougesupa#' && '#loadavg5mnrougesupa#' !== '') {
 				$('#loadavg5mn#id#').append(' - 5 min : <span data-cmd_id="#loadavg5mnid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#loadavg5mn#</span>');
 			}else {
@@ -88,7 +88,7 @@
 			}else if ('#loadavg15mn#' < '#loadavg15mnvertinfa#') {
 				$('#loadavg15mn#id#').append(' - 15 min : <span data-cmd_id="#loadavg15mnid#" class="history cursor" style="color: var(--al-success-color) !important;" >#loadavg15mn#</span>');
 			}else if ('#loadavg15mn#' >= '#loadavg15mnorangede#' && '#loadavg15mn#' <= '#loadavg15mnorangea#') {
-				$('#loadavg15mn#id#').append(' - 15 min : <span data-cmd_id="#loadavg15mnid#" class="history cursor" style="color: #FF8000;" >#loadavg15mn#</span>');
+				$('#loadavg15mn#id#').append(' - 15 min : <span data-cmd_id="#loadavg15mnid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#loadavg15mn#</span>');
 			}else if ('#loadavg15mn#' > '#loadavg15mnrougesupa#' && '#loadavg15mnrougesupa#' !== '') {
 				$('#loadavg15mn#id#').append(' - 15 min : <span data-cmd_id="#loadavg15mnid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#loadavg15mn#</span>');
 			}else {
@@ -107,7 +107,7 @@
 			}else if ('#Mempourc#' > '#Mempourcvertsupa#' && '#Mempourcvertsupa#' != '') {
 				$('#Mempourcent#id#').append('#Mem# (<span data-cmd_id="#Mempourcid#" class="history cursor" style="color: var(--al-success-color) !important;" >#Mempourc#%</span>)');
 			}else if ('#Mempourc#' >= '#Mempourcorangede#' && '#Mempourc#' <= '#Mempourcorangea#') {
-				$('#Mempourcent#id#').append('#Mem# (<span data-cmd_id="#Mempourcid#" class="history cursor" style="color: #FF8000;" >#Mempourc#%</span>)');
+				$('#Mempourcent#id#').append('#Mem# (<span data-cmd_id="#Mempourcid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#Mempourc#%</span>)');
 			}else if ('#Mempourc#' < '#Mempourcrougeinfa#') {
 				$('#Mempourcent#id#').append('#Mem# (<span data-cmd_id="#Mempourcid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#Mempourc#%</span>)');
 			}else {
@@ -147,7 +147,7 @@
 			}else if ((parseInt('#hddpourcused#')) < (parseInt('#hddpourcusedvertinfa#'))) {
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcused#%</span>)');
 			}else if ((parseInt('#hddpourcused#')) >= (parseInt('#hddpourcusedorangede#')) && (parseInt('#hddpourcused#')) <= (parseInt('#hddpourcusedorangea#'))) {
-				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: #FF8000;">#hddpourcused#%</span>)');
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcused#%</span>)');
 			}else if ((parseInt('#hddpourcused#')) > (parseInt('#hddpourcusedrougesupa#')) && (parseInt('#hddpourcusedrougesupa#')) != '') {
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcused#%</span>)');
 			}else {
@@ -166,7 +166,7 @@
 			}else if ((parseInt('#hddpourcusedv2#')) < (parseInt('#hddpourcusedv2vertinfa#'))) {
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcusedv2#%</span>)');
 			}else if ((parseInt('#hddpourcusedv2#')) >= (parseInt('#hddpourcusedv2orangede#')) && (parseInt('#hddpourcusedv2#')) <= (parseInt('#hddpourcusedv2orangea#'))) {
-				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: #FF8000;">#hddpourcusedv2#%</span>)');
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcusedv2#%</span>)');
 			}else if ((parseInt('#hddpourcusedv2#')) > (parseInt('#hddpourcusedv2rougesupa#')) && (parseInt('#hddpourcusedv2rougesupa#')) != '') {
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcusedv2#%</span>)');
 			}else {
@@ -186,7 +186,7 @@
 					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: var(--al-success-color) !important;" >#cpu_temp#°C</span>)');
 				}else if ('#cpu_temp#' >= '#cpu_temporangede#' && '#cpu_temp#' <= '#cpu_temporangea#') {
 					$('#cpu#id#').append('<span>#cpu# </span>');
-					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: #FF8000;" >#cpu_temp#°C</span>)');
+					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#cpu_temp#°C</span>)');
 				}else if ('#cpu_temp#' > '#cpu_temprougesupa#' && '#cpu_temprougesupa#' != '') {
 					$('#cpu#id#').append('<span>#cpu# </span>');
 					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#cpu_temp#°C</span>)');
@@ -206,7 +206,19 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			$('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+            if ('#cpu_temp#' != '') {
+				if ('#perso1#' < '#perso1vertinfa#') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-success-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else if ('#perso1#' >= '#perso1orangede#' && '#perso1#' <= '#perso1orangea#') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-warning-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else if ('#perso1#' > '#perso1rougesupa#' && '#perso1rougesupa#' != '') {
+					$('#uniteperso1#id#').append('<span data-cmd_id="#uniteperso1#id# class="history cursor" style="color: var(--al-danger-color) !important;" >#perso1#</span><span>#uniteperso1#</span>');
+				}else {
+                    $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+				}
+			}else {
+			    $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+			}		
 		}
     </script>
 
@@ -216,7 +228,19 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			$('#uniteperso2#id#').append('<span data-cmd_id="#perso2id#" class="history cursor">#perso2##uniteperso2#</span>');
+            if ('#cpu_temp#' != '') {
+				if ('#perso2#' < '#perso2vertinfa#') {
+					$('#uniteperso2#id#').append('<span data-cmd_id="#uniteperso2#id# class="history cursor" style="color: var(--al-success-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
+				}else if ('#perso2#' >= '#perso2orangede#' && '#perso2#' <= '#perso2orangea#') {
+					$('#uniteperso2#id#').append('<span data-cmd_id="#uniteperso2#id# class="history cursor" style="color: var(--al-warning-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
+				}else if ('#perso2#' > '#perso2rougesupa#' && '#perso2rougesupa#' != '') {
+					$('#uniteperso2#id#').append('<span data-cmd_id="#uniteperso2#id# class="history cursor" style="color: var(--al-danger-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
+				}else {
+                    $('#uniteperso2#id#').append('<span data-cmd_id="#perso2id#" class="history cursor">#perso2##uniteperso2#</span>');
+				}
+			}else {
+			    $('#uniteperso2#id#').append('<span data-cmd_id="#perso2id#" class="history cursor">#perso2##uniteperso2#</span>');
+			}		
 		}
     </script>
 

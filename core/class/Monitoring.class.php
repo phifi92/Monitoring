@@ -1,20 +1,20 @@
 <?php
 
 /* This file is part of Jeedom.
-*
-* Jeedom is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Jeedom is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; witfhout even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*f
-* You should have received a copy of the GNU General Public License
-* along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
-*/
+ *
+ * Jeedom is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Jeedom is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; witfhout even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *f
+ * You should have received a copy of the GNU General Public License
+ * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class Monitoring extends eqLogic {
 
 	public static function pull() {
-		foreach (eqLogic::byType('Monitoring') as $Monitoring) {
+		foreach (eqLogic::byType('Monitoring', true) as $Monitoring) {
 			$Monitoring->getInformations();
 			$mc = cache::byKey('MonitoringWidgetmobile' . $Monitoring->getId());
 			$mc->remove();
@@ -65,186 +65,183 @@ class Monitoring extends eqLogic {
 		$MonitoringCmd = $this->getCmd(null, 'namedistri');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
-
+			$MonitoringCmd->setName(__('Distribution', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('namedistri');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->setIsVisible(1);
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Distribution', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('namedistri');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->setIsVisible(1);
-		$MonitoringCmd->save();
-
 
 		$MonitoringCmd = $this->getCmd(null, 'uptime');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Démarré depuis', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('uptime');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Démarré depuis',  __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('uptime');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'loadavg1mn');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 1 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg1mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Charge système 1 min', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('loadavg1mn');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'loadavg5mn');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 5 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg5mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Charge système 5 min', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('loadavg5mn');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'loadavg15mn');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 15 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg15mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Charge système 15 min', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('loadavg15mn');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'Mem');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Mémoire (Méga)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mem');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Mémoire (Méga)', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('Mem');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'Mempourc');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Mémoire libre (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mempourc');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Mémoire libre (pourcentage)', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('Mempourc');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'Mem_swap');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Swap', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mem_swap');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Swap', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('Mem_swap');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'Swappourc');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
 			$MonitoringCmd->setName(__('Swap libre (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Swappourc');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('Swappourc');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'ethernet0');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Réseau (M)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('ethernet0');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Réseau (M)', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('ethernet0');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'hddtotal');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Total', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddtotal');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Espace disque Total', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('hddtotal');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'hddused');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Utilisé', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddused');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Espace disque Utilisé', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('hddused');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
-
 
 		$MonitoringCmd = $this->getCmd(null, 'hddpourcused');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Utilisé (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddpourcused');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Espace disque Utilisé (pourcentage)', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('hddpourcused');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
-		if($this->getConfiguration('synology') == '1'){
-			if($this->getConfiguration('synologyv2') == '1'){
+		if ($this->getConfiguration('synology') == '1') {
+			if ($this->getConfiguration('synologyv2') == '1') {
 				$MonitoringCmd = $this->getCmd(null, 'hddtotalv2');
 				if (!is_object($MonitoringCmd)) {
 					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Total', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddtotalv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('string');
+					$MonitoringCmd->save();
 				}
-				$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Total', __FILE__));
-				$MonitoringCmd->setEqLogic_id($this->getId());
-				$MonitoringCmd->setLogicalId('hddtotalv2');
-				$MonitoringCmd->setType('info');
-				$MonitoringCmd->setSubType('string');
-				$MonitoringCmd->save();
 
 				$MonitoringCmd = $this->getCmd(null, 'hddusedv2');
 				if (!is_object($MonitoringCmd)) {
 					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddusedv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('string');
+					$MonitoringCmd->save();
 				}
-				$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé', __FILE__));
-				$MonitoringCmd->setEqLogic_id($this->getId());
-				$MonitoringCmd->setLogicalId('hddusedv2');
-				$MonitoringCmd->setType('info');
-				$MonitoringCmd->setSubType('string');
-				$MonitoringCmd->save();
-
 
 				$MonitoringCmd = $this->getCmd(null, 'hddpourcusedv2');
 				if (!is_object($MonitoringCmd)) {
 					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé (pourcentage)', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddpourcusedv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('numeric');
+					$MonitoringCmd->save();
 				}
-				$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé (pourcentage)', __FILE__));
-				$MonitoringCmd->setEqLogic_id($this->getId());
-				$MonitoringCmd->setLogicalId('hddpourcusedv2');
-				$MonitoringCmd->setType('info');
-				$MonitoringCmd->setSubType('numeric');
-				$MonitoringCmd->save();
-			}elseif ($this->getConfiguration('synologyv2') == '0') {
+
+			} elseif ($this->getConfiguration('synologyv2') == '0') {
 				$MonitoringCmd = $this->getCmd(null, 'hddtotalv2');
 				if ( is_object($MonitoringCmd)) {
 					$MonitoringCmd->remove();
@@ -263,89 +260,87 @@ class Monitoring extends eqLogic {
 		$MonitoringCmd = $this->getCmd(null, 'cpu');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('CPU(s)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cpu');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('CPU(s)', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('cpu');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'cpu_temp');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Température CPU', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cpu_temp');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Température CPU', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('cpu_temp');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('numeric');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'cnx_ssh');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Statut cnx SSH Scénario', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cnx_ssh');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('Statut cnx SSH Scénario', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('cnx_ssh');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
+
 
 		$MonitoringCmd = $this->getCmd(null, 'perso2');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('perso2', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('perso2');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('perso2', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('perso2');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'perso1');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('perso1', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('perso1');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('perso1', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('perso1');
-		$MonitoringCmd->setType('info');
-		$MonitoringCmd->setSubType('string');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'reboot');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('reboot', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('reboot');
+			$MonitoringCmd->setType('action');
+			$MonitoringCmd->setSubType('other');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('reboot', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('reboot');
-		$MonitoringCmd->setType('action');
-		$MonitoringCmd->setSubType('other');
-		$MonitoringCmd->save();
 
 		$MonitoringCmd = $this->getCmd(null, 'poweroff');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('poweroff', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('poweroff');
+			$MonitoringCmd->setType('action');
+			$MonitoringCmd->setSubType('other');
+			$MonitoringCmd->save();
 		}
-		$MonitoringCmd->setName(__('poweroff', __FILE__));
-		$MonitoringCmd->setEqLogic_id($this->getId());
-		$MonitoringCmd->setLogicalId('poweroff');
-		$MonitoringCmd->setType('action');
-		$MonitoringCmd->setSubType('other');
-		$MonitoringCmd->save();
 
-		foreach (eqLogic::byType('Monitoring') as $Monitoring) {
-			$Monitoring->getInformations();
-		}
+		$this->getInformations();
 	}
-
 
 	public static $_widgetPossibility = array('custom' => true, 'custom::layout' => false);
 
-	public function toHtml($_version = 'dashboard')	{
+	public function toHtml($_version = 'dashboard') {
 		$replace = $this->preToHtml($_version);
 		if (!is_array($replace)) {
 			return $replace;
@@ -368,10 +363,10 @@ class Monitoring extends eqLogic {
 		$replace ['#Mempourcorangede#'] = $this->getConfiguration('Mempourcorangede');
 		$replace ['#Mempourcorangea#'] = $this->getConfiguration('Mempourcorangea');
 		$replace ['#Mempourcrougeinfa#'] = $this->getConfiguration('Mempourcrougeinfa');
-		//		$replace ['#Swappourcvertsupa#'] = $this->getConfiguration('Swappourcvertsupa');
-		//		$replace ['#Swappourcorangede#'] = $this->getConfiguration('Swappourcorangede');
-		//		$replace ['#Swappourcorangea#'] = $this->getConfiguration('Swappourcorangea');
-		//		$replace ['#Swappourcrougeinfa#'] = $this->getConfiguration('Swappourcrougeinfa');
+//		$replace ['#Swappourcvertsupa#'] = $this->getConfiguration('Swappourcvertsupa');
+//		$replace ['#Swappourcorangede#'] = $this->getConfiguration('Swappourcorangede');
+//		$replace ['#Swappourcorangea#'] = $this->getConfiguration('Swappourcorangea');
+//		$replace ['#Swappourcrougeinfa#'] = $this->getConfiguration('Swappourcrougeinfa');
 		$replace ['#cpu_tempvertinfa#'] = $this->getConfiguration('cpu_tempvertinfa');
 		$replace ['#cpu_temporangede#'] = $this->getConfiguration('cpu_temporangede');
 		$replace ['#cpu_temporangea#'] = $this->getConfiguration('cpu_temporangea');
@@ -384,6 +379,14 @@ class Monitoring extends eqLogic {
 		$replace ['#hddpourcusedv2orangede#'] = $this->getConfiguration('hddpourcusedv2orangede');
 		$replace ['#hddpourcusedv2orangea#'] = $this->getConfiguration('hddpourcusedv2orangea');
 		$replace ['#hddpourcusedv2rougesupa#'] = $this->getConfiguration('hddpourcusedv2rougesupa');
+		$replace ['#perso1vertinfa#'] = $this->getConfiguration('perso1vertinfa');
+		$replace ['#perso1orangede#'] = $this->getConfiguration('perso1orangede');
+		$replace ['#perso1orangea#'] = $this->getConfiguration('perso1orangea');
+		$replace ['#perso1rougesupa#'] = $this->getConfiguration('perso1rougesupa');
+		$replace ['#perso2vertinfa#'] = $this->getConfiguration('perso2vertinfa');
+		$replace ['#perso2orangede#'] = $this->getConfiguration('perso2orangede');
+		$replace ['#perso2orangea#'] = $this->getConfiguration('perso2orangea');
+		$replace ['#perso2rougesupa#'] = $this->getConfiguration('perso2rougesupa');
 
 		$namedistri = $this->getCmd(null,'namedistri');
 		$replace['#namedistri#'] = (is_object($namedistri)) ? $namedistri->execCmd() : '';
@@ -650,7 +653,13 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($versionsynooutput, true);
 						$versionsyno = stream_get_contents($versionsynooutput);
 
-						$cputemp0cmd = "cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon0/device/temp2_input";
+						$synocmdTemp='$(find /sys/devices/* -name temp*_input | head -1)';
+						if($this->getconfiguration('syno_use_temp_path'))$synocmdTemp=$this->getconfiguration('syno_temp_path');
+
+
+						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
+						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
+
 						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
@@ -671,7 +680,6 @@ class Monitoring extends eqLogic {
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdddata = ssh2_exec($connection, $hddcmd);
-						$hdddata = str_replace(array("K ","M ","G "),array("Ko ","Mo ","Go "), $hdddata);
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
@@ -680,7 +688,8 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($cpufreq0output, true);
 						$cpufreq0 = stream_get_contents($cpufreq0output);
 
-						if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 							$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 							stream_set_blocking($cputemp0output, true);
@@ -706,18 +715,19 @@ class Monitoring extends eqLogic {
 						stream_set_blocking($hdddata, true);
 						$hdd = stream_get_contents($hdddata);
 
-						if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
 							$cputemp0output = ssh2_exec($connection, $cputemp0RPi2cmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
-						}
 
-						if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
-							$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
-							$cputemp0output = ssh2_exec($connection, $cputemp0armv7lcmd);
-							stream_set_blocking($cputemp0output, true);
-							$cputemp0 = stream_get_contents($cputemp0output);
+							if ($cputemp0 == '') {
+								$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
+								$cputemp0output = ssh2_exec($connection, $cputemp0armv7lcmd);
+								stream_set_blocking($cputemp0output, true);
+								$cputemp0 = stream_get_contents($cputemp0output);
+							}
 						}
 
 					}elseif ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
@@ -754,17 +764,30 @@ class Monitoring extends eqLogic {
 						}
 						$cpufreq=preg_replace("/[^0-9.]/","",$cpufreq);
 
-						if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell WYSE
 							$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 							stream_set_blocking($cputemp0output, true);
 							$cputemp0 = stream_get_contents($cputemp0output);
-						}
-						if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
-							$cputemp0sensorscmd = "sensors | awk '{if (match($0, \"MB Temperature\")){printf(\"%f\",$3);} }'"; // OK by sensors
-							$cputemp0output = ssh2_exec($connection, $cputemp0sensorscmd);
-							stream_set_blocking($cputemp0output, true);
-							$cputemp0 = stream_get_contents($cputemp0output);
+							if ($cputemp0 == '') {
+								$cputemp0cmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+								$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
+								stream_set_blocking($cputemp0output, true);
+								$cputemp0 = stream_get_contents($cputemp0output);
+							}
+							if ($cputemp0 == '') {
+								$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
+								$cputemp0output = ssh2_exec($connection, $cputemp0AMDcmd);
+								stream_set_blocking($cputemp0output, true);
+								$cputemp0 = stream_get_contents($cputemp0output);
+							}
+							if ($cputemp0 == '') {
+								$cputemp0sensorscmd = "sensors | awk '{if (match($0, \"MB Temperature\")){printf(\"%f\",$3);} }'"; // OK by sensors
+								$cputemp0output = ssh2_exec($connection, $cputemp0sensorscmd);
+								stream_set_blocking($cputemp0output, true);
+								$cputemp0 = stream_get_contents($cputemp0output);
+							}
 						}
 
 					}elseif ($ARMv == '' & $this->getConfiguration('synology') != '1'){
@@ -793,7 +816,8 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-							if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 								stream_set_blocking($cputemp0output, true);
@@ -820,7 +844,8 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-							if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 								stream_set_blocking($cputemp0output, true);
@@ -850,7 +875,8 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-							if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 								stream_set_blocking($cputemp0output, true);
@@ -908,7 +934,8 @@ class Monitoring extends eqLogic {
 							stream_set_blocking($cpufreq0output, true);
 							$cpufreq0 = stream_get_contents($cpufreq0output);
 
-							if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "sysctl -a | egrep -E 'cpu.0.temp' | awk '{ print $2}'";
 								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
 								stream_set_blocking($cputemp0output, true);
@@ -925,7 +952,7 @@ class Monitoring extends eqLogic {
 				$namedistricmd = "get_key_value /etc/synoinfo.conf upnpmodelname";
 				$freecmd = "cat /proc/meminfo | cut -d':' -f2 | awk '{ print $1}' | tr '\n' ' ' | awk '{ print $1,$2,$3,$4}'";
 				$swapcmd = "free | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
-				//				$hddcmd = "df -h | grep 'volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d'%' -f1";
+//				$hddcmd = "df -h | grep 'volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d'%' -f1";
 				$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
 			}else{
 				$ARMvcmd = "lscpu | grep Architecture | awk '{ print $2 }'";
@@ -978,7 +1005,8 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuARMcmd);
 				$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 				$cpufreq0 = exec($cpufreq0ARMcmd);
-				if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+				$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+				if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 					$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
 					$cputemp0 = exec($cputemp0armv6lcmd);
 				}
@@ -988,14 +1016,16 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuARMcmd);
 				$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 				$cpufreq0 = exec($cpufreq0ARMcmd);
-				if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+				$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+				if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 					$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";	// OK RPi2/3, Odroid
 					$cputemp0 = exec($cputemp0RPi2cmd);
+					if ($cputemp0 == '') {
+						$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
+						$cputemp0 = exec($cputemp0armv7lcmd);
+					}
 				}
-				if ($cputemp0 == '' && $this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
-					$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
-					$cputemp0 = exec($cputemp0armv7lcmd);
-				}
+
 			}elseif ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
 				$NF = '';
 				$uname = '.';
@@ -1014,12 +1044,22 @@ class Monitoring extends eqLogic {
 					$cpufreq = exec($cpufreqVMbiscmd);
 				}
 				$cpufreq = preg_replace("/[^0-9.]/","",$cpufreq);
-				if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1 and file_exists('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
-					$cputemp0RPi2cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell Whyse
-					$cputemp0 = exec($cputemp0RPi2cmd);
+				$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+				if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
+					if (file_exists('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
+						$cputemp0RPi2cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp"; // OK Dell Whyse
+						$cputemp0 = exec($cputemp0RPi2cmd);
+					}
+					if ($cputemp0 == '') {
+						$cputemp0AOpencmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+						$cputemp0 = exec($cputemp0AOpencmd);
+					}
+					if ($cputemp0 == '') {
+						$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
+						$cputemp0 = exec($cputemp0AMDcmd);
+					}
 				}
 			}
-
 		}
 		if (isset($cnx_ssh)) {
 			if($this->getConfiguration('maitreesclave') == 'local' || $cnx_ssh == 'OK'){
@@ -1086,36 +1126,36 @@ class Monitoring extends eqLogic {
 						$free = explode(' ', $free);
 						if($this->getConfiguration('synology') == '1'){
 							if (isset($free[1]) && isset($free[3])) {
-								$freelibre = $free[1] + $free[3];
+          						$freelibre = (float)$free[1] + (float)$free[3];
 							}
 						}
 						if($VersionID >= 9 && isset($free[3])){
 							$freelibre = $free[3];
 						}
 						elseif($VersionID < 9 && isset($free[2]) && isset($free[3])){
-							$freelibre = $free[2] + $free[3];
+          					$freelibre = (float)$free[2] + (float)$free[3];
 						}
 						if (isset($free[0]) && isset($freelibre)) {
-							$mempourcusage = round($freelibre / $free[0] * 100);
+          					$mempourcusage = round((float)$freelibre / (float)$free[0] * 100);
 						}
 						$Swappourc = explode(' ', $Swappourc);
 						if ($Swappourc[0] != '0' && $Swappourc[0] != ''){
 							if (isset($Swappourc[0])) {
-								$Swappourcusage = round($Swappourc[1] / $Swappourc[0] * 100, 2);
+          						$Swappourcusage = round((int)$Swappourc[1] / (int)$Swappourc[0] * 100, 2);
 							}
 						}
 						if (isset($freelibre)) {
-							if (($freelibre / 1000) > 1000) {
-								$freelibre = round($freelibre / 1000000, 2) . " Go";
+          					if (((float)$freelibre / 1000) > 1000) {
+          						$freelibre = round((float)$freelibre / 1000000, 2) . " Go";
 							}else{
-								$freelibre = round($freelibre / 1000) . " Mo";
+          						$freelibre = round((float)$freelibre / 1000) . " Mo";
 							}
 						}
 						if (isset($free[0])) {
-							if (($free[0] / 1000) > 1000) {
-								$memtotal = round($free[0] / 1000000, 2) . " Go";
+          					if (((float)$free[0] / 1000) > 1000) {
+          						$memtotal = round((float)$free[0] / 1000000, 2) . " Go";
 							}else{
-								$memtotal = round($free[0] / 1000) . " Mo";
+          						$memtotal = round((float)$free[0] / 1000) . " Mo";
 							}
 						}
 						if (isset($memtotal) && isset($freelibre)) {
@@ -1150,17 +1190,17 @@ class Monitoring extends eqLogic {
 							}
 						}
 						if(isset($swap[1])){
-							if (($swap[1] / 1000) > 1000) {
-								$swap[1] = round($swap[1] / 1000000, 2) . " Go";
+          					if (((int)$swap[1] / 1000) > 1000) {
+          						$swap[1] = round((int)$swap[1] / 1000000, 2) . " Go";
 							}else{
-								$swap[1] = round($swap[1] / 1000) . " Mo";
+          						$swap[1] = round((int)$swap[1] / 1000) . " Mo";
 							}
 						}
 						if(isset($swap[2])){
-							if (($swap[2] / 1000) > 1000) {
-								$swap[2] = round($swap[2] / 1000000, 2) . " Go";
+          					if (((int)$swap[2] / 1000) > 1000) {
+          						$swap[2] = round((int)$swap[2] / 1000000, 2) . " Go";
 							}else{
-								$swap[2] = round($swap[2] / 1000) . " Mo";
+          						$swap[2] = round((int)$swap[2] / 1000) . " Mo";
 							}
 						}
 					}
@@ -1175,19 +1215,19 @@ class Monitoring extends eqLogic {
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
 					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if (($ReseauRXTX[1] / 1000) > 1000000) {
-							$ReseauTX = round($ReseauRXTX[1] / 1000000000, 2) . " Go";
-						}elseif (($ReseauRXTX[1] / 1000) > 1000) {
-							$ReseauTX = round($ReseauRXTX[1] / 1000000, 2) . " Mo";
+          				if (((int)$ReseauRXTX[1] / 1000) > 1000000) {
+          					$ReseauTX = round((int)$ReseauRXTX[1] / 1000000000, 2) . " Go";
+          				}elseif (((int)$ReseauRXTX[1] / 1000) > 1000) {
+          					$ReseauTX = round((int)$ReseauRXTX[1] / 1000000, 2) . " Mo";
 						}else{
-							$ReseauTX = round($ReseauRXTX[1] / 1000) . " Ko";
+          					$ReseauTX = round((int)$ReseauRXTX[1] / 1000) . " Ko";
 						}
-						if (($ReseauRXTX[0] / 1000) > 1000000) {
-							$ReseauRX = round($ReseauRXTX[0] / 1000000000, 2) . " Go";
+          				if (((int)$ReseauRXTX[0] / 1000) > 1000000) {
+          					$ReseauRX = round((int)$ReseauRXTX[0] / 1000000000, 2) . " Go";
 						}elseif (($ReseauRXTX[0] / 1000) > 1000) {
-							$ReseauRX = round($ReseauRXTX[0] / 1000000, 2) . " Mo";
+          					$ReseauRX = round((int)$ReseauRXTX[0] / 1000000, 2) . " Mo";
 						}else{
-							$ReseauRX = round($ReseauRXTX[0] / 1000) . " Ko";
+          					$ReseauRX = round((int)$ReseauRXTX[0] / 1000) . " Ko";
 						}
 						$ethernet0 = 'TX : '.$ReseauTX.' - RX : '.$ReseauRX;
 					}
@@ -1212,26 +1252,28 @@ class Monitoring extends eqLogic {
 				if (isset($ARMv)) {
 					if ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
 						if (($cpufreq / 1000) > 1) {
-							$cpufreq = round($cpufreq / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
+          					$cpufreq = round((int)$cpufreq / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 						}else{
 							$cpufreq = $cpufreq . " MHz";
 						}
-						if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
+          						$cputemp0 = (int)$cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
 						}
 						$cpu = $nbcpu.' - '.$cpufreq;
 					}elseif ($ARMv == 'armv6l' || $ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
-						if (($cpufreq0 / 1000) > 1000) {
-							$cpufreq0 = round($cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
+          				if (((int)$cpufreq0 / 1000) > 1000) {
+          					$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 						}else{
-							$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
+          					$cpufreq0 = round((int)$cpufreq0 / 1000) . " MHz";
 						}
-						if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
+          						$cputemp0 = (int)$cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
 						}
@@ -1245,12 +1287,13 @@ class Monitoring extends eqLogic {
 
 					}elseif ($ARMv == 'arm'){
 						if (preg_match("#RasPlex|OpenELEC|osmc|LibreELEC#", $namedistri) || preg_match("#piCorePlayer#", $uname)) {
-							if (($cpufreq0 / 1000) > 1000) {
-								$cpufreq0 = round($cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
+          					if (((int)$cpufreq0 / 1000) > 1000) {
+          						$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
-							if ($this->getCmd(null,'cpu_temp')->getIsVisible() == 1) {
+							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
+							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								if ($cputemp0 != 0 & $cputemp0 > 200){
 									$cputemp0 = $cputemp0 / 1000;
 									$cputemp0 = round($cputemp0, 1);
@@ -1262,14 +1305,13 @@ class Monitoring extends eqLogic {
 				}
 
 				if($this->getConfiguration('synology') == '1'){
-					if (($cpufreq0 / 1000) > 1) {
-						$cpufreq0 = round($cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
+          			if (((int)$cpufreq0 / 1000) > 1) {
+          				$cpufreq0 = round((int)$cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 					}else{
 						$cpufreq0 = $cpufreq0 . " MHz";
 					}
-
 					if ($cputemp0 != 0 & $cputemp0 > 200){
-						$cputemp0 = $cputemp0 / 1000;
+						$cputemp0 = (int)$cputemp0 / 1000;
 						$cputemp0 = round($cputemp0, 1);
 					}
 					$cpu = $nbcpu.' - '.$cpufreq0;
@@ -1437,7 +1479,7 @@ class Monitoring extends eqLogic {
 					switch ($paramaction) {
 						case "reboot":
 						$paramaction =
-						//								$Rebootcmd = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
+//								$Rebootcmd = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
 						$Rebootcmd = "sudo reboot >/dev/null & reboot >/dev/null";
 						$Rebootoutput = ssh2_exec($connection, $Rebootcmd);
 						stream_set_blocking($Rebootoutput, false);
@@ -1446,7 +1488,7 @@ class Monitoring extends eqLogic {
 						break;
 						case "poweroff":
 						$paramaction =
-						//								$poweroffcmd = "sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null";
+//								$poweroffcmd = "sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null";
 						$poweroffcmd = "sudo poweroff >/dev/null & poweroff  >/dev/null";
 						$poweroffoutput = ssh2_exec($connection, $poweroffcmd);
 						stream_set_blocking($poweroffoutput, false);
@@ -1493,10 +1535,10 @@ class Monitoring extends eqLogic {
 class MonitoringCmd extends cmd {
 
 
-	/*     * *************************Attributs****************************** */
+	/* * *************************Attributs****************************** */
 	public static $_widgetPossibility = array('custom' => false);
 
-	/*     * *********************Methode d'instance************************* */
+	/* * *********************Methode d'instance************************* */
 	public function execute($_options = null) {
 		$eqLogic = $this->getEqLogic();
 		$paramaction = $this->getLogicalId();

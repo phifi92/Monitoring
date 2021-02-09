@@ -6,33 +6,33 @@ if (!isConnect()) {
 sendVarToJs('jeedomBackgroundImg', 'plugins/Monitoring/core/img/panel.jpg');
 
 if (init('object_id') == '') {
-	$object = object::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
+	$object = jeeObject::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
 } else {
-	$object = object::byId(init('object_id'));
+	$object = jeeObject::byId(init('object_id'));
 }
 if (!is_object($object)) {
-	$object = object::rootObject();
+	$object = jeeObject::rootObject();
 }
 if (!is_object($object)) {
 	throw new Exception('{{Aucun objet racine trouvé. Pour en créer un, allez dans Générale -> Objet.<br/> Si vous ne savez pas quoi faire ou que c\'est la premiere fois que vous utilisez Jeedom n\'hésitez pas a consulter cette <a href="http://jeedom.fr/premier_pas.php" target="_blank">page</a>}}');
 }
-$child_object = object::buildTree($object);
+$child_object = jeeObject::buildTree($object);
 $parentNumber = array();
 ?>
 
 <div>
     <?php
 if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report') != 1) {
-	echo '<div id="div_displayObjectList">';
+	echo '<div class="col-lg-2 col-md-3 col-sm-4" id="div_displayObjectList">';
 } else {
-	echo '<div style="display:none;" id="div_displayObjectList">';
+	echo '<div class="col-lg-2 col-md-3 col-sm-4" style="display:none;" id="div_displayObjectList">';
 }
 ?>
 	<div class="bs-sidebar">
 		<ul id="ul_object" class="nav nav-list bs-sidenav">
 			<li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
 			<?php
-				$allObject = object::buildTree(null, true);
+				$allObject = jeeObject::buildTree(null, true);
 				foreach ($allObject as $object_li) {
 					$margin = 5 * $object_li->getConfiguration('parentNumber');
 					if ($object_li->getId() == $object->getId()) {
@@ -47,9 +47,9 @@ if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report'
 </div>
 <?php
 if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1 && init('report') != 1) {
-	echo '<div id="div_displayObject">';
+	echo '<div class="col-lg-10 col-md-9 col-sm-8" id="div_displayObject">';
 } else {
-	echo '<div id="div_displayObject">';
+	echo '<div class="col-lg-12 col-md-12 col-sm-12" id="div_displayObject">';
 }
 ?>
 <i id='bt_displayObject' data-display='<?php echo $_SESSION['user']->getOptions('displayObjetByDefault') ?>' title="Afficher/Masquer les objets"></i>

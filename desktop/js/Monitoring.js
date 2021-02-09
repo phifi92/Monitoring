@@ -41,6 +41,7 @@ function addCmdToTable(_cmd) {
 	if (_cmd.logicalId == 'perso1' || _cmd.logicalId == 'perso2') {
 		tr += '<span><input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '" style="width: 70%;display: inherit" ></input></span>';
 		tr += '<span> Unité : <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + '_unite" style="width: 10%;display: inherit" ></input></span>';
+        tr += '<br/><span style="color: green" >vert inférieur à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'vertinfa" type="text" style="width: 60px;display: inherit" > - <span style="color: orange" >Orange entre <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangede" style="width: 60px;display: inherit" > et <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'orangea" style="width: 60px;display: inherit"></span> - <span style="color: red" >Rouge sup à <input class="cmdAttr eqLogicAttr form-control" data-l1key="configuration" data-l2key="' + init(_cmd.logicalId) + 'rougesupa" style="width: 60px;display: inherit" ></span>';
 	}
 	tr += '</td>';
 	tr += '<td style="width: 150px;">';
@@ -69,3 +70,20 @@ function addCmdToTable(_cmd) {
 	$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
 	jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
+
+
+
+$(".eqLogicAttr[data-l2key='synology']").on('change', function () {
+	if(this.checked){
+	  $(".syno_conf").show();
+	}else{
+	  $(".syno_conf").hide();
+	}
+  });
+  $(".eqLogicAttr[data-l2key='syno_use_temp_path']").on('change', function () {
+	if(this.checked){
+	  $(".syno_conf_temppath").show();
+	}else{
+	  $(".syno_conf_temppath").hide();
+	}
+  });
