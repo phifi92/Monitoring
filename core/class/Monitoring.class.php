@@ -1287,8 +1287,8 @@ class Monitoring extends eqLogic {
 
 					}elseif ($ARMv == 'arm'){
 						if (preg_match("#RasPlex|OpenELEC|osmc|LibreELEC#", $namedistri) || preg_match("#piCorePlayer#", $uname)) {
-    					if (((int)$cpufreq0 / 1000) > 1000) {
-    						$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
+    							if (((int)$cpufreq0 / 1000) > 1000) {
+    								$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
