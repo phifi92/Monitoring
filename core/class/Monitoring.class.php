@@ -697,7 +697,7 @@ class Monitoring extends eqLogic {
 						}
 
 					}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
-						$nbcpuARMcmd = "lscpu | grep 'CPU(s):' | awk '{ print $2 }'";
+						$nbcpuARMcmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'";
 						$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
 						stream_set_blocking($nbcpuoutput, true);
 						$nbcpu = stream_get_contents($nbcpuoutput);
@@ -1012,7 +1012,7 @@ class Monitoring extends eqLogic {
 				}
 			}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64'){
 				$uname = '.';
-				$nbcpuARMcmd = "lscpu | grep 'CPU(s):' | awk '{ print $2 }'";
+				$nbcpuARMcmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'";
 				$nbcpu = exec($nbcpuARMcmd);
 				$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
 				$cpufreq0 = exec($cpufreq0ARMcmd);
