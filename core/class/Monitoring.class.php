@@ -1190,17 +1190,17 @@ class Monitoring extends eqLogic {
 							}
 						}
 						if(isset($swap[1])){
-          						if (((int)$swap[1] / 1000) > 1000) {
-          							$swap[1] = round((int)$swap[1] / 1000000, 2) . " Go";
+          		if (((int)$swap[1] / 1000) > 1000) {
+          			$swap[1] = round((int)$swap[1] / 1000000, 2) . " Go";
 							}else{
-          							$swap[1] = round((int)$swap[1] / 1000) . " Mo";
+          			$swap[1] = round((int)$swap[1] / 1000) . " Mo";
 							}
 						}
 						if(isset($swap[2])){
-				          		if (((int)$swap[2] / 1000) > 1000) {
-				          			$swap[2] = round((int)$swap[2] / 1000000, 2) . " Go";
+				      if (((int)$swap[2] / 1000) > 1000) {
+				      	$swap[2] = round((int)$swap[2] / 1000000, 2) . " Go";
 							}else{
-          							$swap[2] = round((int)$swap[2] / 1000) . " Mo";
+          			$swap[2] = round((int)$swap[2] / 1000) . " Mo";
 							}
 						}
 					}
