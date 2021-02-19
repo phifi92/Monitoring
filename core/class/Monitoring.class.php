@@ -655,7 +655,7 @@ class Monitoring extends eqLogic {
 
 						$synocmdTemp='$(find /sys/devices/* -name temp*_input | head -1)';
 						if($this->getconfiguration('syno_use_temp_path'))$synocmdTemp=$this->getconfiguration('syno_temp_path');
-
+						
 
 						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
 						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
