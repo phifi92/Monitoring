@@ -1305,8 +1305,8 @@ class Monitoring extends eqLogic {
 				}
 
 				if($this->getConfiguration('synology') == '1'){
-  				if (((int)$cpufreq0 / 1000) > 1) {
-          					$cpufreq0 = round((int)$cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
+					if (((int)$cpufreq0 / 1000) > 1) {
+						$cpufreq0 = round((int)$cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 					}else{
 						$cpufreq0 = $cpufreq0 . " MHz";
 					}
