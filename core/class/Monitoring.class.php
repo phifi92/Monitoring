@@ -655,11 +655,11 @@ class Monitoring extends eqLogic {
 
 						$synocmdTemp='$(find /sys/devices/* -name temp*_input | head -1)';
 						if($this->getconfiguration('syno_use_temp_path'))$synocmdTemp=$this->getconfiguration('syno_temp_path');
-						
+
 
 						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
 						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
-						
+
 						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
 						stream_set_blocking($cputemp0output, true);
 						$cputemp0 = stream_get_contents($cputemp0output);
@@ -1126,36 +1126,36 @@ class Monitoring extends eqLogic {
 						$free = explode(' ', $free);
 						if($this->getConfiguration('synology') == '1'){
 							if (isset($free[1]) && isset($free[3])) {
-								$freelibre = $free[1] + $free[3];
+								$freelibre = (float)$free[1] + (float)$free[3];
 							}
 						}
 						if($VersionID >= 9 && isset($free[3])){
 							$freelibre = $free[3];
 						}
 						elseif($VersionID < 9 && isset($free[2]) && isset($free[3])){
-							$freelibre = $free[2] + $free[3];
+							$freelibre = (float)$free[2] + (float)$free[3];
 						}
 						if (isset($free[0]) && isset($freelibre)) {
-							$mempourcusage = round($freelibre / $free[0] * 100);
+							$mempourcusage = round((float)$freelibre / (float)$free[0] * 100);
 						}
 						$Swappourc = explode(' ', $Swappourc);
 						if ($Swappourc[0] != '0' && $Swappourc[0] != ''){
 							if (isset($Swappourc[0])) {
-								$Swappourcusage = round($Swappourc[1] / $Swappourc[0] * 100, 2);
+								$Swappourcusage = round((int)$Swappourc[1] / (int)$Swappourc[0] * 100, 2);
 							}
 						}
 						if (isset($freelibre)) {
-							if (($freelibre / 1000) > 1000) {
-								$freelibre = round($freelibre / 1000000, 2) . " Go";
+							if (((float)$freelibre / 1000) > 1000) {
+								$freelibre = round((float)$freelibre / 1000000, 2) . " Go";
 							}else{
-								$freelibre = round($freelibre / 1000) . " Mo";
+								$freelibre = round((float)$freelibre / 1000) . " Mo";
 							}
 						}
 						if (isset($free[0])) {
-							if (($free[0] / 1000) > 1000) {
-								$memtotal = round($free[0] / 1000000, 2) . " Go";
+							if (((float)$free[0] / 1000) > 1000) {
+								$memtotal = round((float)$free[0] / 1000000, 2) . " Go";
 							}else{
-								$memtotal = round($free[0] / 1000) . " Mo";
+								$memtotal = round((float)$free[0] / 1000) . " Mo";
 							}
 						}
 						if (isset($memtotal) && isset($freelibre)) {
@@ -1163,16 +1163,16 @@ class Monitoring extends eqLogic {
 						}
 					}elseif (preg_match("#FreeBSD#", $uname)) {
 						$free = explode(' ', $free);
-						$mempourcusage = round($free[1] / $free[0] * 100);
-						if (($free[1] / 1000) > 1000) {
-							$freelibre = round($free[1] / 1000000, 2) . " Go";
+						$mempourcusage = round((float)$free[1] / (float)$free[0] * 100);
+						if (((float)$free[1] / 1000) > 1000) {
+							$freelibre = round((float)$free[1] / 1000000, 2) . " Go";
 						}else{
-							$freelibre = round($free[1] / 1000) . " Mo";
+							$freelibre = round((float)$free[1] / 1000) . " Mo";
 						}
-						if (($free[0] / 1000) > 1000) {
-							$memtotal = round($free[0] / 1000000, 2) . " Go";
+						if (((float)$free[0] / 1000) > 1000) {
+							$memtotal = round((float)$free[0] / 1000000, 2) . " Go";
 						}else{
-							$memtotal = round($free[0] / 1000) . " Mo";
+							$memtotal = round((float)$free[0] / 1000) . " Mo";
 						}
 						$Mem = 'Total : '.$memtotal.' - Libre : '.$freelibre;
 					}
@@ -1183,24 +1183,24 @@ class Monitoring extends eqLogic {
 					$swap = explode(' ', $swap);
 					if($this->getConfiguration('synology') == '1'){
 						if(isset($swap[0])){
-							if (($swap[0] / 1000) > 1000) {
-								$swap[0] = round($swap[0] / 1000000, 2) . " Go";
+							if (((int)$swap[0] / 1000) > 1000) {
+								$swap[0] = round((int)$swap[0] / 1000000, 2) . " Go";
 							}else{
-								$swap[0] = round($swap[0] / 1000) . " Mo";
+								$swap[0] = round((int)$swap[0] / 1000) . " Mo";
 							}
 						}
 						if(isset($swap[1])){
-							if (($swap[1] / 1000) > 1000) {
-								$swap[1] = round($swap[1] / 1000000, 2) . " Go";
+							if (((int)$swap[1] / 1000) > 1000) {
+								$swap[1] = round((int)$swap[1] / 1000000, 2) . " Go";
 							}else{
-								$swap[1] = round($swap[1] / 1000) . " Mo";
+								$swap[1] = round((int)$swap[1] / 1000) . " Mo";
 							}
 						}
 						if(isset($swap[2])){
-							if (($swap[2] / 1000) > 1000) {
-								$swap[2] = round($swap[2] / 1000000, 2) . " Go";
+							if (((int)$swap[2] / 1000) > 1000) {
+								$swap[2] = round((int)$swap[2] / 1000000, 2) . " Go";
 							}else{
-								$swap[2] = round($swap[2] / 1000) . " Mo";
+								$swap[2] = round((int)$swap[2] / 1000) . " Mo";
 							}
 						}
 					}
@@ -1215,19 +1215,19 @@ class Monitoring extends eqLogic {
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
 					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if (($ReseauRXTX[1] / 1000) > 1000000) {
-							$ReseauTX = round($ReseauRXTX[1] / 1000000000, 2) . " Go";
-						}elseif (($ReseauRXTX[1] / 1000) > 1000) {
-							$ReseauTX = round($ReseauRXTX[1] / 1000000, 2) . " Mo";
+						if (((int)$ReseauRXTX[1] / 1000) > 1000000) {
+							$ReseauTX = round((int)$ReseauRXTX[1] / 1000000000, 2) . " Go";
+						}elseif (((int)$ReseauRXTX[1] / 1000) > 1000) {
+							$ReseauTX = round((int)$ReseauRXTX[1] / 1000000, 2) . " Mo";
 						}else{
-							$ReseauTX = round($ReseauRXTX[1] / 1000) . " Ko";
+							$ReseauTX = round((int)$ReseauRXTX[1] / 1000) . " Ko";
 						}
-						if (($ReseauRXTX[0] / 1000) > 1000000) {
-							$ReseauRX = round($ReseauRXTX[0] / 1000000000, 2) . " Go";
+						if (((int)$ReseauRXTX[0] / 1000) > 1000000) {
+							$ReseauRX = round((int)$ReseauRXTX[0] / 1000000000, 2) . " Go";
 						}elseif (($ReseauRXTX[0] / 1000) > 1000) {
-							$ReseauRX = round($ReseauRXTX[0] / 1000000, 2) . " Mo";
+							$ReseauRX = round((int)$ReseauRXTX[0] / 1000000, 2) . " Mo";
 						}else{
-							$ReseauRX = round($ReseauRXTX[0] / 1000) . " Ko";
+							$ReseauRX = round((int)$ReseauRXTX[0] / 1000) . " Ko";
 						}
 						$ethernet0 = 'TX : '.$ReseauTX.' - RX : '.$ReseauRX;
 					}
@@ -1252,28 +1252,28 @@ class Monitoring extends eqLogic {
 				if (isset($ARMv)) {
 					if ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
 						if (($cpufreq / 1000) > 1) {
-							$cpufreq = round($cpufreq / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
+							$cpufreq = round((int)$cpufreq / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 						}else{
 							$cpufreq = $cpufreq . " MHz";
 						}
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
+								$cputemp0 = (int)$cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
 						}
 						$cpu = $nbcpu.' - '.$cpufreq;
 					}elseif ($ARMv == 'armv6l' || $ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
-						if (($cpufreq0 / 1000) > 1000) {
-							$cpufreq0 = round($cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
+						if (((int)$cpufreq0 / 1000) > 1000) {
+							$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 						}else{
-							$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
+							$cpufreq0 = round((int)$cpufreq0 / 1000) . " MHz";
 						}
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							if ($cputemp0 != 0 & $cputemp0 > 200){
-								$cputemp0 = $cputemp0 / 1000;
+								$cputemp0 = (int)$cputemp0 / 1000;
 								$cputemp0 = round($cputemp0, 1);
 							}
 						}
@@ -1287,15 +1287,15 @@ class Monitoring extends eqLogic {
 
 					}elseif ($ARMv == 'arm'){
 						if (preg_match("#RasPlex|OpenELEC|osmc|LibreELEC#", $namedistri) || preg_match("#piCorePlayer#", $uname)) {
-							if (($cpufreq0 / 1000) > 1000) {
-								$cpufreq0 = round($cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
+							if (((int)$cpufreq0 / 1000) > 1000) {
+								$cpufreq0 = round((int)$cpufreq0 / 1000000, 1, PHP_ROUND_HALF_UP) . " GHz";
 							}else{
 								$cpufreq0 = round($cpufreq0 / 1000) . " MHz";
 							}
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								if ($cputemp0 != 0 & $cputemp0 > 200){
-									$cputemp0 = $cputemp0 / 1000;
+									$cputemp0 = (int)$cputemp0 / 1000;
 									$cputemp0 = round($cputemp0, 1);
 								}
 							}
@@ -1305,13 +1305,13 @@ class Monitoring extends eqLogic {
 				}
 
 				if($this->getConfiguration('synology') == '1'){
-					if (($cpufreq0 / 1000) > 1) {
-						$cpufreq0 = round($cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
+					if (((int)$cpufreq0 / 1000) > 1) {
+						$cpufreq0 = round((int)$cpufreq0 / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 					}else{
 						$cpufreq0 = $cpufreq0 . " MHz";
 					}
 					if ($cputemp0 != 0 & $cputemp0 > 200){
-						$cputemp0 = $cputemp0 / 1000;
+						$cputemp0 = (int)$cputemp0 / 1000;
 						$cputemp0 = round($cputemp0, 1);
 					}
 					$cpu = $nbcpu.' - '.$cpufreq0;
