@@ -18,7 +18,7 @@ if [ $versionPHP = "5" ]
 		echo "*  Pour finaliser l'installation, redémarrer Jeedom / To complete the installation, restart Jeedom  *"
 		echo "*****************************************************************************************************"
 fi
-if [ $versionPHP = "7" ]
+if [ $versionPHP >= "7" ]
 	then
 		echo "*****************************************************************************************************"
 		echo "*   Lancement de l'installation du module SSH pour PHP 7 / Launch install of module ssh2 for PHP 7  *"
@@ -27,7 +27,7 @@ if [ $versionPHP = "7" ]
 		echo 20 > /tmp/dependancy_monitoring_in_progress
 		sudo apt-get update
 		echo 80 > /tmp/dependancy_monitoring_in_progress
-		sudo apt-get install -y php-ssh2
+		sudo apt-get install -y php-ssh2 php-phpseclib
 		echo 90 > /tmp/dependancy_monitoring_in_progress
 		echo 100 > /tmp/dependancy_monitoring_in_progress
 		echo "*****************************************************************************************************"
