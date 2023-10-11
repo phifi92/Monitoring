@@ -17,7 +17,14 @@
  */
 
 /* * ***************************Includes********************************* */
-require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+set_include_path(get_include_path() . get_include_path().'/phpseclib');
+include('Net/SSH2.php');
+include('Crypt/RSA.php');
+include('autoload.php');
+
+use phpseclib\Net\SSH2;
+  
+  require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Monitoring extends eqLogic {
 
@@ -532,11 +539,11 @@ class Monitoring extends eqLogic {
 			$port = $this->getConfiguration('portssh');
 			$equipement = $this->getName();
 
-			if (!$connection = ssh2_connect($ip,$port)) {
+			if (!$sshconnection = new SSH2($ip,$port)) {
 				log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
 				$cnx_ssh = 'KO';
 			}else{
-				if (!ssh2_auth_password($connection,$user,$pass)){
+				if (!$sshconnection->login($user, $pass)){
 					log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
 					$cnx_ssh = 'KO';
 				}else{
@@ -560,98 +567,79 @@ class Monitoring extends eqLogic {
 					$perso_1cmd = $this->getConfiguration('perso1');
 					$perso_2cmd = $this->getConfiguration('perso2');
 
-					$ARMvoutput = ssh2_exec($connection, $ARMvcmd);
-					stream_set_blocking($ARMvoutput, true);
-					$ARMv = stream_get_contents($ARMvoutput);
+					$ARMvoutput = $sshconnection->exec($ARMvcmd);
+					$ARMv = $ARMvoutput;
 					$ARMv = trim($ARMv);
 
-					$uptimeoutput = ssh2_exec($connection, $uptimecmd);
-					stream_set_blocking($uptimeoutput, true);
-					$uptime = stream_get_contents($uptimeoutput);
+					$uptimeoutput = $sshconnection->exec($uptimecmd);
+					$uptime = $uptimeoutput;
 
-					$VersionIDoutput = ssh2_exec($connection, $VersionIDcmd);
-					stream_set_blocking($VersionIDoutput, true);
-					$VersionID = stream_get_contents($VersionIDoutput);
+					$VersionIDoutput = $sshconnection->exec($VersionIDcmd);
+					$VersionID = $VersionIDoutput;
 
-					$namedistrioutput = ssh2_exec($connection, $namedistricmd);
-					stream_set_blocking($namedistrioutput, true);
-					$namedistri = stream_get_contents($namedistrioutput);
+					$namedistrioutput = $sshconnection->exec($namedistricmd);
+					$namedistri = $namedistrioutput;
 
-					$bitdistrioutput = ssh2_exec($connection, $bitdistricmd);
-					stream_set_blocking($bitdistrioutput, true);
-					$bitdistri = stream_get_contents($bitdistrioutput);
+					$bitdistrioutput = $sshconnection->exec($bitdistricmd);
+					$bitdistri = $bitdistrioutput;
 
-					$loadavgoutput = ssh2_exec($connection, $loadavgcmd);
-					stream_set_blocking($loadavgoutput, true);
-					$loadav = stream_get_contents($loadavgoutput);
+					$loadavgoutput = $sshconnection->exec($loadavgcmd);
+					$loadav = $loadavgoutput;
 
-					$ReseauRXTXoutput = ssh2_exec($connection, $ReseauRXTXcmd);
-					stream_set_blocking($ReseauRXTXoutput, true);
-					$ReseauRXTX = stream_get_contents($ReseauRXTXoutput);
+					$ReseauRXTXoutput = $sshconnection->exec($ReseauRXTXcmd);
+					$ReseauRXTX = $ReseauRXTXoutput;
 
-					$closesession = ssh2_exec($connection, 'exit');
-					stream_set_blocking($closesession, true);
-					stream_get_contents($closesession);
+					//$closesession = $sshconnection->exec('exit');
+					//stream_get_contents($closesession);
 					//close ssh ($connection);
 
-					$connection = ssh2_connect($ip,$port);
-					ssh2_auth_password($connection,$user,$pass);
+					//$connection = new SSH2($ip,$port);
+					//ssh2_auth_password($connection,$user,$pass);
 
-					$freeoutput = ssh2_exec($connection, $freecmd);
-					stream_set_blocking($freeoutput, true);
-					$free = stream_get_contents($freeoutput);
+					$freeoutput = $sshconnection->exec($freecmd);
+					$free = $freeoutput;
 
-					$swapoutput = ssh2_exec($connection, $swapcmd);
-					stream_set_blocking($swapoutput, true);
-					$swap = stream_get_contents($swapoutput);
+					$swapoutput = $sshconnection->exec($swapcmd);
+					$swap = $swapoutput;
 
-					$Swappourcoutput = ssh2_exec($connection, $Swappourccmd);
-					stream_set_blocking($Swappourcoutput, true);
-					$Swappourc = stream_get_contents($Swappourcoutput);
+					$Swappourcoutput = $sshconnection->exec($Swappourccmd);
+					$Swappourc = $Swappourcoutput;
 
-					$perso1output = ssh2_exec($connection, $perso_1cmd);
-					stream_set_blocking($perso1output, true);
-					$perso_1 = stream_get_contents($perso1output);
+					$perso1output = $sshconnection->exec($perso_1cmd);
+					$perso_1 = $perso1output;
 
-					$perso2output = ssh2_exec($connection, $perso_2cmd);
-					stream_set_blocking($perso2output, true);
-					$perso_2 = stream_get_contents($perso2output);
+					$perso2output = $sshconnection->exec($perso_2cmd);
+					$perso_2 = $perso2output;
 
 					if($this->getConfiguration('synology') == '1'){
 						$platformcmd = "get_key_value /etc/synoinfo.conf unique | cut -d'_' -f2";
-						$platformoutput = ssh2_exec($connection, $platformcmd);
-						stream_set_blocking($platformoutput, true);
-						$synoplatorm = stream_get_contents($platformoutput);
+						$platformoutput = $sshconnection->exec($platformcmd);
+						$synoplatorm = $platformoutput;
 
 						$nbcpuARMcmd = "cat /proc/sys/kernel/syno_CPU_info_core";
-						$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-						stream_set_blocking($nbcpuoutput, true);
-						$nbcpu = stream_get_contents($nbcpuoutput);
+						$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+						$nbcpu = $nbcpuoutput;
 						$nbcpu = trim($nbcpu);
 
 						$cpufreq0ARMcmd = "cat /proc/sys/kernel/syno_CPU_info_clock";
-						$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-						stream_set_blocking($cpufreq0output, true);
-						$cpufreq0 = stream_get_contents($cpufreq0output);
+						$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+						$cpufreq0 = $cpufreq0output;
 						$cpufreq0 = trim($cpufreq0);
 
 						$hddcmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
-						$hdddata = ssh2_exec($connection, $hddcmd);
-						stream_set_blocking($hdddata, true);
-						$hdd = stream_get_contents($hdddata);
+						$hdddata = $sshconnection->exec($hddcmd);
+						$hdd = $hdddata;
 
-						$closesession = ssh2_exec($connection, 'exit');
-						stream_set_blocking($closesession, true);
-						stream_get_contents($closesession);
+						//$closesession = $sshconnection->exec('exit');
+						//stream_get_contents($closesession);
 						//close ssh ($connection);
 
-						$connection = ssh2_connect($ip,$port);
-						ssh2_auth_password($connection,$user,$pass);
+						//$connection = new SSH2($ip,$port);
+						//ssh2_auth_password($connection,$user,$pass);
 
 						$versionsynocmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $1,$2,$4,$5}'";
-						$versionsynooutput = ssh2_exec($connection, $versionsynocmd);
-						stream_set_blocking($versionsynooutput, true);
-						$versionsyno = stream_get_contents($versionsynooutput);
+						$versionsynooutput = $sshconnection->exec($versionsynocmd);
+						$versionsyno = $versionsynooutput;
 
 						$synocmdTemp='$(find /sys/devices/* -name temp*_input | head -1)';
 						if($this->getconfiguration('syno_use_temp_path'))$synocmdTemp=$this->getconfiguration('syno_temp_path');
@@ -660,73 +648,62 @@ class Monitoring extends eqLogic {
 						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
 						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
 						
-						$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
-						stream_set_blocking($cputemp0output, true);
-						$cputemp0 = stream_get_contents($cputemp0output);
+						$cputemp0output = $sshconnection->exec($cputemp0cmd);
+						$cputemp0 =$cputemp0output;
 					}
 					if($this->getConfiguration('synology') == '1' && $SynoV2Visible == 'OK' && $this->getConfiguration('synologyv2') == '1'){
 						$hddv2cmd = "df -h | grep 'vg1001\|volume2' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1"; // DSM 5.x & 6.x
-						$hdddatav2 = ssh2_exec($connection, $hddv2cmd);
-						stream_set_blocking($hdddatav2, true);
-						$hddv2 = stream_get_contents($hdddatav2);
+						$hdddatav2 = $sshconnection->exec($hddv2cmd);
+						$hddv2 = $hdddatav2;
 					}
 					if ($ARMv == 'armv6l'){
 						$nbcpuARMcmd = "lscpu | grep 'CPU(s):' | awk '{ print $2 }'";
-						$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-						stream_set_blocking($nbcpuoutput, true);
-						$nbcpu = stream_get_contents($nbcpuoutput);
+						$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+						$nbcpu = $nbcpuoutput;
 						$nbcpu = trim($nbcpu);
 						$uname = '.';
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
-						$hdddata = ssh2_exec($connection, $hddcmd);
-						stream_set_blocking($hdddata, true);
-						$hdd = stream_get_contents($hdddata);
+						$hdddata = $sshconnection->exec($hddcmd);
+						$hdd = $hdddata;
 
 						$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-						$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-						stream_set_blocking($cpufreq0output, true);
-						$cpufreq0 = stream_get_contents($cpufreq0output);
+						$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+						$cpufreq0 = $cpufreq0output;
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-							$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
-							stream_set_blocking($cputemp0output, true);
-							$cputemp0 = stream_get_contents($cputemp0output);
+							$cputemp0output = $sshconnection->exec($cputemp0armv6lcmd);
+							$cputemp0 = $cputemp0output;
 						}
 
 					}elseif ($ARMv == 'armv7l' || $ARMv == 'aarch64' || $ARMv == 'mips64'){
 						$nbcpuARMcmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'";
-						$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-						stream_set_blocking($nbcpuoutput, true);
-						$nbcpu = stream_get_contents($nbcpuoutput);
+						$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+						$nbcpu = $nbcpuoutput;
 						$nbcpu = trim($nbcpu);
 						$uname = '.';
 
 						$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-						$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-						stream_set_blocking($cpufreq0output, true);
-						$cpufreq0 = stream_get_contents($cpufreq0output);
+						$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+						$cpufreq0 = $cpufreq0output;
 						$cpufreq0 = trim($cpufreq0);
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
-						$hdddata = ssh2_exec($connection, $hddcmd);
-						stream_set_blocking($hdddata, true);
-						$hdd = stream_get_contents($hdddata);
+						$hdddata = $sshconnection->exec($hddcmd);
+						$hdd = $hdddata;
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
-							$cputemp0output = ssh2_exec($connection, $cputemp0RPi2cmd);
-							stream_set_blocking($cputemp0output, true);
-							$cputemp0 = stream_get_contents($cputemp0output);
+							$cputemp0output = $sshconnection->exec($cputemp0RPi2cmd);
+							$cputemp0 = $cputemp0output;
 
 							if ($cputemp0 == '') {
 								$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
-								$cputemp0output = ssh2_exec($connection, $cputemp0armv7lcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0armv7lcmd);
+								$cputemp0 = $cputemp0output;
 							}
 						}
 
@@ -737,91 +714,77 @@ class Monitoring extends eqLogic {
 						$nbcpuVMcmd = "lscpu | grep 'Processeur(s)' | awk '{ print $NF }'"; // OK pour Debian
 						$cpufreqVMcmd = "lscpu | grep 'Vitesse du processeur en MHz' | awk '{print $NF}'"; // OK pour Debian/Ubuntu
 
-						$nbcpuoutput = ssh2_exec($connection, $nbcpuVMcmd);
-						stream_set_blocking($nbcpuoutput, true);
-						$nbcpu = stream_get_contents($nbcpuoutput);
+						$nbcpuoutput = $sshconnection->exec($nbcpuVMcmd);
+						$nbcpu = $nbcpuoutput;
 						if ($nbcpu == ''){
 							$nbcpuVMbiscmd = "lscpu | grep '^CPU(s)' | awk '{ print $NF }'"; // OK pour LXC Linux/Ubuntu
-							$nbcpuoutput = ssh2_exec($connection, $nbcpuVMbiscmd);
-							stream_set_blocking($nbcpuoutput, true);
-							$nbcpu = stream_get_contents($nbcpuoutput);
+							$nbcpuoutput = $sshconnection->exec($nbcpuVMbiscmd);
+							$nbcpu = $nbcpuoutput;
 						}
 						$nbcpu = preg_replace("/[^0-9]/","",$nbcpu);
 
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
-						$hdddata = ssh2_exec($connection, $hddcmd);
-						stream_set_blocking($hdddata, true);
-						$hdd = stream_get_contents($hdddata);
+						$hdddata = $sshconnection->exec($hddcmd);
+						$hdd = $hdddata;
 
-						$cpufreqoutput = ssh2_exec($connection, $cpufreqVMcmd);
-						stream_set_blocking($cpufreqoutput, true);
-						$cpufreq = stream_get_contents($cpufreqoutput);
+						$cpufreqoutput = $sshconnection->exec($cpufreqVMcmd);
+						$cpufreq = $cpufreqoutput;
 						if ($cpufreq == ''){
 							$cpufreqVMbiscmd = "lscpu | grep '^CPU MHz' | awk '{ print $NF }'";	// OK pour LXC Linux
-							$cpufreqoutput = ssh2_exec($connection, $cpufreqVMbiscmd);
-							stream_set_blocking($cpufreqoutput, true);
-							$cpufreq = stream_get_contents($cpufreqoutput);
+							$cpufreqoutput = $sshconnection->exec($cpufreqVMbiscmd);
+							$cpufreq = $cpufreqoutput;
 						}
 						$cpufreq=preg_replace("/[^0-9.]/","",$cpufreq);
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 							$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell WYSE
-							$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
-							stream_set_blocking($cputemp0output, true);
-							$cputemp0 = stream_get_contents($cputemp0output);
+							$cputemp0output = $sshconnection->exec($cputemp0cmd);
+							$cputemp0 = $cputemp0output;
 							if ($cputemp0 == '') {
 								$cputemp0cmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
-								$cputemp0output = ssh2_exec($connection, $cputemp0cmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0cmd);
+								$cputemp0 = $cputemp0output;
 							}
 							if ($cputemp0 == '') {
 								$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
-								$cputemp0output = ssh2_exec($connection, $cputemp0AMDcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0AMDcmd);
+								$cputemp0 = $cputemp0output;
 							}
 							if ($cputemp0 == '') {
 								$cputemp0sensorscmd = "sensors | awk '{if (match($0, \"MB Temperature\")){printf(\"%f\",$3);} }'"; // OK by sensors
-								$cputemp0output = ssh2_exec($connection, $cputemp0sensorscmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0sensorscmd);
+								$cputemp0 = $cputemp0output;
 							}
 						}
 
 					}elseif ($ARMv == '' & $this->getConfiguration('synology') != '1'){
 						$unamecmd = "uname -a | awk '{print $2,$1}'";
-						$unamedata = ssh2_exec($connection, $unamecmd);
-						stream_set_blocking($unamedata, true);
-						$uname = stream_get_contents($unamedata);
+						$unamedata = $sshconnection->exec($unamecmd);
+						$uname = $unamedata;
 
 						if (preg_match("#RasPlex|OpenELEC|LibreELEC#", $namedistri)) {
 							$bitdistri = '32';
 							$ARMv = 'arm';
 
 							$nbcpuARMcmd = "grep 'model name' /proc/cpuinfo | wc -l";
-							$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-							stream_set_blocking($nbcpuoutput, true);
-							$nbcpu = stream_get_contents($nbcpuoutput);
+							$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+							$nbcpu = $nbcpuoutput;
 							$nbcpu = trim($nbcpu);
 
 							$hddcmd = "df -h | grep '/dev/mmcblk0p2' | head -1 | awk '{ print $2,$3,$5 }'";
-							$hdddata = ssh2_exec($connection, $hddcmd);
-							stream_set_blocking($hdddata, true);
-							$hdd = stream_get_contents($hdddata);
+							$hdddata = $sshconnection->exec($hddcmd);
+							$hdd = $hdddata;
 
 							$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-							$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-							stream_set_blocking($cpufreq0output, true);
-							$cpufreq0 = stream_get_contents($cpufreq0output);
+							$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+							$cpufreq0 = $cpufreq0output;
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0armv6lcmd);
+								$cputemp0 = $cputemp0output;
 							}
 
 						}elseif (preg_match("#osmc#", $namedistri)) {
@@ -829,117 +792,98 @@ class Monitoring extends eqLogic {
 							$ARMv = 'arm';
 
 							$nbcpuARMcmd = "grep 'model name' /proc/cpuinfo | wc -l";
-							$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-							stream_set_blocking($nbcpuoutput, true);
-							$nbcpu = stream_get_contents($nbcpuoutput);
+							$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+							$nbcpu = $nbcpuoutput;
 							$nbcpu = trim($nbcpu);
 
 							$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
-							$hdddata = ssh2_exec($connection, $hddcmd);
-							stream_set_blocking($hdddata, true);
-							$hdd = stream_get_contents($hdddata);
+							$hdddata = $sshconnection->exec($hddcmd);
+							$hdd = $hdddata;
 
 							$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-							$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-							stream_set_blocking($cpufreq0output, true);
-							$cpufreq0 = stream_get_contents($cpufreq0output);
+							$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+							$cpufreq0 = $cpufreq0output;
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0armv6lcmd);
+								$cputemp0 = $cputemp0output;
 							}
 						}elseif (preg_match("#piCorePlayer#", $uname)) {
 							$bitdistri = '32';
 							$ARMv = 'arm';
 							$namedistricmd = "uname -a | awk '{print $2,$3}'";
-							$namedistrioutput = ssh2_exec($connection, $namedistricmd);
-							stream_set_blocking($namedistrioutput, true);
-							$namedistri = stream_get_contents($namedistrioutput);
+							$namedistrioutput = $sshconnection->exec($namedistricmd);
+							$namedistri = $namedistrioutput;
 
 							$nbcpuARMcmd = "grep 'model name' /proc/cpuinfo | wc -l";
-							$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-							stream_set_blocking($nbcpuoutput, true);
-							$nbcpu = stream_get_contents($nbcpuoutput);
+							$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+							$nbcpu = $nbcpuoutput;
 							$nbcpu = trim($nbcpu);
 
 							$hddcmd = "df -h | grep /dev/mmcblk0p | head -1 | awk '{print $2,$3,$5 }'";
-							$hdddata = ssh2_exec($connection, $hddcmd);
-							stream_set_blocking($hdddata, true);
-							$hdd = stream_get_contents($hdddata);
+							$hdddata = $sshconnection->exec($hddcmd);
+							$hdd = $hdddata;
 
 							$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-							$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-							stream_set_blocking($cpufreq0output, true);
-							$cpufreq0 = stream_get_contents($cpufreq0output);
+							$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+							$cpufreq0 = $cpufreq0output;
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0armv6lcmd);
+								$cputemp0 = $cputemp0output;
 							}
 
 						}elseif (preg_match("#FreeBSD#", $uname)) {
 							$namedistricmd = "uname -a | awk '{ print $1,$3}'";
-							$namedistrioutput = ssh2_exec($connection, $namedistricmd);
-							stream_set_blocking($namedistrioutput, true);
-							$namedistri = stream_get_contents($namedistrioutput);
+							$namedistrioutput = $sshconnection->exec($namedistricmd);
+							$namedistri = $namedistrioutput;
 
 							$ARMvcmd = "sysctl hw.machine | awk '{ print $2}'";
-							$ARMvoutput = ssh2_exec($connection, $ARMvcmd);
-							stream_set_blocking($ARMvoutput, true);
-							$ARMv = stream_get_contents($ARMvoutput);
+							$ARMvoutput = $sshconnection->exec($ARMvcmd);
+							$ARMv = $ARMvoutput;
 							$ARMv = trim($ARMv);
 
 							$loadavgcmd = "uptime | awk '{print $8,$9,$10}'";
-							$loadavgoutput = ssh2_exec($connection, $loadavgcmd);
-							stream_set_blocking($loadavgoutput, true);
-							$loadav = stream_get_contents($loadavgoutput);
+							$loadavgoutput = $sshconnection->exec($loadavgcmd);
+							$loadav = $loadavgoutput;
 
-							$closesession = ssh2_exec($connection, 'exit');
-							stream_set_blocking($closesession, true);
-							stream_get_contents($closesession);
+							//$closesession = $sshconnection->exec('exit');
+							//stream_get_contents($closesession);
 							//close ssh ($connection);
 
-							$connection = ssh2_connect($ip,$port);
-							ssh2_auth_password($connection,$user,$pass);
+							//$connection = new SSH2($ip,$port);
+							//ssh2_auth_password($connection,$user,$pass);
 
 							$freecmd = "dmesg | grep memory | tr '\n' ' ' | awk '{print $4,$10}'";
-							$freeoutput = ssh2_exec($connection, $freecmd);
-							stream_set_blocking($freeoutput, true);
-							$free = stream_get_contents($freeoutput);
+							$freeoutput = $sshconnection->exec($freecmd);
+							$free = $freeoutput;
 
 							$bitdistricmd = "sysctl kern.smp.maxcpus | awk '{ print $2}'";
-							$bitdistrioutput = ssh2_exec($connection, $bitdistricmd);
-							stream_set_blocking($bitdistrioutput, true);
-							$bitdistri = stream_get_contents($bitdistrioutput);
+							$bitdistrioutput = $sshconnection->exec($bitdistricmd);
+							$bitdistri = $bitdistrioutput;
 
 							$nbcpuARMcmd = "sysctl hw.ncpu | awk '{ print $2}'";
-							$nbcpuoutput = ssh2_exec($connection, $nbcpuARMcmd);
-							stream_set_blocking($nbcpuoutput, true);
-							$nbcpu = stream_get_contents($nbcpuoutput);
+							$nbcpuoutput = $sshconnection->exec($nbcpuARMcmd);
+							$nbcpu = $nbcpuoutput;
 							$nbcpu = trim($nbcpu);
 
 							$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
-							$hdddata = ssh2_exec($connection, $hddcmd);
-							stream_set_blocking($hdddata, true);
-							$hdd = stream_get_contents($hdddata);
+							$hdddata = $sshconnection->exec($hddcmd);
+							$hdd = $hdddata;
 
 							$cpufreq0ARMcmd = "sysctl -a | egrep -E 'cpu.0.freq' | awk '{ print $2}'";
-							$cpufreq0output = ssh2_exec($connection, $cpufreq0ARMcmd);
-							stream_set_blocking($cpufreq0output, true);
-							$cpufreq0 = stream_get_contents($cpufreq0output);
+							$cpufreq0output = $sshconnection->exec($cpufreq0ARMcmd);
+							$cpufreq0 = $cpufreq0output;
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
 								$cputemp0armv6lcmd = "sysctl -a | egrep -E 'cpu.0.temp' | awk '{ print $2}'";
-								$cputemp0output = ssh2_exec($connection, $cputemp0armv6lcmd);
-								stream_set_blocking($cputemp0output, true);
-								$cputemp0 = stream_get_contents($cputemp0output);
+								$cputemp0output = $sshconnection->exec($cputemp0armv6lcmd);
+								$cputemp0 = $cputemp0output;
 							}
 						}
 					}
@@ -1468,11 +1412,11 @@ class Monitoring extends eqLogic {
 			$port = $this->getConfiguration('portssh');
 			$equipement = $this->getName();
 
-			if (!$connection = ssh2_connect($ip,$port)) {
+			if (!$sshconnection = new SSH2($ip,$port)) {
 				log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
 				$cnx_ssh = 'KO';
 			}else{
-				if (!ssh2_auth_password($connection,$user,$pass)){
+				if (!$sshconnection->login($user, $pass)){
 					log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
 					$cnx_ssh = 'KO';
 				}else{
@@ -1481,18 +1425,16 @@ class Monitoring extends eqLogic {
 						$paramaction =
 //								$Rebootcmd = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
 						$Rebootcmd = "sudo reboot >/dev/null & reboot >/dev/null";
-						$Rebootoutput = ssh2_exec($connection, $Rebootcmd);
-						stream_set_blocking($Rebootoutput, false);
-						$Reboot = stream_get_contents($Rebootoutput);
+						$Rebootoutput = $sshconnection->exec($Rebootcmd);
+						$Reboot = $Rebootoutput;
 						log::add('Monitoring','debug','lancement commande deporte reboot ' . $this->getHumanName());
 						break;
 						case "poweroff":
 						$paramaction =
 //								$poweroffcmd = "sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null";
 						$poweroffcmd = "sudo poweroff >/dev/null & poweroff  >/dev/null";
-						$poweroffoutput = ssh2_exec($connection, $poweroffcmd);
-						stream_set_blocking($poweroffoutput, false);
-						$poweroff = stream_get_contents($poweroffoutput);
+						$poweroffoutput = $sshconnection->exec($poweroffcmd);
+						$poweroff = $poweroffoutput;
 						log::add('Monitoring','debug','lancement commande deporte poweroff' . $this->getHumanName());
 						break;
 					}
