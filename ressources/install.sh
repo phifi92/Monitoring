@@ -2,7 +2,7 @@
 touch /tmp/dependancy_monitoring_in_progress
 echo 0 > /tmp/dependancy_monitoring_in_progress
 versionPHP=$(php -r \@phpinfo\(\)\; | grep 'PHP Version' -m 1 | awk '{ print $4 }' | cut -d'.' -f1)
-if [ $versionPHP = "5" ]
+if [ "$versionPHP" -eq 5 ]
 	then
 		echo "*****************************************************************************************************"
 		echo "*   Lancement de l'installation du module SSH pour PHP 5 / Launch install of module ssh2 for PHP 5  *"
@@ -18,7 +18,7 @@ if [ $versionPHP = "5" ]
 		echo "*  Pour finaliser l'installation, redémarrer Jeedom / To complete the installation, restart Jeedom  *"
 		echo "*****************************************************************************************************"
 fi
-if [ $versionPHP >= "7" ]
+if [ "$versionPHP" -ge 7 ]
 	then
 		echo "*****************************************************************************************************"
 		echo "*   Lancement de l'installation du module SSH pour PHP 7 / Launch install of module ssh2 for PHP 7  *"
@@ -34,7 +34,7 @@ if [ $versionPHP >= "7" ]
 		echo "*  Pour finaliser l'installation, redémarrer Jeedom / To complete the installation, restart Jeedom  *"
 		echo "*****************************************************************************************************"
 fi
-if [ $versionPHP != "5" ] && [ $versionPHP != "7" ]
+if [ "$versionPHP" -ne 5 ] && [ "$versionPHP" -ne 7 ]
 	then
 		echo "Installation KO, PHP5 ou PHP7 n'est pas installé"
 		echo 100 > /tmp/dependancy_monitoring_in_progress
