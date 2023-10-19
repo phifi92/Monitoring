@@ -17,7 +17,7 @@
  */
 
 /* * ***************************Includes********************************* */
-set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/phpseclib');
+set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/phpseclib);
 include('Net/SSH2.php');
 include('Crypt/RSA.php');
 include('autoload.php');
@@ -637,7 +637,7 @@ class Monitoring extends eqLogic {
 						//$connection = new SSH2($ip,$port);
 						//ssh2_auth_password($connection,$user,$pass);
 
-						$versionsynocmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $11,$8}'";
+						$versionsynocmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $1,$2,$4,$5}'";
 						$versionsynooutput = $sshconnection->exec($versionsynocmd);
 						$versionsyno = $versionsynooutput;
 
@@ -717,7 +717,7 @@ class Monitoring extends eqLogic {
 						$nbcpuoutput = $sshconnection->exec($nbcpuVMcmd);
 						$nbcpu = $nbcpuoutput;
 						if ($nbcpu == ''){
-							$nbcpuVMbiscmd = "lscpu | grep '^CPU(s)' | awk '{ print $2 $NF }'"; // OK pour LXC Linux/Ubuntu
+							$nbcpuVMbiscmd = "lscpu | grep '^CPU(s)' | awk '{ print $NF }'"; // OK pour LXC Linux/Ubuntu
 							$nbcpuoutput = $sshconnection->exec($nbcpuVMbiscmd);
 							$nbcpu = $nbcpuoutput;
 						}
@@ -730,7 +730,7 @@ class Monitoring extends eqLogic {
 						$cpufreqoutput = $sshconnection->exec($cpufreqVMcmd);
 						$cpufreq = $cpufreqoutput;
 						if ($cpufreq == ''){
-							$cpufreqVMbiscmd = "lscpu | grep '^CPU max MHz' | awk '{ print $NF }'";	// OK pour LXC Linux
+							$cpufreqVMbiscmd = "lscpu | grep '^CPU MHz' | awk '{ print $NF }'";	// OK pour LXC Linux
 							$cpufreqoutput = $sshconnection->exec($cpufreqVMbiscmd);
 							$cpufreq = $cpufreqoutput;
 						}
@@ -738,7 +738,7 @@ class Monitoring extends eqLogic {
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-							$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone1/temp";	// OK Dell WYSE
+							$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell WYSE
 							$cputemp0output = $sshconnection->exec($cputemp0cmd);
 							$cputemp0 = $cputemp0output;
 							if ($cputemp0 == '') {
@@ -1011,8 +1011,8 @@ class Monitoring extends eqLogic {
 					if (isset($versionsyno)) {
 						$versionsyno = str_ireplace('"', '', $versionsyno);
 						$versionsyno = explode(' ', $versionsyno);
-						if (isset($versionsyno[0]) && isset($versionsyno[1])) {
-							$versionsyno = 'DSM '.$versionsyno[0].' - Update '.$versionsyno[1];
+						if (isset($versionsyno[0]) && isset($versionsyno[1]) && isset($versionsyno[2]) && isset($versionsyno[3])) {
+							$versionsyno = 'DSM '.$versionsyno[0].'.'.$versionsyno[1].'-'.$versionsyno[2].' Update '.$versionsyno[3];
 						}
 						if (isset($namedistri) && isset($versionsyno)) {
 							$namedistri = trim($namedistri);
@@ -1159,18 +1159,14 @@ class Monitoring extends eqLogic {
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
 					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if (($ReseauRXTX[1] / 1000) > 1000000000) {
-                            $ReseauTX = round($ReseauRXTX[1] / 1000000000000, 2) . " To";
-                        }elseif (($ReseauRXTX[1] / 1000) > 1000000) {
+						if (($ReseauRXTX[1] / 1000) > 1000000) {
 							$ReseauTX = round($ReseauRXTX[1] / 1000000000, 2) . " Go";
 						}elseif (($ReseauRXTX[1] / 1000) > 1000) {
 							$ReseauTX = round($ReseauRXTX[1] / 1000000, 2) . " Mo";
 						}else{
 							$ReseauTX = round($ReseauRXTX[1] / 1000) . " Ko";
 						}
-						if (($ReseauRXTX[0] / 1000) > 1000000000) {
-                            $ReseauRX = round($ReseauRXTX[0] / 1000000000000, 2) . " To";
-                        }elseif (($ReseauRXTX[0] / 1000) > 1000000) {
+						if (($ReseauRXTX[0] / 1000) > 1000000) {
 							$ReseauRX = round($ReseauRXTX[0] / 1000000000, 2) . " Go";
 						}elseif (($ReseauRXTX[0] / 1000) > 1000) {
 							$ReseauRX = round($ReseauRXTX[0] / 1000000, 2) . " Mo";
