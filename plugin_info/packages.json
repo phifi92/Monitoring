@@ -1,0 +1,6 @@
+{
+  "apt" : {
+    "php-ssh2" : {},
+    "php-phpseclib" : {}
+  }
+}
