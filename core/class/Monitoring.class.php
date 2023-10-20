@@ -17,7 +17,8 @@
  */
 
 /* * ***************************Includes********************************* */
-set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/php/phpseclib');
+//set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/php/phpseclib');
+set_include_path(get_include_path() . get_include_path().'/phpseclib');
 include('Net/SSH2.php');
 include('Crypt/RSA.php');
 include('autoload.php');
