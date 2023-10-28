@@ -604,7 +604,7 @@ class JeeMonitor extends eqLogic {
 						if($this->getconfiguration('syno_use_temp_path')) $synocmdTemp=$this->getconfiguration('syno_temp_path');				
 
 						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
-						log::add(__CLASS__,"debug", "commande temp syno : ".$cputemp0cmd);
+						log::add("JeeMonitor","debug", "commande temp syno : ".$cputemp0cmd);
 						$cputemp0 = $sshconnection->exec($cputemp0cmd);
 					}
 					if($this->getConfiguration('synology') == '1' && $SynoV2Visible == 'OK' && $this->getConfiguration('synologyv2') == '1') {
@@ -620,12 +620,12 @@ class JeeMonitor extends eqLogic {
 						$hddcmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdd = $sshconnection->exec($hddcmd);
 
-						$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+						$cpufreq0ARMcmd = "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq 2>/dev/null";
 						$cpufreq0 = $sshconnection->exec($cpufreq0ARMcmd);
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
+							$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";
 							$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
 						}
 
@@ -644,11 +644,11 @@ class JeeMonitor extends eqLogic {
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-							$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp";	// OK RPi2
+							$cputemp0RPi2cmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";	// OK RPi2
 							$cputemp0 = $sshconnection->exec($cputemp0RPi2cmd);
 
 							if ($cputemp0 == '') {
-								$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input"; // OK Banana Pi (Cubie surement un jour...)
+								$cputemp0armv7lcmd = "cat /sys/devices/platform/sunxi-i2c.0/i2c-0/0-0034/temp1_input 2>/dev/null"; // OK Banana Pi (Cubie surement un jour...)
 								$cputemp0 = $sshconnection->exec($cputemp0armv7lcmd);
 							}
 						}
@@ -686,22 +686,17 @@ class JeeMonitor extends eqLogic {
 
 						$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-							if (file_exists('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
-								$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp";	// OK Dell WYSE
-								$cputemp0 = $sshconnection->exec($cputemp0cmd);
-							}
+							$cputemp0cmd = "cat /sys/devices/virtual/thermal/thermal_zone0/temp 2>/dev/null";	// OK Dell WYSE
+							$cputemp0 = $sshconnection->exec($cputemp0cmd);
 
 							if ($cputemp0 == '') {
-								if (file_exists('/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input')) {
-									$cputemp0cmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
-									$cputemp0 = $sshconnection->exec($cputemp0cmd);
-								}
+								$cputemp0cmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input 2>/dev/null";	// OK AOpen DE2700
+								$cputemp0 = $sshconnection->exec($cputemp0cmd);
+								
 							}
 							if ($cputemp0 == '') {
-								if (file_exists('/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input')) {
-									$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
-									$cputemp0 = $sshconnection->exec($cputemp0AMDcmd);
-								}
+								$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input 2>/dev/null";	// OK AMD Ryzen
+								$cputemp0 = $sshconnection->exec($cputemp0AMDcmd);
 							}
 							if ($cputemp0 == '') {
 								$cputemp0sensorscmd = "sensors 2>/dev/null | awk '{if (match($0, \"MB Temperature\")){printf(\"%f\",$3);} }'"; // OK by sensors
@@ -730,10 +725,8 @@ class JeeMonitor extends eqLogic {
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-								if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-									$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-									$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
-								}
+								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";
+								$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
 							}
 
 						}
@@ -752,10 +745,8 @@ class JeeMonitor extends eqLogic {
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-								if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-									$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-									$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
-								}
+								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";
+								$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
 							}
 						}
 						elseif (preg_match("#piCorePlayer#", $uname)) {
@@ -775,10 +766,8 @@ class JeeMonitor extends eqLogic {
 
 							$cpuTempCmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cpuTempCmd) && $cpuTempCmd->getIsVisible() == 1) {
-								if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
-									$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp";
-									$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
-								}
+								$cputemp0armv6lcmd = "cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null";
+								$cputemp0 = $sshconnection->exec($cputemp0armv6lcmd);
 							}
 
 						}
@@ -960,13 +949,17 @@ class JeeMonitor extends eqLogic {
 					}
 				
 					if ($cputemp0 == '') {
-						$cputemp0AOpencmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
-						$cputemp0 = exec($cputemp0AOpencmd);
+						if (file_exists('/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input')) {
+							$cputemp0AOpencmd = "cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp?_input";	// OK AOpen DE2700
+							$cputemp0 = exec($cputemp0AOpencmd);
+						}
 					}
 				
 					if ($cputemp0 == '') {
-						$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
-						$cputemp0 = exec($cputemp0AMDcmd);
+						if (file_exists('/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input')) {
+							$cputemp0AMDcmd = "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input";	// OK AMD Ryzen
+							$cputemp0 = exec($cputemp0AMDcmd);
+						}
 					}
 				}
 			}
@@ -1054,10 +1047,11 @@ class JeeMonitor extends eqLogic {
 						
 						if (isset($free[0]) && isset($freelibre)) {
 							$mem_usage_pourc = round(intval($freelibre) / intval($free[0]) * 100);
-							log::add('JeeMonitor', 'debug', 'Variable MemPourcentage = '.$mempourcusage.' / freelibre : '.$freelibre.' / free0 : '.$free[0]);
+							log::add('JeeMonitor', 'debug', 'Variable MemPourcentage = '.$mem_usage_pourc.' / freelibre : '.$freelibre.' / free0 : '.$free[0]);
 						}
 						
 						$Swappourc = explode(' ', $Swappourc);
+						log::add('JeeMonitor', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
 						if (isset($Swappourc[0]) && isset($Swappourc[1]))
 						{
 							if (intval($Swappourc[0]) != 0){
