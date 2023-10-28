@@ -49,7 +49,7 @@ class Monitoring extends eqLogic {
 		if (file_exists('/tmp/dependancy_monitoring_in_progress')) {
 			$return['state'] = 'in_progress';
 		} else {
-			if (exec('php -m | grep ssh2 | wc -l') != 0) {
+			if (exec('apt list --installed 2>/dev/null | grep php-phpseclib | wc -l') != 0) {
 				$return['state'] = 'ok';
 			} else {
 				$return['state'] = 'nok';
