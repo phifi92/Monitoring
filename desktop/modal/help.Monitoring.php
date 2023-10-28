@@ -23,7 +23,7 @@ if (!isConnect('admin')) {
 
 <legend>{{Aide}}</legend>
 
-Pour obtenir de l'aide au paramétrage du plugin, merci de consulter la documentation : <a href="http://doc.jeedom.fr/" target="_blank">Plugin Monitoring</a>
+Pour obtenir de l'aide au paramétrage du plugin, merci de consulter la documentation : <a href="https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/" target="_blank">Plugin Monitoring</a>
 
 
 
