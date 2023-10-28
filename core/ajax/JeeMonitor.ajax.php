@@ -24,10 +24,10 @@ try {
         throw new Exception(__('401 - Accès non autorisé', __FILE__));
     }
 
-    if (init('action') == 'getMonitoring') {
+    if (init('action') == 'getJeeMonitor') {
 			foreach (jeeObject::all() as $object) {
-				foreach ($object->getEqLogic(true, false, 'Monitoring') as $Monitoring) {
-					$return['eqLogics'][] = $Monitoring->toHtml(init('version'));
+				foreach ($object->getEqLogic(true, false, 'JeeMonitor') as $JeeMonitor) {
+					$return['eqLogics'][] = $JeeMonitor->toHtml(init('version'));
 				}
 			}
 		ajax::success($return);
