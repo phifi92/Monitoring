@@ -3,7 +3,7 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 
-$plugin = plugin::byId('JeeMonitor');
+$plugin = plugin::byId('Monitoring');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
@@ -23,7 +23,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<span>{{Configuration}}</span>
 			</div>
 		</div>
-		<legend><i class="icon meteo-soleil"></i> {{Mes JeeMonitors}}</legend>
+		<legend><i class="icon meteo-soleil"></i> {{Mes Monitorings}}</legend>
 		<input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 		<div class="eqLogicThumbnailContainer">
 			<?php
@@ -61,7 +61,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                     <label class="col-md-4 control-label">{{Nom de l'équipement}}</label>
                                     <div class="col-md-6">
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-                                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement JeeMonitor}}"/>
+                                        <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement Monitoring}}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -216,6 +216,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 	</div>
 </div>
 <?php 
-    include_file('desktop', 'JeeMonitor', 'js', 'JeeMonitor');
+    include_file('desktop', 'Monitoring', 'js', 'Monitoring');
     include_file('core', 'plugin.template', 'js');
 ?>

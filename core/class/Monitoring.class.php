@@ -23,26 +23,26 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 include_once('phpseclib/autoload.php');
 use phpseclib\Net\SSH2;
 
-class JeeMonitor extends eqLogic {
+class Monitoring extends eqLogic {
 
 	public static function pull() {
-		foreach (eqLogic::byType('JeeMonitor', true) as $JeeMonitor) {
-			$JeeMonitor->getInformations();
-			$mc = cache::byKey('JeeMonitorWidgetmobile' . $JeeMonitor->getId());
+		foreach (eqLogic::byType('Monitoring', true) as $Monitoring) {
+			$Monitoring->getInformations();
+			$mc = cache::byKey('MonitoringWidgetmobile' . $Monitoring->getId());
 			$mc->remove();
-			$mc = cache::byKey('JeeMonitorWidgetdashboard' . $JeeMonitor->getId());
+			$mc = cache::byKey('MonitoringWidgetdashboard' . $Monitoring->getId());
 			$mc->remove();
-			$JeeMonitor->toHtml('mobile');
-			$JeeMonitor->toHtml('dashboard');
-			$JeeMonitor->refreshWidget();
+			$Monitoring->toHtml('mobile');
+			$Monitoring->toHtml('dashboard');
+			$Monitoring->refreshWidget();
 		}
 	}
 
 	public static function dependancy_info() {
 		$return = array();
-		$return['log'] = 'JeeMonitor_update';
-		$return['progress_file'] = '/tmp/dependancy_jeemonitor_in_progress';
-		if (file_exists('/tmp/dependancy_jeemonitor_in_progress')) {
+		$return['log'] = 'Monitoring_update';
+		$return['progress_file'] = '/tmp/dependancy_monitoring_in_progress';
+		if (file_exists('/tmp/dependancy_monitoring_in_progress')) {
 			$return['state'] = 'in_progress';
 		} else {
 			if (exec('apt list --installed 2>/dev/null | grep php-phpseclib | wc -l') != 0) {
@@ -55,288 +55,288 @@ class JeeMonitor extends eqLogic {
 	}
 
 	public static function dependancy_install() {
-		if (file_exists('/tmp/compilation_jeemonitor_in_progress')) {
+		if (file_exists('/tmp/compilation_monitoring_in_progress')) {
 			return;
 		}
-		log::remove('JeeMonitor_update');
+		log::remove('Monitoring_update');
 		$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../ressources/install.sh';
-		$cmd .= ' >> ' . log::getPathToLog('JeeMonitor_update') . ' 2>&1 &';
+		$cmd .= ' >> ' . log::getPathToLog('Monitoring_update') . ' 2>&1 &';
 		exec($cmd);
 	}
 
 	public function postSave() {
 
-		$JeeMonitorCmd = $this->getCmd(null, 'namedistri');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Distribution', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('namedistri');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->setIsVisible(1);
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'namedistri');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Distribution', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('namedistri');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->setIsVisible(1);
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'uptime');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Démarré depuis', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('uptime');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'uptime');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Démarré depuis', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('uptime');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'loadavg1mn');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Charge système 1 min', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('loadavg1mn');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'loadavg1mn');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 1 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg1mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'loadavg5mn');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Charge système 5 min', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('loadavg5mn');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'loadavg5mn');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 5 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg5mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'loadavg15mn');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Charge système 15 min', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('loadavg15mn');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'loadavg15mn');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Charge système 15 min', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('loadavg15mn');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'Mem');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Mémoire (Méga)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('Mem');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'Mem');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Mémoire (Méga)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mem');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'Mempourc');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Mémoire libre (pourcentage)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('Mempourc');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'Mempourc');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Mémoire libre (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mempourc');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'Mem_swap');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Swap', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('Mem_swap');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'Mem_swap');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Swap', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Mem_swap');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'Swappourc');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Swap libre (pourcentage)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('Swappourc');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'Swappourc');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Swap libre (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('Swappourc');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'ethernet0');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Réseau (M)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('ethernet0');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'ethernet0');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Réseau (M)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('ethernet0');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'hddtotal');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Espace disque Total', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('hddtotal');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'hddtotal');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Total', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddtotal');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'hddused');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Espace disque Utilisé', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('hddused');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'hddused');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Utilisé', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddused');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'hddpourcused');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Espace disque Utilisé (pourcentage)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('hddpourcused');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'hddpourcused');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Espace disque Utilisé (pourcentage)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('hddpourcused');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
 		if ($this->getConfiguration('synology') == '1') {
 			if ($this->getConfiguration('synologyv2') == '1') {
-				$JeeMonitorCmd = $this->getCmd(null, 'hddtotalv2');
-				if (!is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd = new JeeMonitorCmd();
-					$JeeMonitorCmd->setName(__('Syno Volume 2 Espace disque Total', __FILE__));
-					$JeeMonitorCmd->setEqLogic_id($this->getId());
-					$JeeMonitorCmd->setLogicalId('hddtotalv2');
-					$JeeMonitorCmd->setType('info');
-					$JeeMonitorCmd->setSubType('string');
-					$JeeMonitorCmd->save();
+				$MonitoringCmd = $this->getCmd(null, 'hddtotalv2');
+				if (!is_object($MonitoringCmd)) {
+					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Total', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddtotalv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('string');
+					$MonitoringCmd->save();
 				}
 
-				$JeeMonitorCmd = $this->getCmd(null, 'hddusedv2');
-				if (!is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd = new JeeMonitorCmd();
-					$JeeMonitorCmd->setName(__('Syno Volume 2 Espace disque Utilisé', __FILE__));
-					$JeeMonitorCmd->setEqLogic_id($this->getId());
-					$JeeMonitorCmd->setLogicalId('hddusedv2');
-					$JeeMonitorCmd->setType('info');
-					$JeeMonitorCmd->setSubType('string');
-					$JeeMonitorCmd->save();
+				$MonitoringCmd = $this->getCmd(null, 'hddusedv2');
+				if (!is_object($MonitoringCmd)) {
+					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddusedv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('string');
+					$MonitoringCmd->save();
 				}
 
-				$JeeMonitorCmd = $this->getCmd(null, 'hddpourcusedv2');
-				if (!is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd = new JeeMonitorCmd();
-					$JeeMonitorCmd->setName(__('Syno Volume 2 Espace disque Utilisé (pourcentage)', __FILE__));
-					$JeeMonitorCmd->setEqLogic_id($this->getId());
-					$JeeMonitorCmd->setLogicalId('hddpourcusedv2');
-					$JeeMonitorCmd->setType('info');
-					$JeeMonitorCmd->setSubType('numeric');
-					$JeeMonitorCmd->save();
+				$MonitoringCmd = $this->getCmd(null, 'hddpourcusedv2');
+				if (!is_object($MonitoringCmd)) {
+					$MonitoringCmd = new MonitoringCmd();
+					$MonitoringCmd->setName(__('Syno Volume 2 Espace disque Utilisé (pourcentage)', __FILE__));
+					$MonitoringCmd->setEqLogic_id($this->getId());
+					$MonitoringCmd->setLogicalId('hddpourcusedv2');
+					$MonitoringCmd->setType('info');
+					$MonitoringCmd->setSubType('numeric');
+					$MonitoringCmd->save();
 				}
 
 			} elseif ($this->getConfiguration('synologyv2') == '0') {
-				$JeeMonitorCmd = $this->getCmd(null, 'hddtotalv2');
-				if ( is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd->remove();
+				$MonitoringCmd = $this->getCmd(null, 'hddtotalv2');
+				if ( is_object($MonitoringCmd)) {
+					$MonitoringCmd->remove();
 				}
-				$JeeMonitorCmd = $this->getCmd(null, 'hddusedv2');
-				if ( is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd->remove();
+				$MonitoringCmd = $this->getCmd(null, 'hddusedv2');
+				if ( is_object($MonitoringCmd)) {
+					$MonitoringCmd->remove();
 				}
-				$JeeMonitorCmd = $this->getCmd(null, 'hddpourcusedv2');
-				if ( is_object($JeeMonitorCmd)) {
-					$JeeMonitorCmd->remove();
+				$MonitoringCmd = $this->getCmd(null, 'hddpourcusedv2');
+				if ( is_object($MonitoringCmd)) {
+					$MonitoringCmd->remove();
 				}
 			}
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'cpu');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('CPU(s)', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('cpu');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'cpu');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('CPU(s)', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cpu');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'cpu_temp');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Température CPU', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('cpu_temp');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('numeric');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'cpu_temp');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Température CPU', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cpu_temp');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('numeric');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'cnx_ssh');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('Statut cnx SSH Scénario', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('cnx_ssh');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'cnx_ssh');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Statut cnx SSH Scénario', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('cnx_ssh');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
 
-		$JeeMonitorCmd = $this->getCmd(null, 'perso2');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('perso2', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('perso2');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'perso2');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('perso2', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('perso2');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'perso1');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('perso1', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('perso1');
-			$JeeMonitorCmd->setType('info');
-			$JeeMonitorCmd->setSubType('string');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'perso1');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('perso1', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('perso1');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'reboot');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('reboot', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('reboot');
-			$JeeMonitorCmd->setType('action');
-			$JeeMonitorCmd->setSubType('other');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'reboot');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('reboot', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('reboot');
+			$MonitoringCmd->setType('action');
+			$MonitoringCmd->setSubType('other');
+			$MonitoringCmd->save();
 		}
 
-		$JeeMonitorCmd = $this->getCmd(null, 'poweroff');
-		if (!is_object($JeeMonitorCmd)) {
-			$JeeMonitorCmd = new JeeMonitorCmd();
-			$JeeMonitorCmd->setName(__('poweroff', __FILE__));
-			$JeeMonitorCmd->setEqLogic_id($this->getId());
-			$JeeMonitorCmd->setLogicalId('poweroff');
-			$JeeMonitorCmd->setType('action');
-			$JeeMonitorCmd->setSubType('other');
-			$JeeMonitorCmd->save();
+		$MonitoringCmd = $this->getCmd(null, 'poweroff');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('poweroff', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('poweroff');
+			$MonitoringCmd->setType('action');
+			$MonitoringCmd->setSubType('other');
+			$MonitoringCmd->save();
 		}
 
 		$this->getInformations();
@@ -505,8 +505,8 @@ class JeeMonitor extends eqLogic {
 			$replace['#cmd_' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 		}
 
-		$html = template_replace($replace, getTemplate('core', $_version, 'JeeMonitor','JeeMonitor'));
-		cache::set('JeeMonitorWidget' . $_version . $this->getId(), $html, 0);
+		$html = template_replace($replace, getTemplate('core', $_version, 'Monitoring','Monitoring'));
+		cache::set('MonitoringWidget' . $_version . $this->getId(), $html, 0);
 		return $html;
 	}
 
@@ -532,12 +532,12 @@ class JeeMonitor extends eqLogic {
 			$equipement = $this->getName();
 
 			if (!$sshconnection = new SSH2($ip,$port)) {
-				log::add('JeeMonitor', 'error', 'connexion SSH KO pour '.$equipement);
+				log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
 				$cnx_ssh = 'KO';
 			}
 			else {
 				if (!$sshconnection->login($user, $pass)) {
-					log::add('JeeMonitor', 'error', 'Authentification SSH KO pour '.$equipement);
+					log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
 					$cnx_ssh = 'KO';
 				}
 				else {
@@ -604,7 +604,7 @@ class JeeMonitor extends eqLogic {
 						if($this->getconfiguration('syno_use_temp_path')) $synocmdTemp=$this->getconfiguration('syno_temp_path');				
 
 						$cputemp0cmd = "timeout 3 cat ".$synocmdTemp;
-						log::add("JeeMonitor","debug", "commande temp syno : ".$cputemp0cmd);
+						log::add("Monitoring","debug", "commande temp syno : ".$cputemp0cmd);
 						$cputemp0 = $sshconnection->exec($cputemp0cmd);
 					}
 					if($this->getConfiguration('synology') == '1' && $SynoV2Visible == 'OK' && $this->getConfiguration('synologyv2') == '1') {
@@ -837,7 +837,7 @@ class JeeMonitor extends eqLogic {
 			$uptime = exec($uptimecmd);
 			$namedistri = exec($namedistricmd);
 			$VersionID = trim(exec($VersionIDcmd));
-			log::add('JeeMonitor', 'debug', 'VersionID(2) = >'.$VersionID.'<');
+			log::add('Monitoring', 'debug', 'VersionID(2) = >'.$VersionID.'<');
 			$loadav = exec($loadavgcmd);
 			$ReseauRXTX = exec($ReseauRXTXcmd);
 			$hdd = exec($hddcmd);
@@ -1033,25 +1033,25 @@ class JeeMonitor extends eqLogic {
 						if($this->getConfiguration('synology') == '1'){
 							if (isset($free[1]) && isset($free[3])) {
 								$freelibre = intval($free[1]) + intval($free[3]);
-								log::add('JeeMonitor', 'debug', 'Version Syno ('.$VersionID.') et Free1 et Free3 ok : '.$freelibre.' / '.$free[1].' / '.$free[3]);
+								log::add('Monitoring', 'debug', 'Version Syno ('.$VersionID.') et Free1 et Free3 ok : '.$freelibre.' / '.$free[1].' / '.$free[3]);
 							}
 						}
 						if(intval($VersionID) >= 9 && isset($free[3])){
 							$freelibre = intval($free[3]);
-							log::add('JeeMonitor', 'debug', 'VersionID ('.$VersionID.') >= 9 et Free3 ok : '.$freelibre.' / '.$free[3]);
+							log::add('Monitoring', 'debug', 'VersionID ('.$VersionID.') >= 9 et Free3 ok : '.$freelibre.' / '.$free[3]);
 						}
 						elseif(intval($VersionID) < 9 && isset($free[2]) && isset($free[3])){
 							$freelibre = intval($free[2]) + intval($free[3]);
-							log::add('JeeMonitor', 'debug', 'Version ('.$VersionID.') < 9 et Free2 et Free3 ok : '.$freelibre.' / '.$free[2].' / '.$free[3]);
+							log::add('Monitoring', 'debug', 'Version ('.$VersionID.') < 9 et Free2 et Free3 ok : '.$freelibre.' / '.$free[2].' / '.$free[3]);
 						}
 						
 						if (isset($free[0]) && isset($freelibre)) {
 							$mem_usage_pourc = round(intval($freelibre) / intval($free[0]) * 100);
-							log::add('JeeMonitor', 'debug', 'Variable MemPourcentage = '.$mem_usage_pourc.' / freelibre : '.$freelibre.' / free0 : '.$free[0]);
+							log::add('Monitoring', 'debug', 'Variable MemPourcentage = '.$mem_usage_pourc.' / freelibre : '.$freelibre.' / free0 : '.$free[0]);
 						}
 						
 						$Swappourc = explode(' ', $Swappourc);
-						log::add('JeeMonitor', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
+						log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
 						if (isset($Swappourc[0]) && isset($Swappourc[1]))
 						{
 							if (intval($Swappourc[0]) != 0){
@@ -1439,12 +1439,12 @@ class JeeMonitor extends eqLogic {
 			$equipement = $this->getName();
 
 			if (!$sshconnection = new SSH2($ip,$port)) {
-				log::add('JeeMonitor', 'error', 'connexion SSH KO pour '.$equipement);
+				log::add('Monitoring', 'error', 'connexion SSH KO pour '.$equipement);
 				$cnx_ssh = 'KO';
 			}
 			else {
 				if (!$sshconnection->login($user, $pass)){
-					log::add('JeeMonitor', 'error', 'Authentification SSH KO pour '.$equipement);
+					log::add('Monitoring', 'error', 'Authentification SSH KO pour '.$equipement);
 					$cnx_ssh = 'KO';
 				}
 				else {
@@ -1454,14 +1454,14 @@ class JeeMonitor extends eqLogic {
 							// $Rebootcmd = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
 							$Rebootcmd = "sudo reboot >/dev/null & reboot >/dev/null";
 							$Reboot = $sshconnection->exec($Rebootcmd);
-							log::add('JeeMonitor','debug','lancement commande deporte reboot ' . $this->getHumanName());
+							log::add('Monitoring','debug','lancement commande deporte reboot ' . $this->getHumanName());
 							break;
 						case "poweroff":
 							$paramaction =
 							// $poweroffcmd = "sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null";
 							$poweroffcmd = "sudo poweroff >/dev/null & poweroff  >/dev/null";
 							$poweroff = $sshconnection->exec($poweroffcmd);
-							log::add('JeeMonitor','debug','lancement commande deporte poweroff' . $this->getHumanName());
+							log::add('Monitoring','debug','lancement commande deporte poweroff' . $this->getHumanName());
 							break;
 					}
 				}
@@ -1474,12 +1474,12 @@ class JeeMonitor extends eqLogic {
 						$paramaction =
 						$cmdreboot = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
 						exec($cmdreboot);
-						log::add('JeeMonitor','debug','lancement commande local reboot ' . $this->getHumanName());
+						log::add('Monitoring','debug','lancement commande local reboot ' . $this->getHumanName());
 						break;
 					case "poweroff":
 						$paramaction =
 						exec('sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null');
-						log::add('JeeMonitor','debug','lancement commande local poweroff ' . $this->getHumanName());
+						log::add('Monitoring','debug','lancement commande local poweroff ' . $this->getHumanName());
 					break;
 				}
 			}
@@ -1489,12 +1489,12 @@ class JeeMonitor extends eqLogic {
 						$paramaction =
 						$cmdreboot = "sudo shutdown -r now >/dev/null & shutdown -r now >/dev/null";
 						exec($cmdreboot);
-						log::add('JeeMonitor','debug','lancement commande local reboot ' . $this->getHumanName());
+						log::add('Monitoring','debug','lancement commande local reboot ' . $this->getHumanName());
 						break;
 					case "poweroff":
 						$paramaction =
 						exec('sudo shutdown -P now >/dev/null & shutdown -P now >/dev/null');
-						log::add('JeeMonitor','debug','lancement commande local poweroff ' . $this->getHumanName());
+						log::add('Monitoring','debug','lancement commande local poweroff ' . $this->getHumanName());
 						break;
 				}
 			}
@@ -1502,7 +1502,7 @@ class JeeMonitor extends eqLogic {
 	}
 }
 
-class JeeMonitorCmd extends cmd {
+class MonitoringCmd extends cmd {
 	/* * *************************Attributs****************************** */
 	public static $_widgetPossibility = array('custom' => false);
 
