@@ -1,16 +1,16 @@
 {
-	"id" : "Monitoring",
-	"name" : "Monitoring",
-	"description" : "Plugin permettant le monitoring des équipements",
+	"id" : "JeeMonitor",
+	"name" : "JeeMonitor",
+	"description" : "Plugin permettant le JeeMonitor des équipements",
 	"licence" : "AGPL",
-	"author" : "Phifi",
-	"require" : "3.0",
+	"author" : "TiTidom",
+	"require" : "4.2",
 	"hasDependency" : true,
-	"category" : "monitoring",
-	"language" : ["fr_FR","en_US","de_DE","es_ES"],
+	"category" : "JeeMonitor",
+	"language" : ["fr_FR","en_US"],
 	"compatibility" : ["Jeedomboard","Smart","miniplus","rpi","docker","diy","v4"],
 	"display" : "panel",
 	"mobile" : "panel",
-	"changelog" : "https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/#tocAnchor-1-10",
-	"documentation" : "https://surveillancestation.github.io/surveillancestation/monitoring/fr_FR/"
+	"changelog" : "https://surveillancestation.github.io/surveillancestation/JeeMonitor/fr_FR/#tocAnchor-1-10",
+	"documentation" : "https://surveillancestation.github.io/surveillancestation/JeeMonitor/fr_FR/"
 }

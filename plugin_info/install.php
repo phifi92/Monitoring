@@ -18,11 +18,11 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-function Monitoring_install() {
-    $cron = cron::byClassAndFunction('Monitoring', 'pull');
+function JeeMonitor_install() {
+    $cron = cron::byClassAndFunction('JeeMonitor', 'pull');
     if (!is_object($cron)) {
       $cron = new cron();
-      $cron->setClass('Monitoring');
+      $cron->setClass('JeeMonitor');
       $cron->setFunction('pull');
       $cron->setEnable(1);
       $cron->setDeamon(0);
@@ -32,11 +32,11 @@ function Monitoring_install() {
     }
 }
 
-function Monitoring_update() {
-    $cron = cron::byClassAndFunction('Monitoring', 'pull');
+function JeeMonitor_update() {
+    $cron = cron::byClassAndFunction('JeeMonitor', 'pull');
     if (!is_object($cron)) {
       $cron = new cron();
-      $cron->setClass('Monitoring');
+      $cron->setClass('JeeMonitor');
       $cron->setFunction('pull');
       $cron->setEnable(1);
       $cron->setDeamon(0);
@@ -46,8 +46,8 @@ function Monitoring_update() {
     }
 }
 
-function Monitoring_remove() {
-    $cron = cron::byClassAndFunction('Monitoring', 'pull');
+function JeeMonitor_remove() {
+    $cron = cron::byClassAndFunction('JeeMonitor', 'pull');
     if (is_object($cron)) {
         $cron->remove();
     }

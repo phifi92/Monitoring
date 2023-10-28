@@ -14,12 +14,12 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-function initMonitoringPanel(_object_id) {
+function initJeeMonitorPanel(_object_id) {
   if(typeof setBackgroundImage == 'function'){
-    setBackgroundImage('plugins/Monitoring/core/img/panel.jpg');
+    setBackgroundImage('plugins/JeeMonitor/core/img/panel.jpg');
   }
   jeedom.object.all({
-    onlyHasEqLogic : 'Monitoring',
+    onlyHasEqLogic : 'JeeMonitor',
     error: function (error) {
       $('#div_alert').showAlert({message: error.message, level: 'danger'});
     },
@@ -31,28 +31,28 @@ function initMonitoringPanel(_object_id) {
           if (isset(objects[i].display) && isset(objects[i].display.icon)) {
             icon = objects[i].display.icon;
           }
-          li += '<li></span><a href="#" class="link" data-page="panel" data-plugin="monitoring" data-title="' + icon.replace(/\"/g, "\'") + ' ' + objects[i].name + '" data-option="' + objects[i].id + '"><span>' + icon + '</span> ' + objects[i].name + '</a></li>';
+          li += '<li></span><a href="#" class="link" data-page="panel" data-plugin="JeeMonitor" data-title="' + icon.replace(/\"/g, "\'") + ' ' + objects[i].name + '" data-option="' + objects[i].id + '"><span>' + icon + '</span> ' + objects[i].name + '</a></li>';
         }
       }
       li += '</ul>';
       panel(li);
     }
   });
-  displayMonitoring(_object_id);
+  displayJeeMonitor(_object_id);
 
   $(window).on("resize", function (event) {
     setTileSize('.eqLogic');
-    $('#div_displayEquipementMonitoring').packery({gutter : 0});
+    $('#div_displayEquipementJeeMonitor').packery({gutter : 0});
   });
 }
 
-function displayMonitoring(_object_id) {
+function displayJeeMonitor(_object_id) {
   $.showLoading();
   $.ajax({
     type: 'POST',
-    url: 'plugins/Monitoring/core/ajax/Monitoring.ajax.php',
+    url: 'plugins/JeeMonitor/core/ajax/JeeMonitor.ajax.php',
     data: {
-      action: 'getMonitoring',
+      action: 'getJeeMonitor',
       object_id: _object_id,
       version: 'mview'
     },
@@ -65,14 +65,14 @@ function displayMonitoring(_object_id) {
         $('#div_alert').showAlert({message: data.result, level: 'danger'});
         return;
       }
-      $('#div_displayEquipementMonitoring').empty();
+      $('#div_displayEquipementJeeMonitor').empty();
       for (var i in data.result.eqLogics) {
-        $('#div_displayEquipementMonitoring').append(data.result.eqLogics[i]).trigger('create');
+        $('#div_displayEquipementJeeMonitor').append(data.result.eqLogics[i]).trigger('create');
       }
       setTileSize('.eqLogic');
       jeedom.eqLogic.changeDisplayObjectName(true);
-      $('#div_displayEquipementMonitoring').packery({gutter : 0});
-      $('#div_displayEquipementMonitoring').packery({gutter : 0});
+      $('#div_displayEquipementJeeMonitor').packery({gutter : 0});
+      $('#div_displayEquipementJeeMonitor').packery({gutter : 0});
       $.hideLoading();
     }
   });
