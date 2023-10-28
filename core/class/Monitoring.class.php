@@ -1051,15 +1051,18 @@ class Monitoring extends eqLogic {
 						}
 						
 						$Swappourc = explode(' ', $Swappourc);
-						log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
 						if (isset($Swappourc[0]) && isset($Swappourc[1]))
 						{
+							log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
 							if (intval($Swappourc[0]) != 0){
 								$Swappourcusage = round(intval($Swappourc[1]) / intval($Swappourc[0]) * 100, 2);
 							}
 							else {
 								$Swappourcusage = 0;
 							}
+						}
+						else {
+							log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0]);
 						}
 
 						if (isset($freelibre)) {
