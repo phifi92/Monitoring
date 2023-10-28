@@ -31,7 +31,7 @@ function initMonitoringPanel(_object_id) {
           if (isset(objects[i].display) && isset(objects[i].display.icon)) {
             icon = objects[i].display.icon;
           }
-          li += '<li></span><a href="#" class="link" data-page="panel" data-plugin="Monitoring" data-title="' + icon.replace(/\"/g, "\'") + ' ' + objects[i].name + '" data-option="' + objects[i].id + '"><span>' + icon + '</span> ' + objects[i].name + '</a></li>';
+          li += '<li></span><a href="#" class="link" data-page="panel" data-plugin="monitoring" data-title="' + icon.replace(/\"/g, "\'") + ' ' + objects[i].name + '" data-option="' + objects[i].id + '"><span>' + icon + '</span> ' + objects[i].name + '</a></li>';
         }
       }
       li += '</ul>';
