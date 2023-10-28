@@ -18,14 +18,14 @@
 
 /* * ***************************Includes********************************* */
 //set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/php/phpseclib');
-set_include_path(get_include_path() . get_include_path().'/phpseclib');
-include('Net/SSH2.php');
-include('Crypt/RSA.php');
-include('autoload.php');
+// set_include_path(get_include_path() . get_include_path().'/phpseclib'); /* ne pas modifier le path et plutôt inclure le chemin phpseclib directement dans l'appel du include */
+// include_once('phpseclib/Net/SSH2.php'); /* inclus dans le autoload.php */
+// include_once('phpseclib/Crypt/RSA.php'); /* inclus dans le autoload.php */
+include_once('phpseclib/autoload.php');
 
 use phpseclib\Net\SSH2;
-  
-  require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+
+require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class Monitoring extends eqLogic {
 
