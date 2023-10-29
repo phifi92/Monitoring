@@ -1228,7 +1228,7 @@ class Monitoring extends eqLogic {
 								$cputemp0 = round(floatval($cputemp0), 1);
 							}
 						}
-						if (floaval($cpufreq0) == 0){
+						if (floatval($cpufreq0) == 0){
 							$cpu = $nbcpu.' Socket(s) ';
 							$cpufreq0 = '';
 						}
