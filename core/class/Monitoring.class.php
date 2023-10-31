@@ -1130,9 +1130,9 @@ class Monitoring extends eqLogic {
 				if (isset($swap)) {
 					$swap = explode(' ', $swap);
 
-					if(isset($swap[0]) && isset($swap[1])) {
+					if(isset($swap[0]) && isset($swap[2])) {
 						if (intval($swap[0]) != 0) {
-							$swaplibre_pourc = round(intval($swap[1]) / intval($swap[0]) * 100);
+							$swaplibre_pourc = round(intval($swap[2]) / intval($swap[0]) * 100);
 						}
 						else {
 							$swaplibre_pourc = 0;
