@@ -670,7 +670,7 @@ class Monitoring extends eqLogic {
 						$nbcpu = $sshconnection->exec($nbcpuVM_cmd);
 
 						if ($nbcpu == '') {
-							$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s)' | awk '{ print $NF }'"; // OK pour LXC Linux/Ubuntu
+							$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'"; // OK pour LXC Linux/Ubuntu
 							$nbcpu = $sshconnection->exec($nbcpuVMbis_cmd);
 						}
 						$nbcpu = preg_replace("/[^0-9]/","",$nbcpu);
@@ -940,7 +940,7 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuVM_cmd);
 
 				if ($nbcpu == ''){
-					$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s)' | awk '{ print $NF }'"; // OK pour LXC Linux/Ubuntu
+					$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'"; // OK pour LXC Linux/Ubuntu
 					$nbcpu = exec($nbcpuVMbis_cmd);
 				}
 				$nbcpu = preg_replace("/[^0-9]/","",$nbcpu);
