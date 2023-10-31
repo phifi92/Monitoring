@@ -94,8 +94,14 @@
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#Swappourc#' == '') {
 				$('#Mem_swap#id#').append('<span>#Mem_swap#</span>');
-			}else {
+			}else if ('#Swappourc#' > '#Memswapvertsupa#' && '#Memswapvertsupa#' != '') {
 				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-success-color) !important;" >#Swappourc#%</span>)');
+			}else if ('#Swappourc#' >= '#Memswaporangede#' && '#Mempourc#' <= '#Mempourcorangea#') {
+				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#Swappourc#%</span>)');
+			}else if ('#Swappourc#' < '#Memswaprougeinfa#') {
+				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#Swappourc#%</span>)');	
+			}else {
+				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" >#Swappourc#%</span>)');
 			}
 		}
     </script>
