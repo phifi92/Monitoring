@@ -431,9 +431,9 @@ class Monitoring extends eqLogic {
 		$replace['#hddused#'] = (is_object($hddused)) ? $hddused->execCmd() : '';
 		$replace['#hddusedid#'] = is_object($hddused) ? $hddused->getId() : '';
 
-		$hddpourcused = $this->getCmd(null,'hddpourcused');
-		$replace['#hddpourcused#'] = (is_object($hddpourcused)) ? $hddpourcused->execCmd() : '';
-		$replace['#hddpourcusedid#'] = is_object($hddpourcused) ? $hddpourcused->getId() : '';
+		$hddused_pourc = $this->getCmd(null,'hddpourcused');
+		$replace['#hddpourcused#'] = (is_object($hddused_pourc)) ? $hddused_pourc->execCmd() : '';
+		$replace['#hddpourcusedid#'] = is_object($hddused_pourc) ? $hddused_pourc->getId() : '';
 
 		$hddtotal = $this->getCmd(null,'hddtotal');
 		$replace['#hddtotal#'] = (is_object($hddtotal)) ? $hddtotal->execCmd() : '';
@@ -452,9 +452,9 @@ class Monitoring extends eqLogic {
 			$replace['#hddusedv2#'] = (is_object($hddusedv2)) ? $hddusedv2->execCmd() : '';
 			$replace['#hddusedv2id#'] = is_object($hddusedv2) ? $hddusedv2->getId() : '';
 
-			$hddpourcusedv2 = $this->getCmd(null,'hddpourcusedv2');
-			$replace['#hddpourcusedv2#'] = (is_object($hddpourcusedv2)) ? $hddpourcusedv2->execCmd() : '';
-			$replace['#hddpourcusedv2id#'] = is_object($hddpourcusedv2) ? $hddpourcusedv2->getId() : '';
+			$hddusedv2_pourc = $this->getCmd(null,'hddpourcusedv2');
+			$replace['#hddpourcusedv2#'] = (is_object($hddusedv2_pourc)) ? $hddusedv2_pourc->execCmd() : '';
+			$replace['#hddpourcusedv2id#'] = is_object($hddusedv2_pourc) ? $hddusedv2_pourc->getId() : '';
 
 			$hddtotalv2 = $this->getCmd(null,'hddtotalv2');
 			$replace['#hddtotalv2#'] = (is_object($hddtotalv2)) ? $hddtotalv2->execCmd() : '';
@@ -512,11 +512,11 @@ class Monitoring extends eqLogic {
 
 	public function getInformations() {
 
-		$swap_pourc_cmd = '';
+		// $swap_pourc_cmd = '';
 		$bitdistri_cmd = '';
 		$uname = "Inconnu";
 		$Mem = '';
-		$mem_usage_pourc = '';
+		$memorylibre_pourc = '';
 		$ethernet0 = '';
 		
 
@@ -940,7 +940,7 @@ class Monitoring extends eqLogic {
 				$nbcpu = exec($nbcpuVM_cmd);
 
 				if ($nbcpu == ''){
-					$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s):' | awk '{ print $2 }'"; // OK pour LXC Linux/Ubuntu
+					$nbcpuVMbis_cmd = "lscpu | grep '^CPU(s):' | awk '{ print $NF }'"; // OK pour LXC Linux/Ubuntu
 					$nbcpu = exec($nbcpuVMbis_cmd);
 				}
 				$nbcpu = preg_replace("/[^0-9]/","",$nbcpu);
@@ -1012,7 +1012,7 @@ class Monitoring extends eqLogic {
 						if (isset($hdddatav2[0]) && isset($hdddatav2[1]) && isset($hdddatav2[2])) {
 							$hddtotalv2 = $hdddatav2[0];
 							$hddusedv2 = $hdddatav2[1];
-							$hddpourcusedv2 = preg_replace("/[^0-9.]/","",$hdddatav2[2]);
+							$hddusedv2_pourc = preg_replace("/[^0-9.]/","",$hdddatav2[2]);
 						}
 					}
 				}
@@ -1048,54 +1048,50 @@ class Monitoring extends eqLogic {
 					if (!preg_match("#FreeBSD#", $uname)) {
 						$memory = explode(' ', $memory);
 						if($this->getConfiguration('synology') == '1'){
-							if (isset($memory[1]) && isset($memory[3])) {
-								$memorylibre = intval($memory[1]) + intval($memory[3]);
-								log::add('Monitoring', 'debug', 'Version Syno ('.$VersionID.') et Free1 et Free3 ok : '.$memorylibre.' / '.$memory[1].' / '.$memory[3]);
+							if (isset($memory[3])) {
+								$memorylibre = intval($memory[3]);
+								log::add('Monitoring', 'debug', '[Memory] Version Syno ('.$VersionID.') / Mémoire Libre = '.$memorylibre);
 							}
 						}
-						elseif(intval($VersionID) >= 9 && isset($memory[3])){
+						else {
+							if (isset($memory[3])) {
+								$memorylibre = intval($memory[3]);
+								log::add('Monitoring', 'debug', '[Memory] Version Linux ('.$VersionID.') / Mémoire Libre = '.$memorylibre);
+							}
+						}
+						/* elseif(intval($VersionID) >= 9 && isset($memory[3])){
 							$memorylibre = intval($memory[3]);
-							log::add('Monitoring', 'debug', 'VersionID ('.$VersionID.') >= 9 et Free3 ok : '.$memorylibre.' / '.$memory[3]);
+							log::add('Monitoring', 'debug', '[Memory] VersionID ('.$VersionID.') >= 9 et Free3 ok : '.$memorylibre.' / '.$memory[3]);
 						}
 						elseif(intval($VersionID) < 9 && isset($memory[2]) && isset($memory[3])){
 							$memorylibre = intval($memory[2]) + intval($memory[3]);
 							log::add('Monitoring', 'debug', 'Version ('.$VersionID.') < 9 et Free2 et Free3 ok : '.$memorylibre.' / '.$memory[2].' / '.$memory[3]);
-						}
+						} */
 						
 						if (isset($memory[0]) && isset($memorylibre)) {
-							$mem_usage_pourc = round(intval($memorylibre) / intval($memory[0]) * 100);
-							log::add('Monitoring', 'debug', 'Variable MemPourcentage = '.$mem_usage_pourc.' / freelibre : '.$memorylibre.' / free0 : '.$memory[0]);
-						}
-						
-						$Swappourc = explode(' ', $Swappourc);
-						if (isset($Swappourc[0]) && isset($Swappourc[1]))
-						{
-							log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
-							if (intval($Swappourc[0]) != 0){
-								$Swappourcusage = round(intval($Swappourc[1]) / intval($Swappourc[0]) * 100, 2);
+							if (intval($memory[0]) != 0) {
+								$memorylibre_pourc = round(intval($memorylibre) / intval($memory[0]) * 100);
+								log::add('Monitoring', 'debug', '[Memory] Memorylibre% = '.$memorylibre_pourc);
 							}
 							else {
-								$Swappourcusage = 0;
+								$memorylibre_pourc = 0;
 							}
-						}
-						else {
-							log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0]);
 						}
 
 						if (isset($memorylibre)) {
-							if ((intval($memorylibre) / 1000) > 1000) {
-								$memorylibre = round(intval($memorylibre) / 1000000, 2) . " Go";
+							if ((intval($memorylibre) / 1024) > 1024) {
+								$memorylibre = round(intval($memorylibre) / 1048576, 2) . " Go";
 							}
 							else {
-								$memorylibre = round(intval($memorylibre) / 1000) . " Mo";
+								$memorylibre = round(intval($memorylibre) / 1024) . " Mo";
 							}
 						}
 						if (isset($memory[0])) {
-							if ((intval($memory[0]) / 1000) > 1000) {
-								$memtotal = round(intval($memory[0]) / 1000000, 2) . " Go";
+							if ((intval($memory[0]) / 1024) > 1024) {
+								$memtotal = round(intval($memory[0]) / 1048576, 2) . " Go";
 							}
 							else {
-								$memtotal = round(intval($memory[0]) / 1000) . " Mo";
+								$memtotal = round(intval($memory[0]) / 1024, 2) . " Mo";
 							}
 						}
 						if (isset($memtotal) && isset($memorylibre)) {
@@ -1104,25 +1100,25 @@ class Monitoring extends eqLogic {
 					}
 					elseif (preg_match("#FreeBSD#", $uname)) {
 						$memory = explode(' ', $memory);
-						if (isset($memory[0]) && intval($memory[0]) != 0) {
+						if (isset($memory[0]) && isset($memory[1])) {
 							if (intval($memory[0]) != 0) {
-								$mem_usage_pourc = round(intval($memory[1]) / intval($memory[0]) * 100);
+								$memorylibre_pourc = round(intval($memory[1]) / intval($memory[0]) * 100);
 							}
 							else {
-								$mem_usage_pourc = 0;
+								$memorylibre_pourc = 0;
 							}
 						}
-						if ((intval($memory[1]) / 1000) > 1000) {
-							$memorylibre = round(intval($memory[1]) / 1000000, 2) . " Go";
+						if ((intval($memory[1]) / 1024) > 1024) {
+							$memorylibre = round(intval($memory[1]) / 1048576, 2) . " Go";
 						}
 						else{
-							$memorylibre = round(intval($memory[1]) / 1000) . " Mo";
+							$memorylibre = round(intval($memory[1]) / 1024) . " Mo";
 						}
-						if (($memory[0] / 1000) > 1000) {
-							$memtotal = round(intval($memory[0]) / 1000000, 2) . " Go";
+						if (($memory[0] / 1024) > 1024) {
+							$memtotal = round(intval($memory[0]) / 1048576, 2) . " Go";
 						}
 						else{
-							$memtotal = round(intval($memory[0]) / 1000) . " Mo";
+							$memtotal = round(intval($memory[0]) / 1024) . " Mo";
 						}
 						$Mem = 'Total : '.$memtotal.' - Libre : '.$memorylibre;
 					}
@@ -1134,96 +1130,121 @@ class Monitoring extends eqLogic {
 				if (isset($swap)) {
 					$swap = explode(' ', $swap);
 
-					if($this->getConfiguration('synology') == '1'){
-						if(isset($swap[0])){
-							if ((intval($swap[0]) / 1000) > 1000) {
-								$swap[0] = round(intval($swap[0]) / 1000000, 2) . " Go";
-							}
-							else {
-								$swap[0] = round(intval($swap[0]) / 1000) . " Mo";
-							}
+					if(isset($swap[0]) && isset($swap[1])) {
+						if (intval($swap[0]) != 0) {
+							$swaplibre_pourc = round(intval($swap[1]) / intval($swap[0]) * 100);
 						}
-						if(isset($swap[1])) {
-							if ((intval($swap[1]) / 1000) > 1000) {
-								$swap[1] = round(intval($swap[1]) / 1000000, 2) . " Go";
-							}
-							else {
-								$swap[1] = round(intval($swap[1]) / 1000) . " Mo";
-							}
-						}
-						if(isset($swap[2])){
-							if ((intval($swap[2]) / 1000) > 1000) {
-								$swap[2] = round(intval($swap[2]) / 1000000, 2) . " Go";
-							}
-							else {
-								$swap[2] = round(intval($swap[2]) / 1000) . " Mo";
-							}
+						else {
+							$swaplibre_pourc = 0;
 						}
 					}
+
+					if(isset($swap[0])){
+						if ((intval($swap[0]) / 1024) > 1024) {
+							$swap[0] = round(intval($swap[0]) / 1048576, 2) . " Go";
+						}
+						else {
+							$swap[0] = round(intval($swap[0]) / 1024, 2) . " Mo";
+						}
+					}
+					if(isset($swap[1])) {
+						if ((intval($swap[1]) / 1024) > 1024) {
+							$swap[1] = round(intval($swap[1]) / 1048576, 2) . " Go";
+						}
+						else {
+							$swap[1] = round(intval($swap[1]) / 1024, 2) . " Mo";
+						}
+					}
+					if(isset($swap[2])){
+						if ((intval($swap[2]) / 1024) > 1024) {
+							$swap[2] = round(intval($swap[2]) / 1048576, 2) . " Go";
+						}
+						else {
+							$swap[2] = round(intval($swap[2]) / 1024, 2) . " Mo";
+						}
+					}
+
 					if(isset($swap[0]) && isset($swap[1]) && isset($swap[2])){
 						$swap[0] = str_replace("B"," o", $swap[0]);
 						$swap[1] = str_replace("B"," o", $swap[1]);
 						$swap[2] = str_replace("B"," o", $swap[2]);
 						$Memswap = 'Total : '.$swap[0].' - Utilisé : '.$swap[1].' - Libre : '.$swap[2];
 					}
-				}else {
-					$swap = '';
+
+					/* $Swappourc = explode(' ', $Swappourc);
+					if (isset($Swappourc[0]) && isset($Swappourc[1]))
+					{
+						log::add('Monitoring', 'debug', 'Variable Swappourc[0] = '.$Swappourc[0].' / Swappourc[1] = '.$Swappourc[1]);
+						if (intval($Swappourc[0]) != 0){
+							$swaplibre_pourc = round(intval($Swappourc[1]) / intval($Swappourc[0]) * 100, 2);
+						if (intval($memory[0]) != 0) {
+							$memorylibre_pourc = round(intval($memorylibre) / intval($memory[0]) * 100);
+							log::add('Monitoring', 'debug', '[Memory] Memorylibre% = '.$memorylibre_pourc);
+						}
+						else {
+							$swaplibre_pourc = 0;
+							$memorylibre_pourc = 0;
+						}
+					} */
+				} 
+				else {
+					$Memswap = '';
 				}
 
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
 					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if ((intval($ReseauRXTX[1]) / 1000) > 1000000) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1000000000, 2) . " Go";
+						if ((intval($ReseauRXTX[1]) / 1024) > 1048576) {
+							$ReseauTX = round(intval($ReseauRXTX[1]) / 1262485504, 2) . " Go";
 						}
-						elseif ((intval($ReseauRXTX[1]) / 1000) > 1000) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1000000, 2) . " Mo";
+						elseif ((intval($ReseauRXTX[1]) / 1024) > 1024) {
+							$ReseauTX = round(intval($ReseauRXTX[1]) / 1048576, 2) . " Mo";
 						}
 						else {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1000) . " Ko";
+							$ReseauTX = round(intval($ReseauRXTX[1]) / 1024) . " Ko";
 						}
 						
-						if ((intval($ReseauRXTX[0]) / 1000) > 1000000) {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1000000000, 2) . " Go";
+						if ((intval($ReseauRXTX[0]) / 1024) > 1048576) {
+							$ReseauRX = round(intval($ReseauRXTX[0]) / 1262485504, 2) . " Go";
 						}
-						elseif ((intval($ReseauRXTX[0]) / 1000) > 1000) {
-							
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1000000, 2) . " Mo";
-						}else{
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1000) . " Ko";
+						elseif ((intval($ReseauRXTX[0]) / 1024) > 1024) {
+							$ReseauRX = round(intval($ReseauRXTX[0]) / 1048576, 2) . " Mo";
 						}
-						
+						else {
+							$ReseauRX = round(intval($ReseauRXTX[0]) / 1024) . " Ko";
+						}
 						$ethernet0 = 'TX : '.$ReseauTX.' - RX : '.$ReseauRX;
 					}
 				}
 
 				$hddtotal = '';
 				$hddused = '';
-				$hddpourcused = '';
+				$hddused_pourc = '';
 				if (isset($hdd)) {
 					$hdddata = explode(' ', $hdd);
 					if(isset($hdddata[0]) && isset($hdddata[1]) && isset($hdddata[2])){
 						$hddtotal = str_replace(array("K","M","G","T"),array(" Ko"," Mo"," Go"," To"), $hdddata[0]);
 						$hddused = str_replace(array("K","M","G","T"),array(" Ko"," Mo"," Go"," To"), $hdddata[1]);
-						$hddpourcused = preg_replace("/[^0-9.]/","",$hdddata[2]);
-						$hddpourcused = trim($hddpourcused);
-						if ($hddpourcused < '10'){
-							$hddpourcused = '0'.$hddpourcused;
+						$hddused_pourc = preg_replace("/[^0-9.]/","",$hdddata[2]);
+						$hddused_pourc = trim($hddused_pourc);
+						if ($hddused_pourc < '10') {
+							$hddused_pourc = '0'.$hddused_pourc; // A quoi sert certe conversion ?
 						}
 					}
 				}
 
 				if (isset($ARMv)) {
 					if ($ARMv == 'i686' || $ARMv == 'x86_64' || $ARMv == 'i386'){
-						if ((floatval($cpufreq) / 1000) > 1) {
+						if ((floatval($cpufreq) / 1024) > 1) {
 							$cpufreq = round(floatval($cpufreq) / 1000, 1, PHP_ROUND_HALF_UP) . " GHz";
 						}
 						else {
 							$cpufreq = $cpufreq . " MHz";
 						}
+						
 						$cputemp_cmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cputemp_cmd) && $cputemp_cmd->getIsVisible() == 1) {
-							if (floatval($cputemp0) != 0 & floatval($cputemp0) > 200){
+							if (floatval($cputemp0) > 200){
 								$cputemp0 = floatval($cputemp0) / 1000;
 								$cputemp0 = round(floatval($cputemp0), 1);
 							}
@@ -1240,12 +1261,12 @@ class Monitoring extends eqLogic {
 						
 						$cputemp_cmd = $this->getCmd(null,'cpu_temp');
 						if (is_object($cputemp_cmd) && $cputemp_cmd->getIsVisible() == 1) {
-							if (floatval($cputemp0) != 0 & floatval($cputemp0) > 200){
+							if (floatval($cputemp0) > 200){
 								$cputemp0 = floatval($cputemp0) / 1000;
 								$cputemp0 = round(floatval($cputemp0), 1);
 							}
 						}
-						if (floatval($cpufreq0) == 0){
+						if (floatval($cpufreq0) == 0) {
 							$cpu = $nbcpu.' Socket(s) ';
 							$cpufreq0 = '';
 						}
@@ -1263,7 +1284,7 @@ class Monitoring extends eqLogic {
 							}
 							$cputemp_cmd = $this->getCmd(null,'cpu_temp');
 							if (is_object($cputemp_cmd) && $cputemp_cmd->getIsVisible() == 1) {
-								if (floatval($cputemp0) != 0 & floatval($cputemp0) > 200){
+								if (floatval($cputemp0) > 200){
 									$cputemp0 = floatval($cputemp0) / 1000;
 									$cputemp0 = round(floatval($cputemp0), 1);
 								}
@@ -1280,7 +1301,7 @@ class Monitoring extends eqLogic {
 					else{
 						$cpufreq0 = $cpufreq0 . " MHz";
 					}
-					if (floatval($cputemp0) != 0 & floatval($cputemp0) > 200){
+					if (floatval($cputemp0) > 200){
 						$cputemp0 = floatval($cputemp0) / 1000;
 						$cputemp0 = round(floatval($cputemp0), 1);
 					}
@@ -1289,13 +1310,13 @@ class Monitoring extends eqLogic {
 				if (empty($cputemp0)) {$cputemp0 = '';}
 				if (empty($perso_1)) {$perso_1 = '';}
 				if (empty($perso_2)) {$perso_2 = '';}
-				if (empty($Memswap)) {$Memswap = '';}
 				if (empty($cnx_ssh)) {$cnx_ssh = '';}
-				if (empty($swap_pourc_cmd)) {$swap_pourc_cmd = '';}
+				// if (empty($swap_pourc_cmd)) {$swap_pourc_cmd = '';}
 				if (empty($uname)) {$uname = 'Inconnu';}
-				if (empty($Swappourcusage)) {$Swappourcusage = '';}
 				if (empty($Mem)) {$Mem = '';}
-				if (empty($mem_usage_pourc)) {$mem_usage_pourc = '';}
+				if (empty($memorylibre_pourc)) {$memorylibre_pourc = '';}
+				if (empty($Memswap)) {$Memswap = '';}
+				if (empty($swaplibre_pourc)) {$swaplibre_pourc = '';}
 
 				$dataresult = array(
 					'namedistri' => $namedistri,
@@ -1307,13 +1328,13 @@ class Monitoring extends eqLogic {
 					'ethernet0' => $ethernet0,
 					'hddtotal' => $hddtotal,
 					'hddused' => $hddused,
-					'hddpourcused' => $hddpourcused,
+					'hddpourcused' => $hddused_pourc,
 					'cpu' => $cpu,
 					'cpu_temp' => $cputemp0,
 					'cnx_ssh' => $cnx_ssh,
 					'Mem_swap' => $Memswap,
-					'Mempourc' => $mem_usage_pourc,
-					'Swappourc' => $Swappourcusage,
+					'Mempourc' => $memorylibre_pourc,
+					'Swappourc' => $swaplibre_pourc,
 					'perso1' => $perso_1,
 					'perso2' => $perso_2,
 				);
@@ -1321,7 +1342,7 @@ class Monitoring extends eqLogic {
 					$dataresultv2 = array(
 						'hddtotalv2' => $hddtotalv2,
 						'hddusedv2' => $hddusedv2,
-						'hddpourcusedv2' => $hddpourcusedv2,
+						'hddpourcusedv2' => $hddusedv2_pourc,
 					);
 				}
 
@@ -1375,9 +1396,9 @@ class Monitoring extends eqLogic {
 					$hddused->event($dataresult['hddused']);
 				}
 
-				$hddpourcused = $this->getCmd(null,'hddpourcused');
-				if(is_object($hddpourcused)){
-					$hddpourcused->event($dataresult['hddpourcused']);
+				$hddused_pourc = $this->getCmd(null,'hddpourcused');
+				if(is_object($hddused_pourc)){
+					$hddused_pourc->event($dataresult['hddpourcused']);
 				}
 
 				if($this->getConfiguration('synology') == '1' && $SynoV2Visible == 'OK' && $this->getConfiguration('synologyv2') == '1'){
@@ -1389,9 +1410,9 @@ class Monitoring extends eqLogic {
 					if(is_object($hddusedv2)){
 						$hddusedv2->event($dataresultv2['hddusedv2']);
 					}
-					$hddpourcusedv2 = $this->getCmd(null,'hddpourcusedv2');
-					if(is_object($hddpourcusedv2)){
-						$hddpourcusedv2->event($dataresultv2['hddpourcusedv2']);
+					$hddusedv2_pourc = $this->getCmd(null,'hddpourcusedv2');
+					if(is_object($hddusedv2_pourc)){
+						$hddusedv2_pourc->event($dataresultv2['hddpourcusedv2']);
 					}
 				}
 
