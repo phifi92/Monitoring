@@ -92,7 +92,11 @@
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			$('#Mem_swap#id#').append('<span>#Mem_swap#</span>');
+			if ('#Swappourc#' == '') {
+				$('#Mem_swap#id#').append('<span>#Mem_swap#</span>');
+			}else {
+				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-success-color) !important;" >#Swappourc#%</span>)');
+			}
 		}
     </script>
 
