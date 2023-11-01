@@ -367,10 +367,10 @@ class Monitoring extends eqLogic {
 		$replace ['#Mempourcorangede#'] = $this->getConfiguration('Mempourcorangede');
 		$replace ['#Mempourcorangea#'] = $this->getConfiguration('Mempourcorangea');
 		$replace ['#Mempourcrougeinfa#'] = $this->getConfiguration('Mempourcrougeinfa');
-		$replace ['#Memswapvertsupa#'] = $this->getConfiguration('Memswapvertsupa');
-		$replace ['#Memswapcorangede#'] = $this->getConfiguration('Memswapcorangede');
-		$replace ['#Memswapcorangea#'] = $this->getConfiguration('Memswaporangea');
-		$replace ['#Memswapcrougeinfa#'] = $this->getConfiguration('Memswaprougeinfa');
+		$replace ['#Swappourcvertsupa#'] = $this->getConfiguration('Swappourcvertsupa');
+		$replace ['#Swappourcorangede#'] = $this->getConfiguration('Swappourcorangede');
+		$replace ['#Swappourcorangea#'] = $this->getConfiguration('Swappourcorangea');
+		$replace ['#Swappourcrougeinfa#'] = $this->getConfiguration('Swappourcrougeinfa');
 		$replace ['#cpu_tempvertinfa#'] = $this->getConfiguration('cpu_tempvertinfa');
 		$replace ['#cpu_temporangede#'] = $this->getConfiguration('cpu_temporangede');
 		$replace ['#cpu_temporangea#'] = $this->getConfiguration('cpu_temporangea');
