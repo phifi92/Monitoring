@@ -1198,8 +1198,11 @@ class Monitoring extends eqLogic {
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
 					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if ((intval($ReseauRXTX[1]) / 1024) > 1048576) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1262485504, 2) . " Go";
+						if ((intval($ReseauRXTX[1]) / 1024) > 1073741824) {
+							$ReseauTX = round(intval($ReseauRXTX[1]) / 1099511627776, 2) . " To";
+						}
+                      	elseif ((intval($ReseauRXTX[1]) / 1024) > 1048576) {
+							$ReseauTX = round(intval($ReseauRXTX[1]) / 1073741824, 2) . " Go";
 						}
 						elseif ((intval($ReseauRXTX[1]) / 1024) > 1024) {
 							$ReseauTX = round(intval($ReseauRXTX[1]) / 1048576, 2) . " Mo";
@@ -1208,8 +1211,11 @@ class Monitoring extends eqLogic {
 							$ReseauTX = round(intval($ReseauRXTX[1]) / 1024) . " Ko";
 						}
 						
-						if ((intval($ReseauRXTX[0]) / 1024) > 1048576) {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1262485504, 2) . " Go";
+						if ((intval($ReseauRXTX[0]) / 1024) > 1073741824) {
+							$ReseauRX = round(intval($ReseauRXTX[0]) / 1099511627776, 2) . " To";
+						}
+						elseif ((intval($ReseauRXTX[0]) / 1024) > 1048576) {
+							$ReseauRX = round(intval($ReseauRXTX[0]) / 1073741824, 2) . " Go";
 						}
 						elseif ((intval($ReseauRXTX[0]) / 1024) > 1024) {
 							$ReseauRX = round(intval($ReseauRXTX[0]) / 1048576, 2) . " Mo";
