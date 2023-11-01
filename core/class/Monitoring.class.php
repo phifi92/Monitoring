@@ -557,13 +557,13 @@ class Monitoring extends eqLogic {
 					}
 					else {
 						$namedistri_cmd = "cat /etc/*-release | grep PRETTY_NAME=";
-						// $swap_pourc_cmd = "free | awk -F':' '/Swap|Partition d.échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
+						// $swap_pourc_cmd = "free | awk -F':' '/Swap|Partition d.échange|Échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
 						$VersionID_cmd = "awk -F'=' '/VERSION_ID/ {print $2}' /etc/os-release | tr -d '\"'";
 						$bitdistri_cmd = "getconf LONG_BIT";
 					}
 
 					$memory_cmd = "free | grep 'Mem' | head -1 | awk '{ print $2,$3,$4,$7 }'";
-					$swap_cmd = "free | awk -F':' '/Swap|Partition d.échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
+					$swap_cmd = "free | awk -F':' '/Swap|Partition d.échange|Échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
 					
 					$loadavg_cmd = "cat /proc/loadavg";
 					
@@ -836,8 +836,8 @@ class Monitoring extends eqLogic {
 				$VersionID_cmd = "awk -F'=' '/VERSION_ID/ {print $2}' /etc/os-release | tr -d '\"'";
 				
 				// $memory_cmd = "free | grep 'Mem' | head -1 | awk '{ print $2,$3,$4,$7 }'";
-				// $swap_cmd = "free -h | awk -F':' '/Swap|Partition d.échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
-				// $swap_pourc_cmd = "free | awk -F':' '/Swap|Partition d.échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
+				// $swap_cmd = "free -h | awk -F':' '/Swap|Partition d.échange|Échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
+				// $swap_pourc_cmd = "free | awk -F':' '/Swap|Partition d.échange|Échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
 				
 				$hdd_cmd = "df -h | grep '/$' | head -1 | awk '{ print $2,$3,$5 }'";
 				$bitdistri_cmd = "getconf LONG_BIT";
@@ -847,7 +847,7 @@ class Monitoring extends eqLogic {
 			}
 
 			$memory_cmd = "free | grep 'Mem' | head -1 | awk '{ print $2,$3,$4,$7 }'";
-			$swap_cmd = "free | awk -F':' '/Swap|Partition d.échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
+			$swap_cmd = "free | awk -F':' '/Swap|Partition d.échange|Échange/ { print $2 }' | awk '{ print $1,$2,$3}'";
 
 			$loadavg_cmd = "cat /proc/loadavg";
 
