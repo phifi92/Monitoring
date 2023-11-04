@@ -1,16 +1,41 @@
-<div class="eqLogic eqLogic-widget col2" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="" data-eqLogic_id="#id#" data-version="mobile" >
-   <center class="widget-name" style="#hideEqLogicName#"><strong>#name_display#</strong>
-   	<span style="font-size: 0.85em;position: relative;top:-2px;display:none;">#object_name#</span>
-		<span id="iconSSH#id#" style="float: right;width:25px"></span>
+<div class="eqLogic eqLogic-widget col2" style="width:#width#;height:#height#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#; #style#" data-category="#category#" data-eqLogic_id="#id#" data-version="#version#" >
+<span class="cmd refresh pull-right cursor">
+	<span id="iconSSH#id#"></span>
+	<script>
+		if ('#cnx_ssh#' == 'OK') {
+			$('#iconSSH#id#').append('<i title="Connexion SSH OK" class="fas fa-check tooltips" style="font-size : 1.1em;color: var(--al-success-color) !important;" ></i>');
+		}
+		if ('#cnx_ssh#' == 'KO') {
+			$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fas fa-times tooltips" style="font-size : 1.1em;color: var(--al-danger-color) !important;"></i>');
+		}
+	</script>
+	<span title="Eteindre l'équipement" class="poweroff tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_poweroff_id#">
+		<a class="action" style="cursor: pointer;"><i class="fas fa-power-off" style="padding-left:5px;"></i></a>
 		<script>
-			if ('#cnx_ssh#' == 'OK') {
-				$('#iconSSH#id#').append('<i title="Connexion SSH OK" class="fas fa-check tooltips" style="font-size : 1.1em;color: var(--al-success-color) !important;" ></i>');
-			}
-			if ('#cnx_ssh#' == 'KO') {
-				$('#iconSSH#id#').append('<i title="Connexion SSH KO" class="fas fa-times tooltips" style="font-size : 1.1em;color: var(--al-danger-color) !important;"></i>');
-			}
+			$('.poweroff[data-cmd_id=#cmd_poweroff_id#] .action').on('click', function() {
+				if (confirm("Etes-vous sûr de vouloir éteindre l\'équipement #name# ?")) {
+					jeedom.cmd.execute({id: '#cmd_poweroff_id#'});
+				} else {
+				}
+			});
 		</script>
+	</span>
+	<span title="Redémarrer l'équipement" class="reboot tooltips" data-type="action" data-subtype="other" data-cmd_id="#cmd_reboot_id#">
+		<a class="action" style="cursor: pointer;"><i class="fas fa-sync" style="padding-left:5px;"></i></a>
+		<script>
+			$('.reboot[data-cmd_id=#cmd_reboot_id#] .action').on('click', function() {
+				if (confirm("Etes-vous sûr de vouloir redémarrer l\'équipement #name# ?")) {
+					jeedom.cmd.execute({id: '#cmd_reboot_id#'});
+				} else {
+				}
+			});
+		</script>
+	</span>
+</span>
+<center class="widget-name" style="#hideEqLogicName#">#name_display#
+	<span style="font-size: 0.85em;position: relative;top:-2px;display:none;">#object_name#</span>
 </center>
+<div style="padding: 5px;">
 	<div class="cmd tooltips" style="margin-left:5px;display: #namedistri_display#;">
 			<span title="Distribution Linux" class="fab fa-linux" style="min-width:15px"></span>
 			<span>#namedistri#</span>
@@ -33,36 +58,35 @@
 			if ('#loadavg1mn#' === '') {
 				$('#loadavg1mn#id#').append('<span></span>');
 			}else if (parseFloat('#loadavg1mn#') < parseFloat('#loadavg1mnvertinfa#')) {
-				$('#loadavg1mn#id#').append('1min : <span style="color: var(--al-success-color) !important;" >#loadavg1mn#</span>');
+				$('#loadavg1mn#id#').append('1 min : <span style="color: var(--al-success-color) !important;" >#loadavg1mn#</span>');
 			}else if ((parseFloat('#loadavg1mn#') >= parseFloat('#loadavg1mnorangede#')) && (parseFloat('#loadavg1mn#') <= parseFloat('#loadavg1mnorangea#'))) {
-				$('#loadavg1mn#id#').append('1min : <span style="color: var(--al-warning-color) !important;" >#loadavg1mn#</span>');
+				$('#loadavg1mn#id#').append('1 min : <span style="color: var(--al-warning-color) !important;" >#loadavg1mn#</span>');
 			}else if ((parseFloat('#loadavg1mn#') > parseFloat('#loadavg1mnrougesupa#')) && '#loadavg1mnrougesupa#' !== '') {
-				$('#loadavg1mn#id#').append('1min : <span style="color: var(--al-danger-color) !important;" >#loadavg1mn#</span>');
+				$('#loadavg1mn#id#').append('1 min : <span style="color: var(--al-danger-color) !important;" >#loadavg1mn#</span>');
 			}else {
-				$('#loadavg1mn#id#').append('1min : <span>#loadavg1mn#</span>');
+				$('#loadavg1mn#id#').append('1 min : <span>#loadavg1mn#</span>');
 			}
-
 			if ('#loadavg5mn#' === '') {
 				$('#loadavg5mn#id#').append('<span></span>');
 			}else if (parseFloat('#loadavg5mn#') < parseFloat('#loadavg5mnvertinfa#')) {
-				$('#loadavg5mn#id#').append(' - 5min : <span style="color: var(--al-success-color) !important;" >#loadavg5mn#</span>');
+				$('#loadavg5mn#id#').append(' - 5 min : <span style="color: var(--al-success-color) !important;" >#loadavg5mn#</span>');
 			}else if ((parseFloat('#loadavg5mn#') >= parseFloat('#loadavg5mnorangede#')) && (parseFloat('#loadavg5mn#') <= parseFloat('#loadavg5mnorangea#'))) {
-				$('#loadavg5mn#id#').append(' - 5min : <span style="color: var(--al-warning-color) !important;" >#loadavg5mn#</span>');
+				$('#loadavg5mn#id#').append(' - 5 min : <span style="color: var(--al-warning-color) !important;" >#loadavg5mn#</span>');
 			}else if ((parseFloat('#loadavg5mn#') > parseFloat('#loadavg5mnrougesupa#')) && '#loadavg5mnrougesupa#' !== '') {
-				$('#loadavg5mn#id#').append(' - 5min : <span style="color: var(--al-danger-color) !important;" >#loadavg5mn#</span>');
+				$('#loadavg5mn#id#').append(' - 5 min : <span style="color: var(--al-danger-color) !important;" >#loadavg5mn#</span>');
 			}else {
-				$('#loadavg5mn#id#').append(' - 5min : <span>#loadavg5mn#</span>');
+				$('#loadavg5mn#id#').append(' - 5 min : <span>#loadavg5mn#</span>');
 			}
 			if ('#loadavg15mn#' === '') {
 				$('#loadavg15mn#id#').append('<span></span>');
 			}else if (parseFloat('#loadavg15mn#') < parseFloat('#loadavg15mnvertinfa#')) {
-				$('#loadavg15mn#id#').append(' - 15min : <span style="color: var(--al-success-color) !important;" >#loadavg15mn#</span>');
+				$('#loadavg15mn#id#').append(' - 15 min : <span style="color: var(--al-success-color) !important;" >#loadavg15mn#</span>');
 			}else if ((parseFloat('#loadavg15mn#') >= parseFloat('#loadavg15mnorangede#')) && (parseFloat('#loadavg15mn#') <= parseFloat('#loadavg15mnorangea#'))) {
-				$('#loadavg15mn#id#').append(' - 15min : <span style="color: var(--al-warning-color) !important;" >#loadavg15mn#</span>');
+				$('#loadavg15mn#id#').append(' - 15 min : <span style="color: var(--al-warning-color) !important;" >#loadavg15mn#</span>');
 			}else if ((parseFloat('#loadavg15mn#') > parseFloat('#loadavg15mnrougesupa#')) && '#loadavg15mnrougesupa#' !== '') {
-				$('#loadavg15mn#id#').append(' - 15min : <span style="color: var(--al-danger-color) !important;" >#loadavg15mn#</span>');
+				$('#loadavg15mn#id#').append(' - 15 min : <span style="color: var(--al-danger-color) !important;" >#loadavg15mn#</span>');
 			}else {
-				$('#loadavg15mn#id#').append(' - 15min : <span>#loadavg15mn#</span>');
+				$('#loadavg15mn#id#').append(' - 15 min : <span>#loadavg15mn#</span>');
 			}
 		}
     </script>
@@ -85,7 +109,6 @@
 			}
 		}
     </script>
-
 	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_swap_display#;">
 			<span title="Mémoire Swap" class="fas fa-list" style="width:15px"></span>
 			<span id="Mem_swap#id#"></span>
@@ -105,7 +128,6 @@
 			}
 		}
     </script>
-
 	<div class="cmd tooltips" style="margin-left:5px;display: #ethernet0_display#;">
 			<span title="Trafic réseau" class="fa techno-fleches" style="width:15px"></span>
 			<span id="ethernet0#id#"></span>
@@ -115,7 +137,6 @@
 			$('#ethernet0#id#').append('<span>#ethernet0#</span>');
 		}
     </script>
-
 	<div class="cmd tooltips" style="margin-left:5px;display: #hddused_display#;">
 			<span title="Espace disque" class="fas fa-hdd" style="width:15px"></span>
 			<span id="hddpourcused#id#"></span>
@@ -178,7 +199,6 @@
 				$('#cpu#id#').append('<span>#cpu#</span>');
 			}
 		}
-
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #perso1_display#;">
 			<span title="#nameperso1#" style="width:15px">#iconeperso1#</span>
@@ -201,7 +221,6 @@
 			}		
 		}
     </script>
-
 	<div class="cmd tooltips" style="margin-left:5px;display: #perso2_display#;">
 			<span title="#nameperso2#" style="width:15px">#iconeperso2#</span>
 			<span id="uniteperso2#id#"></span>
@@ -223,5 +242,5 @@
 			}		
 		}
     </script>
-
+</div>
 </div>
