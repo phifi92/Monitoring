@@ -58,25 +58,27 @@ $eqLogics = eqLogic::byType($plugin->getId());
                         <form class="form-horizontal">
                             <fieldset>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">{{Nom de l'équipement}}</label>
+                                    <label class="col-md-4 control-label">{{Nom de léquipement}}</label>
                                     <div class="col-md-6">
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement Monitoring}}"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" >{{Objet parent}}</label>
-                                    <div class="col-md-6">
-                                        <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
-                                            <option value="">{{Aucun}}</option>
-                                            <?php
-                                                foreach (jeeObject::all() as $object) {
-                                                echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
+
+								<div class="form-group">
+									<label class="col-sm-4 control-label">{{Objet parent}}</label>
+									<div class="col-sm-6">
+										<select class="form-control eqLogicAttr" data-l1key="object_id">
+											<option value="">{{Aucun}}</option>
+											<?php $options = '';
+											foreach ((jeeObject::buildTree(null, false)) as $object) {
+												$options .= '<option value="' . $object->getId() . '">' . str_repeat('&nbsp;&nbsp;', $object->getConfiguration('parentNumber')) . $object->getName() . '</option>';
+											}
+											echo $options;
+											?>
+										</select>
+									</div>
+								</div>
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">{{Catégorie}}</label>
                                     <div class="col-sm-8">
