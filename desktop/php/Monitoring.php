@@ -58,7 +58,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                         <form class="form-horizontal">
                             <fieldset>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">{{Nom de léquipement}}</label>
+                                    <label class="col-md-4 control-label">{{Nom de l'équipement}}</label>
                                     <div class="col-md-6">
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement Monitoring}}"/>
