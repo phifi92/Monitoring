@@ -177,6 +177,17 @@ class Monitoring extends eqLogic {
 			$MonitoringCmd->save();
 		}
 
+		$MonitoringCmd = $this->getCmd(null, 'ethernet0_name');
+		if (!is_object($MonitoringCmd)) {
+			$MonitoringCmd = new MonitoringCmd();
+			$MonitoringCmd->setName(__('Carte Réseau', __FILE__));
+			$MonitoringCmd->setEqLogic_id($this->getId());
+			$MonitoringCmd->setLogicalId('ethernet0_name');
+			$MonitoringCmd->setType('info');
+			$MonitoringCmd->setSubType('string');
+			$MonitoringCmd->save();
+		}
+
 		$MonitoringCmd = $this->getCmd(null, 'hddtotal');
 		if (!is_object($MonitoringCmd)) {
 			$MonitoringCmd = new MonitoringCmd();
@@ -397,7 +408,6 @@ class Monitoring extends eqLogic {
 		$replace['#namedistriid#'] = is_object($namedistri) ? $namedistri->getId() : '';
 		$replace['#namedistri_display#'] = (is_object($namedistri) && $namedistri->getIsVisible()) ? "#namedistri_display#" : "none";
 
-
 		$loadavg1mn = $this->getCmd(null,'loadavg1mn');
 		$replace['#loadavg1mn#'] = (is_object($loadavg1mn)) ? $loadavg1mn->execCmd() : '';
 		$replace['#loadavg1mnid#'] = is_object($loadavg1mn) ? $loadavg1mn->getId() : '';
@@ -430,6 +440,10 @@ class Monitoring extends eqLogic {
 		$replace['#ethernet0#'] = (is_object($ethernet0)) ? $ethernet0->execCmd() : '';
 		$replace['#ethernet0id#'] = is_object($ethernet0) ? $ethernet0->getId() : '';
 		$replace['#ethernet0_display#'] = (is_object($ethernet0) && $ethernet0->getIsVisible()) ? "#ethernet0_display#" : "none";
+
+		$ethernet0_name = $this->getCmd(null,'ethernet0_name');
+		$replace['#ethernet0_name#'] = (is_object($ethernet0_name)) ? $ethernet0_name->execCmd() : '';
+		$replace['#ethernet0_nameid#'] = is_object($ethernet0_name) ? $ethernet0_name->getId() : '';
 
 		$hddused = $this->getCmd(null,'hddused');
 		$replace['#hddused#'] = (is_object($hddused)) ? $hddused->execCmd() : '';
@@ -464,7 +478,7 @@ class Monitoring extends eqLogic {
 			$replace['#hddtotalv2#'] = (is_object($hddtotalv2)) ? $hddtotalv2->execCmd() : '';
 			$replace['#hddtotalv2id#'] = is_object($hddtotalv2) ? $hddtotalv2->getId() : '';
 			$replace['#hddusedv2_display#'] = (is_object($hddtotalv2) && $hddtotalv2->getIsVisible()) ? "#hddusedv2_display#" : "none";
-			$replace['#synovolume2_display#'] = (is_object($hddtotalv2) && $hddtotalv2->getIsVisible()) ? "OK" : "";
+			$replace['#synovolume2_display#'] = (is_object($hddtotalv2) && $hddtotalv2->getIsVisible()) ? 'OK' : '';
 		}
 
 		$cnx_ssh = $this->getCmd(null,'cnx_ssh');
@@ -487,23 +501,27 @@ class Monitoring extends eqLogic {
 		$replace['#perso1#'] = (is_object($perso1)) ? $perso1->execCmd() : '';
 		$replace['#perso1id#'] = is_object($perso1) ? $perso1->getId() : '';
 		$replace['#perso1_display#'] = (is_object($perso1) && $perso1->getIsVisible()) ? "#perso1_display#" : "none";
+		
 		$nameperso_1 = (is_object($perso1)) ? $this->getCmd(null,'perso1')->getName() : '';
 		$iconeperso_1 = (is_object($perso1)) ? $this->getCmd(null,'perso1')->getdisplay('icon') : '';
-		$replace['#nameperso1#'] = (is_object($perso1)) ? $nameperso_1 : "";
-		$replace['#iconeperso1#'] = (is_object($perso1)) ? $iconeperso_1 : "";
+		$replace['#nameperso1#'] = (is_object($perso1)) ? $nameperso_1 : '';
+		$replace['#iconeperso1#'] = (is_object($perso1)) ? $iconeperso_1 : '';
+		
 		$perso_1unite = $this->getConfiguration('perso1_unite');
-		$replace['#uniteperso1#'] = (is_object($perso1)) ? $perso_1unite : "";
+		$replace['#uniteperso1#'] = (is_object($perso1)) ? $perso_1unite : '';
 
 		$perso2 = $this->getCmd(null,'perso2');
 		$replace['#perso2#'] = (is_object($perso2)) ? $perso2->execCmd() : '';
 		$replace['#perso2id#'] = is_object($perso2) ? $perso2->getId() : '';
 		$replace['#perso2_display#'] = (is_object($perso2) && $perso2->getIsVisible()) ? "#perso2_display#" : "none";
+		
 		$nameperso_2 = (is_object($perso2)) ? $this->getCmd(null,'perso2')->getName() : '';
 		$iconeperso_2 = (is_object($perso2)) ? $this->getCmd(null,'perso2')->getdisplay('icon') : '';
-		$replace['#nameperso2#'] = (is_object($perso2)) ? $nameperso_2 : "";
-		$replace['#iconeperso2#'] = (is_object($perso2)) ? $iconeperso_2 : "";
+		$replace['#nameperso2#'] = (is_object($perso2)) ? $nameperso_2 : '';
+		$replace['#iconeperso2#'] = (is_object($perso2)) ? $iconeperso_2 : '';
+		
 		$perso_2unite = $this->getConfiguration('perso2_unite');
-		$replace['#uniteperso2#'] = (is_object($perso2)) ? $perso_2unite : "";
+		$replace['#uniteperso2#'] = (is_object($perso2)) ? $perso_2unite : '';
 
 		foreach ($this->getCmd('action') as $cmd) {
 			$replace['#cmd_' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -522,14 +540,20 @@ class Monitoring extends eqLogic {
 		$Mem = '';
 		$memorylibre_pourc = '';
 		$ethernet0 = '';
-		
+		$ethernet0_name = '';
 
 		if ($this->getConfiguration('cartereseau') == 'netautre'){
 			$cartereseau = $this->getConfiguration('cartereseauautre');
-		}else{
+		}
+        elseif ($this->getConfiguration('cartereseau') == 'netauto') {
+          // $cartereseau = "$(ip a | grep 'state UP' | awk -F':' '{gsub(/^[ \t]+|[ \t]+$/, \"\", $2); print $2}' | tail -1)";
+		  $cartereseau = "$(ip a | awk '/^[^ ]/ && NR!=1 {print \"\"} {printf \"%s\", $0} END {print \"\"}' | grep \"state UP\" | grep inet | awk -F': ' '{ print $2}' | tail -1)";
+		} else {
 			$cartereseau = $this->getConfiguration('cartereseau');
 		}
+
 		$SynoV2Visible = (is_object($this->getCmd(null,'hddusedv2')) && $this->getCmd(null,'hddusedv2')->getIsVisible()) ? 'OK' : '';
+		
 		if ($this->getConfiguration('maitreesclave') == 'deporte' && $this->getIsEnable()) {
 			$ip = $this->getConfiguration('addressip');
 			$user = $this->getConfiguration('user');
@@ -552,7 +576,8 @@ class Monitoring extends eqLogic {
 					$uptime_cmd = "uptime";
 
 					if($this->getConfiguration('synology') == '1') {
-						$namedistri_cmd = "cat /proc/sys/kernel/syno_hw_version 2>/dev/null";
+						// $namedistri_cmd = "cat /proc/sys/kernel/syno_hw_version 2>/dev/null";
+						$namedistri_cmd = "get_key_value /etc/synoinfo.conf upnpmodelname";
 						$VersionID_cmd = "awk -F'=' '/productversion/ {print $2}' /etc.defaults/VERSION | tr -d '\"'";
 					}
 					else {
@@ -567,8 +592,9 @@ class Monitoring extends eqLogic {
 					
 					$loadavg_cmd = "cat /proc/loadavg";
 					
-					$ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $2,$10}'";
-					
+					// $ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $2,$10}'";
+					$ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $1,$2,$10}' | tr -d ':'";
+
 					$perso_1cmd = $this->getConfiguration('perso1');
 					$perso_2cmd = $this->getConfiguration('perso2');
 
@@ -590,7 +616,10 @@ class Monitoring extends eqLogic {
 					// $Swappourc = $sshconnection->exec($swap_pourc_cmd);
 
 					$perso_1 = $sshconnection->exec($perso_1cmd);
+					log::add('Monitoring', 'debug', '[SSH] $perso_1 : '.$perso_1);
+
 					$perso_2 = $sshconnection->exec($perso_2cmd);
+					log::add('Monitoring', 'debug', '[SSH] $perso_2 : '.$perso_2);
 
 					if($this->getConfiguration('synology') == '1') {
 						$platform_cmd = "get_key_value /etc/synoinfo.conf unique | cut -d'_' -f2";
@@ -606,7 +635,9 @@ class Monitoring extends eqLogic {
 						$hdd_cmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }'";
 						$hdd = $sshconnection->exec($hdd_cmd);
 
-						$versionsyno_cmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $3,$4,$5,$7,$9}'";
+						// $versionsyno_cmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $3,$4,$5,$7,$9}'";
+						// $versionsyno_cmd = "cat /etc.defaults/VERSION | tr -d '\"' | paste -s -d '&'"; // Cette version est bien mais 'parse' n'est pas une commande dispo sur SRM (routeurs Syno)
+						$versionsyno_cmd = "cat /etc.defaults/VERSION | tr -d '\"' | awk NF=NF RS='\r\n' OFS='&'"; // Récupération de tout le fichier de version pour le parser et récupérer le nom des champs
 						$versionsyno = $sshconnection->exec($versionsyno_cmd);
 
 						$synotemp_cmd='$(find /sys/devices/* -name temp*_input | head -1)';
@@ -821,9 +852,10 @@ class Monitoring extends eqLogic {
 			$cnx_ssh = 'No';
 			$uptime_cmd = "uptime";
 			
-
 			if($this->getConfiguration('synology') == '1') {
-				$namedistri_cmd = "cat /proc/sys/kernel/syno_hw_version 2>/dev/null";
+				// $namedistri_cmd = "cat /proc/sys/kernel/syno_hw_version 2>/dev/null";
+				$namedistri_cmd = "get_key_value /etc/synoinfo.conf upnpmodelname";
+
 				// $memory_cmd = "cat /proc/meminfo | cut -d':' -f2 | awk '{ print $1}' | tr '\n' ' ' | awk '{ print $1,$2,$3,$4}'";
 				// $swap_cmd = "free | grep 'Swap' | head -1 | awk '{ print $2,$3,$4 }'";
 				// $hdd_cmd = "df -h | grep 'vg1000\|volume1' | head -1 | awk '{ print $2,$3,$5 }' | cut -d '%' -f1";
@@ -851,7 +883,8 @@ class Monitoring extends eqLogic {
 
 			$loadavg_cmd = "cat /proc/loadavg";
 
-			$ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $2,$10}'";
+			// $ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $2,$10}'";
+			$ReseauRXTX_cmd = "cat /proc/net/dev | grep ".$cartereseau." | awk '{print $1,$2,$10}' | tr -d ':'"; // on récupère le nom de la carte en plus pour l'afficher dans les infos
 
 			$perso_1cmd = $this->getConfiguration('perso1');
 			$perso_2cmd = $this->getConfiguration('perso2');
@@ -869,17 +902,21 @@ class Monitoring extends eqLogic {
 			
 			if ($perso_1cmd != '') {
 				$perso_1 = exec ($perso_1cmd);
+				log::add('Monitoring', 'debug', '[LOCAL] $perso_1 : '.$perso_1);
 			}
 			if ($perso_2cmd != '') {
 				$perso_2 = exec ($perso_2cmd);
+				log::add('Monitoring', 'debug', '[LOCAL] $perso_2 : '.$perso_2);
 			}
 
 			if($this->getConfiguration('synology') == '1'){
 				$uname = '.';
 				$nbcpuARM_cmd = "cat /proc/sys/kernel/syno_CPU_info_core";
 				$cpufreq0ARM_cmd = "cat /proc/sys/kernel/syno_CPU_info_clock";
-				$versionsyno_cmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $3,$4,$5,$7,$9}'";
-				
+				// $versionsyno_cmd = "cat /etc.defaults/VERSION | cut -d'=' -f2 | cut -d'=' -f2 | tr '\n' ' ' | awk '{ print $3,$4,$5,$7,$9}'";
+				// $versionsyno_cmd = "cat /etc.defaults/VERSION | tr -d '\"' | paste -s -d '&'";
+				$versionsyno_cmd = "cat /etc.defaults/VERSION | tr -d '\"' | awk NF=NF RS='\r\n' OFS='&'"; // on récupère le fichier entier pour avoir le nom des champs
+
 				$nbcpu = exec($nbcpuARM_cmd);
 				$cpufreq0 = exec($cpufreq0ARM_cmd);
 				$versionsyno = exec($versionsyno_cmd);
@@ -989,14 +1026,27 @@ class Monitoring extends eqLogic {
 			if($this->getConfiguration('maitreesclave') == 'local' || $cnx_ssh == 'OK') {
 				if($this->getConfiguration('synology') == '1'){
 					if (isset($versionsyno)) {
-						$versionsyno = str_ireplace('"', '', $versionsyno);
+						parse_str($versionsyno, $versionsyno_DSM);
+						log::add('Monitoring', 'debug', '[DSM] Parse version OK');
+
+						if (isset($versionsyno_DSM['productversion']) && isset($versionsyno_DSM['buildnumber']) && isset($versionsyno_DSM['smallfixnumber'])) {
+							log::add('Monitoring', 'debug', '[DSM/SRM] Version : DSM '.$versionsyno_DSM['productversion'].'-'.$versionsyno_DSM['buildnumber'].' Update '.$versionsyno_DSM['smallfixnumber']);
+							$versionsyno_TXT = 'DSM '.$versionsyno_DSM['productversion'].'-'.$versionsyno_DSM['buildnumber'].' Update '.$versionsyno_DSM['smallfixnumber'];
+						}
+						else {
+							log::add('Monitoring', 'debug', '[DSM/SRM] KO for Version !');
+							$versionsyno_TXT = '';
+						}
+
+						/* $versionsyno = str_ireplace('"', '', $versionsyno);
 						$versionsyno = explode(' ', $versionsyno);
 						if (isset($versionsyno[0]) && isset($versionsyno[1]) && isset($versionsyno[2]) && isset($versionsyno[3]) && isset($versionsyno[4])) {
 							$versionsyno = 'DSM '.$versionsyno[0].'.'.$versionsyno[1].'.'.$versionsyno[2].'-'.$versionsyno[3].' Update '.$versionsyno[4];
-						}
-						if (isset($namedistri) && isset($versionsyno)) {
+						} */
+
+						if (isset($namedistri) && isset($versionsyno_TXT)) {
 							$namedistri = trim($namedistri);
-							$namedistri = $versionsyno.' ('.$namedistri.')';
+							$namedistri = $versionsyno_TXT.' ('.$namedistri.')';
 						}
 					}
 				}
@@ -1197,33 +1247,38 @@ class Monitoring extends eqLogic {
 
 				if (isset($ReseauRXTX)) {
 					$ReseauRXTX = explode(' ', $ReseauRXTX);
-					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1])){
-						if ((intval($ReseauRXTX[1]) / 1024) > 1073741824) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1099511627776, 2) . " To";
+					if(isset($ReseauRXTX[0]) && isset($ReseauRXTX[1]) && isset($ReseauRXTX[2])){
+						if ((intval($ReseauRXTX[2]) / 1024) > 1073741824) {
+							$ReseauTX = round(intval($ReseauRXTX[2]) / 1099511627776, 2) . " To";
 						}
-                      	elseif ((intval($ReseauRXTX[1]) / 1024) > 1048576) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1073741824, 2) . " Go";
+                      	elseif ((intval($ReseauRXTX[2]) / 1024) > 1048576) {
+							$ReseauTX = round(intval($ReseauRXTX[2]) / 1073741824, 2) . " Go";
 						}
-						elseif ((intval($ReseauRXTX[1]) / 1024) > 1024) {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1048576, 2) . " Mo";
+						elseif ((intval($ReseauRXTX[2]) / 1024) > 1024) {
+							$ReseauTX = round(intval($ReseauRXTX[2]) / 1048576, 2) . " Mo";
 						}
 						else {
-							$ReseauTX = round(intval($ReseauRXTX[1]) / 1024) . " Ko";
+							$ReseauTX = round(intval($ReseauRXTX[2]) / 1024) . " Ko";
 						}
 						
-						if ((intval($ReseauRXTX[0]) / 1024) > 1073741824) {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1099511627776, 2) . " To";
+						if ((intval($ReseauRXTX[1]) / 1024) > 1073741824) {
+							$ReseauRX = round(intval($ReseauRXTX[1]) / 1099511627776, 2) . " To";
 						}
-						elseif ((intval($ReseauRXTX[0]) / 1024) > 1048576) {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1073741824, 2) . " Go";
+						elseif ((intval($ReseauRXTX[1]) / 1024) > 1048576) {
+							$ReseauRX = round(intval($ReseauRXTX[1]) / 1073741824, 2) . " Go";
 						}
-						elseif ((intval($ReseauRXTX[0]) / 1024) > 1024) {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1048576, 2) . " Mo";
+						elseif ((intval($ReseauRXTX[1]) / 1024) > 1024) {
+							$ReseauRX = round(intval($ReseauRXTX[1]) / 1048576, 2) . " Mo";
 						}
 						else {
-							$ReseauRX = round(intval($ReseauRXTX[0]) / 1024) . " Ko";
+							$ReseauRX = round(intval($ReseauRXTX[1]) / 1024) . " Ko";
 						}
 						$ethernet0 = 'TX : '.$ReseauTX.' - RX : '.$ReseauRX;
+						$ethernet0_name = $ReseauRXTX[0];
+						log::add('Monitoring', 'debug', '[RESEAU] Nom de la carte réseau (RX / TX) : '.$ethernet0_name.' (RX= '.$ReseauRX.' / TX= '.$ReseauTX.')');
+					}
+					else {
+						log::add('Monitoring', 'debug', '[RESEAU] Nom de la carte réseau KO !');
 					}
 				}
 
@@ -1336,6 +1391,7 @@ class Monitoring extends eqLogic {
 					'loadavg15mn' => $loadavg15mn,
 					'Mem' => $Mem,
 					'ethernet0' => $ethernet0,
+					'ethernet0_name' => $ethernet0_name,
 					'hddtotal' => $hddtotal,
 					'hddused' => $hddused,
 					'hddpourcused' => $hddused_pourc,
@@ -1394,6 +1450,11 @@ class Monitoring extends eqLogic {
 				$ethernet0 = $this->getCmd(null,'ethernet0');
 				if(is_object($ethernet0)){
 					$ethernet0->event($dataresult['ethernet0']);
+				}
+
+				$ethernet0_name = $this->getCmd(null,'ethernet0_name');
+				if(is_object($ethernet0_name)){
+					$ethernet0_name->event($dataresult['ethernet0_name']);
 				}
 
 				$hddtotal = $this->getCmd(null,'hddtotal');
