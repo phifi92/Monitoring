@@ -547,7 +547,7 @@ class Monitoring extends eqLogic {
 		}
         elseif ($this->getConfiguration('cartereseau') == 'netauto') {
           // $cartereseau = "$(ip a | grep 'state UP' | awk -F':' '{gsub(/^[ \t]+|[ \t]+$/, \"\", $2); print $2}' | tail -1)";
-		  $cartereseau = "$(ip a | awk '/^[^ ]/ && NR!=1 {print \"\"} {printf \"%s\", $0} END {print \"\"}' | grep \"state UP\" | grep inet | awk -F': ' '{ print $2}' | tail -1)";
+		  $cartereseau = "$(ip a | awk '/^[^ ]/ && NR!=1 {print \"\"} {printf \"%s\", $0} END {print \"\"}' | awk '!/master|docker/ && /state UP/ && /inet/' | awk -F': ' '{ print $2 }' | head -1)";
 		} else {
 			$cartereseau = $this->getConfiguration('cartereseau');
 		}
