@@ -107,6 +107,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                             <option value="eth0">{{1er port Ethernet (par défaut)}}</option>
                                             <option value="wlan0">{{1er port Wi-Fi}}</option>
                                             <option value="netautre">{{Autre}}</option>
+                                            <option value="netauto">{{Auto}}</option>
                                         </select>
                                     </div>
                                 </div>

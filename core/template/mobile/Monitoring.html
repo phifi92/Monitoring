@@ -91,7 +91,7 @@
 		}
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_display#;">
-			<span title="Mémoire vive" class="fa techno-memory" style="width:15px"></span>
+			<span title="Mémoire vive (% libre)" class="fa techno-memory" style="width:15px"></span>
 			<span id="Mempourcent#id#"></span>
 	</div>
 	<script>
@@ -110,26 +110,26 @@
 		}
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #Mem_swap_display#;">
-			<span title="Mémoire Swap" class="fas fa-list" style="width:15px"></span>
-			<span id="Mem_swap#id#"></span>
+			<span title="Mémoire Swap (% libre)" class="fas fa-list" style="width:15px"></span>
+			<span id="Swappourc#id#"></span>
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#Swappourc#' === '') {
-				$('#Mem_swap#id#').append('<span>#Mem_swap#</span>');
-			}else if ((parseInt('#Swappourc#') > parseInt('#Memswapvertsupa#')) && '#Memswapvertsupa#' !== '') {
-				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-success-color) !important;" >#Swappourc#%</span>)');
-			}else if ((parseInt('#Swappourc#') >= parseInt('#Memswaporangede#')) && (parseInt('#Mempourc#') <= parseInt('#Mempourcorangea#'))) {
-				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#Swappourc#%</span>)');
-			}else if (parseInt('#Swappourc#') < parseInt('#Memswaprougeinfa#')) {
-				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#Swappourc#%</span>)');	
+				$('#Swappourc#id#').append('<span>#Mem_swap#</span>');
+			}else if ((parseInt('#Swappourc#') > parseInt('#Swappourcvertsupa#')) && '#Swappourcvertsupa#' !== '') {
+				$('#Swappourc#id#').append('#Mem_swap# (<span style="color: var(--al-success-color) !important;" >#Swappourc#%</span>)');
+			}else if ((parseInt('#Swappourc#') >= parseInt('#Swappourcorangede#')) && (parseInt('#Swappourc#') <= parseInt('#Swappourccorangea#'))) {
+				$('#Swappourc#id#').append('#Mem_swap# (<span style="color: var(--al-warning-color) !important;" >#Swappourc#%</span>)');
+			}else if (parseInt('#Swappourc#') < parseInt('#Swappourcrougeinfa#')) {
+				$('#Swappourc#id#').append('#Mem_swap# (<span style="color: var(--al-danger-color) !important;" >#Swappourc#%</span>)');	
 			}else {
-				$('#Mem_swap#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" >#Swappourc#%</span>)');
+				$('#Swappourc#id#').append('#Mem_swap# (<span>#Swappourc#%</span>)');
 			}
 		}
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #ethernet0_display#;">
-			<span title="Trafic réseau" class="fa techno-fleches" style="width:15px"></span>
+			<span title="Trafic réseau (#ethernet0_name#)" class="fa techno-fleches" style="width:15px"></span>
 			<span id="ethernet0#id#"></span>
 	</div>
 	<script>
@@ -138,7 +138,7 @@
 		}
     </script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #hddused_display#;">
-			<span title="Espace disque" class="fas fa-hdd" style="width:15px"></span>
+			<span title="Espace disque (% utilisé)" class="fas fa-hdd" style="width:15px"></span>
 			<span id="hddpourcused#id#"></span>
 	</div>
 	<script>
@@ -146,13 +146,13 @@
 			if ('#hddpourcused#' === '') {
 				$('#hddpourcused#id#').append('<span></span>');
 			}else if (parseInt('#hddpourcused#') < parseInt('#hddpourcusedvertinfa#')) {
-				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcused#%</span>)');
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: var(--al-success-color) !important;">#hddpourcused#%</span>)');
 			}else if ((parseInt('#hddpourcused#') >= parseInt('#hddpourcusedorangede#')) && (parseInt('#hddpourcused#') <= parseInt('#hddpourcusedorangea#'))) {
-				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcused#%</span>)');
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: var(--al-warning-color) !important;">#hddpourcused#%</span>)');
 			}else if ((parseInt('#hddpourcused#') > parseInt('#hddpourcusedrougesupa#')) && '#hddpourcusedrougesupa#' !== '') {
-				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcused#%</span>)');
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span style="color: var(--al-danger-color) !important;">#hddpourcused#%</span>)');
 			}else {
-				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor">#hddpourcused#%</span>)');
+				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span>#hddpourcused#%</span>)');
 			}
 		}
     </script>
@@ -160,28 +160,28 @@
 	<script>
     if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#synovolume2_display#' == 'OK'){
-				$('#synovol2#id#').append('<div id="synovol2#id#" class="tooltips" data-cmd_id="#hddpourcusedv2id#" style="margin-left:5px;display: #hddusedv2_display#;"><span title="Espace disque Volume 2 (Synology)" class="fas fa-hdd" style="width:15px"></span> <span id="hddpourcusedv2#id#"></span></div>');
+				$('#synovol2#id#').append('<div id="synovol2#id#" class="cmd tooltips" style="margin-left:5px;display: #hddusedv2_display#;"><span title="Espace disque Volume 2 Syno (% utilisé)" class="fas fa-hdd" style="width:15px"></span> <span id="hddpourcusedv2#id#"></span></div>');
 			}
 			if ('#hddpourcusedv2#' === '') {
 				$('#hddpourcusedv2#id#').append('<span></span>');
 			}else if (parseInt('#hddpourcusedv2#') < parseInt('#hddpourcusedv2vertinfa#')) {
-				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcusedv2#%</span>)');
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: var(--al-success-color) !important;">#hddpourcusedv2#%</span>)');
 			}else if ((parseInt('#hddpourcusedv2#') >= parseInt('#hddpourcusedv2orangede#')) && (parseInt('#hddpourcusedv2#') <= parseInt('#hddpourcusedv2orangea#'))) {
-				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcusedv2#%</span>)');
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: var(--al-warning-color) !important;">#hddpourcusedv2#%</span>)');
 			}else if ((parseInt('#hddpourcusedv2#') > parseInt('#hddpourcusedv2rougesupa#')) && '#hddpourcusedv2rougesupa#' !== '') {
-				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcusedv2#%</span>)');
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span style="color: var(--al-danger-color) !important;">#hddpourcusedv2#%</span>)');
 			}else {
-				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor">#hddpourcusedv2#%</span>)');
+				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span>#hddpourcusedv2#%</span>)');
 			}
 		}
 	</script>
 	<div class="cmd tooltips" style="margin-left:5px;display: #cpu_display#;">
-			<span title="Nombre CPU, fréquence et température" class="fa techno-pc" style="width:15px"></span>
+			<span title="Nombre CPU, fréquence (température)" class="fa techno-pc" style="width:15px"></span>
 			<span id="cpu#id#"></span><span id="cpu_temp#id#"></span>
 	</div>
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
-			if ('#cpu_temp#' != '') {
+			if ('#cpu_temp#' !== '') {
 				if (parseFloat('#cpu_temp#') < parseFloat('#cpu_tempvertinfa#')) {
 					$('#cpu#id#').append('<span>#cpu# </span>');
 					$('#cpu_temp#id#').append('(<span style="color: var(--al-success-color) !important;" >#cpu_temp#°C</span>)');
@@ -217,7 +217,7 @@
                     $('#uniteperso1#id#').append('<span>#perso1##uniteperso1#</span>');
 				}
 			}else {
-			    $('#uniteperso1#id#').append('<span>#perso1##uniteperso1#</span>');
+			    $('#uniteperso1#id#').append('<span></span>');
 			}		
 		}
     </script>
@@ -232,13 +232,13 @@
 					$('#uniteperso2#id#').append('<span style="color: var(--al-success-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
 				}else if ((parseFloat('#perso2#') >= parseFloat('#perso2orangede#')) && (parseFloat('#perso2#') <= parseFloat('#perso2orangea#'))) {
 					$('#uniteperso2#id#').append('<span style="color: var(--al-warning-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
-				}else if (parseFloat('#perso2#') > parseFloat('#perso2rougesupa#') && parseFloat('#perso2rougesupa#') !== '') {
+				}else if (parseFloat('#perso2#') > parseFloat('#perso2rougesupa#') && '#perso2rougesupa#' !== '') {
 					$('#uniteperso2#id#').append('<span style="color: var(--al-danger-color) !important;" >#perso2#</span><span>#uniteperso2#</span>');
 				}else {
                     $('#uniteperso2#id#').append('<span>#perso2##uniteperso2#</span>');
 				}
 			}else {
-			    $('#uniteperso2#id#').append('<span>#perso2##uniteperso2#</span>');
+			    $('#uniteperso2#id#').append('<span></span>');
 			}		
 		}
     </script>

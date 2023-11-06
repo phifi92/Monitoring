@@ -121,9 +121,9 @@
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#Swappourc#' === '') {
 				$('#Swappourc#id#').append('<span>#Mem_swap#</span>');
-			}else if ((parseInt('#Swappourc#') > parseInt('#Swappourcvertsupa#')) && '#Memswapvertsupa#' !== '') {
+			}else if ((parseInt('#Swappourc#') > parseInt('#Swappourcvertsupa#')) && '#Swappourcvertsupa#' !== '') {
 				$('#Swappourc#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-success-color) !important;" >#Swappourc#%</span>)');
-			}else if ((parseInt('#Swappourc#') >= parseInt('#Swappourcorangede#')) && (parseInt('#Swappourc#') <= parseInt('#Mempourcorangea#'))) {
+			}else if ((parseInt('#Swappourc#') >= parseInt('#Swappourcorangede#')) && (parseInt('#Swappourc#') <= parseInt('#Swappourcorangea#'))) {
 				$('#Swappourc#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-warning-color) !important;" >#Swappourc#%</span>)');
 			}else if (parseInt('#Swappourc#') < parseInt('#Swappourcrougeinfa#')) {
 				$('#Swappourc#id#').append('#Mem_swap# (<span data-cmd_id="#Swappourcid#" class="history cursor" style="color: var(--al-danger-color) !important;" >#Swappourc#%</span>)');	
@@ -133,7 +133,7 @@
 		}
     </script>
 	<div class="tooltips" data-cmd_id="#ethernet0id#" style="margin-left:5px;display: #ethernet0_display#;">
-			<span title="Trafic réseau" class="fa techno-fleches" style="width:15px;"></span>
+			<span title="Trafic réseau (#ethernet0_name#)" class="fa techno-fleches" style="width:15px;"></span>
 			<span id="ethernet0#id#"></span>
 	</div>
 	<script>
@@ -153,7 +153,7 @@
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcused#%</span>)');
 			}else if ((parseInt('#hddpourcused#') >= parseInt('#hddpourcusedorangede#')) && (parseInt('#hddpourcused#') <= parseInt('#hddpourcusedorangea#'))) {
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcused#%</span>)');
-			}else if ((parseInt('#hddpourcused#') > parseInt('#hddpourcusedrougesupa#')) && parseInt('#hddpourcusedrougesupa#') !== '') {
+			}else if ((parseInt('#hddpourcused#') > parseInt('#hddpourcusedrougesupa#')) && '#hddpourcusedrougesupa#' !== '') {
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcused#%</span>)');
 			}else {
 				$('#hddpourcused#id#').append('Total : #hddtotal# - Utilisé : #hddused# (<span data-cmd_id="#hddpourcusedid#" class="history cursor">#hddpourcused#%</span>)');
@@ -172,7 +172,7 @@
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-success-color) !important;">#hddpourcusedv2#%</span>)');
 			}else if ((parseInt('#hddpourcusedv2#') >= parseInt('#hddpourcusedv2orangede#')) && (parseInt('#hddpourcusedv2#') <= parseInt('#hddpourcusedv2orangea#'))) {
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-warning-color) !important;">#hddpourcusedv2#%</span>)');
-			}else if ((parseInt('#hddpourcusedv2#') > parseInt('#hddpourcusedv2rougesupa#')) && parseInt('#hddpourcusedv2rougesupa#') !== '') {
+			}else if ((parseInt('#hddpourcusedv2#') > parseInt('#hddpourcusedv2rougesupa#')) && '#hddpourcusedv2rougesupa#' !== '') {
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor" style="color: var(--al-danger-color) !important;">#hddpourcusedv2#%</span>)');
 			}else {
 				$('#hddpourcusedv2#id#').append('Total : #hddtotalv2# - Utilisé : #hddusedv2# (<span data-cmd_id="#hddpourcusedv2id#" class="history cursor">#hddpourcusedv2#%</span>)');
@@ -186,7 +186,7 @@
 	<script>
 		if ('#cnx_ssh#' == 'OK' || '#cnx_ssh#' == 'No') {
 			if ('#cpu_temp#' !== '') {
-				if ('#cpu_temp#' < '#cpu_tempvertinfa#') {
+				if (parseFloat('#cpu_temp#') < parseFloat('#cpu_tempvertinfa#')) {
 					$('#cpu#id#').append('<span>#cpu# </span>');
 					$('#cpu_temp#id#').append('(<span data-cmd_id="#cpu_tempid#" class="history cursor" style="color: var(--al-success-color) !important;" >#cpu_temp#°C</span>)');
 				}else if ((parseFloat('#cpu_temp#') >= parseFloat('#cpu_temporangede#')) && (parseFloat('#cpu_temp#') <= parseFloat('#cpu_temporangea#'))) {
@@ -221,7 +221,7 @@
                     $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
 				}
 			}else {
-			    $('#uniteperso1#id#').append('<span data-cmd_id="#perso1id#" class="history cursor">#perso1##uniteperso1#</span>');
+			    $('#uniteperso1#id#').append('<span></span>');
 			}		
 		}
     </script>
@@ -242,7 +242,7 @@
                     $('#uniteperso2#id#').append('<span data-cmd_id="#perso2id#" class="history cursor">#perso2##uniteperso2#</span>');
 				}
 			}else {
-			    $('#uniteperso2#id#').append('<span data-cmd_id="#perso2id#" class="history cursor">#perso2##uniteperso2#</span>');
+			    $('#uniteperso2#id#').append('<span></span>');
 			}		
 		}
     </script>
